@@ -1,36 +1,47 @@
 import 'package:flutter/material.dart';
 
+const int largeScreenSize = 1366;
+const int mediumScreenSize = 768;
+const int smallScreenSize = 360;
+const int customScreenSize = 1100;
+
 class Responsive extends StatelessWidget {
-  final Widget mobile;
-  final Widget? tablet;
-  final Widget desktop;
+  final Widget largeScreen;
+  final Widget? mediumScreen;
+  final Widget? smallScreen;
 
   const Responsive({
     Key? key,
-    required this.mobile,
-    this.tablet,
-    required this.desktop,
+    required this.largeScreen,
+    this.mediumScreen,
+    this.smallScreen,
   }) : super(key: key);
 
-  static bool isMobile(BuildContext context) =>
-      MediaQuery.of(context).size.width < 576;
+  static bool isSmallScreen(BuildContext context) =>
+      MediaQuery.of(context).size.width < mediumScreenSize;
 
-  static bool isTablet(BuildContext context) =>
-      MediaQuery.of(context).size.width >= 576 &&
-      MediaQuery.of(context).size.width <= 992;
+  static bool isMediumScreen(BuildContext context) =>
+      MediaQuery.of(context).size.width >= mediumScreenSize &&
+      MediaQuery.of(context).size.width < largeScreenSize;
 
-  static bool isDesktop(BuildContext context) =>
-      MediaQuery.of(context).size.width > 992;
+  static bool isLargeScreen(BuildContext context) =>
+      MediaQuery.of(context).size.width >= largeScreenSize;
+
+  static bool isCustomScreen(BuildContext context) =>
+      MediaQuery.of(context).size.width >= mediumScreenSize &&
+      MediaQuery.of(context).size.width <= customScreenSize;
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    if (size.width > 992) {
-      return desktop;
-    } else if (size.width >= 576 && tablet != null) {
-      return tablet!;
-    } else {
-      return mobile;
-    }
+    return LayoutBuilder(builder: (context, constraints) {
+      double width = constraints.maxWidth;
+      if (width >= largeScreenSize) {
+        return largeScreen;
+      } else if (width < largeScreenSize && width >= mediumScreenSize) {
+        return mediumScreen ?? largeScreen;
+      } else {
+        return smallScreen ?? largeScreen;
+      }
+    });
   }
 }
