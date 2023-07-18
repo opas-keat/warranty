@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'app/routes/app_pages.dart';
+import 'shared/constant.dart';
+import 'shared/page_not_found.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,16 +26,16 @@ class MyApp extends StatelessWidget {
       // ],
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
-      // unknownRoute: GetPage(
-      //   name: "/not-found",
-      //   page: () => const PageNotFound(),
-      //   transition: Transition.noTransition,
-      // ),
+      unknownRoute: GetPage(
+        name: "/not-found",
+        page: () => const PageNotFound(),
+        transition: Transition.noTransition,
+      ),
       themeMode: ThemeMode.light,
       darkTheme: ThemeData(brightness: Brightness.dark),
       theme: ThemeData.light().copyWith(
         // dropdownMenuTheme: DropdownMenuThemeData(inputDecorationTheme: InputDecorationTheme(),textStyle: TextStyle()),
-        // scaffoldBackgroundColor: scaffoldBackgroundColor,
+        scaffoldBackgroundColor: scaffoldBackgroundColor,
         drawerTheme: const DrawerThemeData(
             scrimColor: Colors.transparent, elevation: 0.5),
         // dropdownMenuTheme: const DropdownMenuThemeData(
@@ -43,7 +45,7 @@ class MyApp extends StatelessWidget {
         // ),
         textTheme: GoogleFonts.sarabunTextTheme(Theme.of(context).textTheme)
             .apply(bodyColor: Colors.black87),
-        // canvasColor: canvasColor,
+        canvasColor: canvasColor,
         scrollbarTheme: ScrollbarThemeData(
           thumbVisibility: MaterialStateProperty.all(true),
           thumbColor: MaterialStateProperty.all<Color>(Colors.black26),
