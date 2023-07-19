@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'app/routes/app_pages.dart';
-import 'shared/constant.dart';
-import 'shared/page_not_found.dart';
+import 'app/shared/constant.dart';
+import 'app/shared/page_not_found.dart';
 
 void main() {
   runApp(const MyApp());

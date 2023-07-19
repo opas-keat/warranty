@@ -24,12 +24,12 @@ class AppPages {
       children: [
         GetPage(
           name: _Paths.DEALER,
-          page: () => const DealerView(),
+          page: () => DealerView(),
           binding: DealerBinding(),
         ),
         GetPage(
           name: _Paths.CUSTOMER,
-          page: () => const CustomerView(),
+          page: () => CustomerView(),
           binding: CustomerBinding(),
         ),
       ],
