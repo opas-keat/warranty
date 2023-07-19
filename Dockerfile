@@ -5,7 +5,7 @@ RUN mkdir /app/
 COPY . /app/
 WORKDIR /app/
 RUN flutter pub get
-RUN flutter build web
+RUN flutter build web --release --base-href /warranty/
 
 # Stage 2
 FROM nginx:1.25.1-alpine
