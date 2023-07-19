@@ -2,23 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: dealerweb
-  name: dealerweb
+    app: warrantyweb
+  name: warrantyweb
   namespace: dealer-web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dealerweb
+      app: warrantyweb
   strategy: {}
   template:
     metadata:
       labels:
-        app: dealerweb
+        app: warrantyweb
     spec:
       containers:
-      - image: opas/b2bdealer-ui:latest
-        name: b2bdealer-ui
+      - image: opas/ppswwarranty-ui:latest
+        name: ppswwarranty-ui
         ports:
           - containerPort: 80
         imagePullPolicy: Always

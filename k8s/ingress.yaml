@@ -1,7 +1,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: dealerweb
+  name: warrantyweb
   namespace: dealer-web
   annotations:
     kubernetes.io/ingress.class: traefik
@@ -10,10 +10,10 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`b2b.ppsuperwheels.com`)
+      match: Host(`b2b.ppsuperwheels.com`) && PathPrefix(`/warranty`)
       priority: 10
       services:
-        - name: dealerweb
+        - name: warrantyweb
           port: 80
   tls:
     secretName: dealer-web-tls
