@@ -7,7 +7,7 @@ import '../../../../shared/header.dart';
 import '../../../../shared/main_drawer.dart';
 
 class CustomerView extends StatelessWidget {
-  CustomerView({Key? key}) : super(key: key);
+  const CustomerView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

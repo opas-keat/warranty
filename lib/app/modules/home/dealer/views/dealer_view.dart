@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
-
 import '../../../../../responsive.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/header.dart';
 import '../../../../shared/main_drawer.dart';
-import '../controllers/dealer_controller.dart';
+import 'dealer_layout_large.dart';
 
 class DealerView extends StatelessWidget {
-  DealerView({Key? key}) : super(key: key);
+  const DealerView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +75,7 @@ class DealerView extends StatelessWidget {
                           children: [
                             Header(moduleName: "ร้านค้า"),
                             SizedBox(height: defaultPadding / 2),
-                            // StationLayoutLarge(),
+                            DealerLayoutLarge(),
                           ],
                         ),
                       ),

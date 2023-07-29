@@ -4,11 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
-import '../../../shared/background.dart';
 import '../../../shared/constant.dart';
-import '../../../shared/custom_flat_button.dart';
 import '../../../shared/custom_text.dart';
-import '../../../shared/validator.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/signin_controller.dart';
 

@@ -7,7 +7,7 @@ import '../../../shared/header.dart';
 import '../../../shared/main_drawer.dart';
 
 class HomeView extends StatelessWidget {
-  HomeView({Key? key}) : super(key: key);
+  const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

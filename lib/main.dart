@@ -9,7 +9,7 @@ import 'app/shared/constant.dart';
 import 'app/shared/page_not_found.dart';
 
 void main() {
-  usePathUrlStrategy();
+  // usePathUrlStrategy();
   runApp(const MyApp());
 }
 

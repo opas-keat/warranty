@@ -19,17 +19,17 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.HOME,
-      page: () => HomeView(),
+      page: () => const HomeView(),
       binding: HomeBinding(),
       children: [
         GetPage(
           name: _Paths.DEALER,
-          page: () => DealerView(),
+          page: () => const DealerView(),
           binding: DealerBinding(),
         ),
         GetPage(
           name: _Paths.CUSTOMER,
-          page: () => CustomerView(),
+          page: () => const CustomerView(),
           binding: CustomerBinding(),
         ),
       ],

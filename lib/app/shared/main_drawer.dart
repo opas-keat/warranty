@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../main.dart';
 import '../data/models/module.dart';
 import 'constant.dart';
 import 'custom_text.dart';
