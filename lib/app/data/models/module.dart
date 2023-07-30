@@ -5,7 +5,7 @@ import '../../routes/app_pages.dart';
 List<Module> listModule = [
   Module(
     id: 1,
-    nameTH: "หน้าจอหลัก",
+    nameTH: "การรับประกัน",
     nameEn: "home",
     icon: Icons.dashboard_sharp,
     url: Routes.HOME,

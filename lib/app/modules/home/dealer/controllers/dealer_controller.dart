@@ -40,7 +40,8 @@ class DealerController extends GetxController {
   Future<bool> listSystemLinkDealerByCode(String dealerCode) async {
     talker.info('$logTitle listSystemLinkDealerByCode');
     try {
-      dealerCode = "CL1713";
+      // dealerCode = "CL1713";
+      dealerList.clear();
       final result =
           await DealerService().listSystemLinkDealerByCode(dealerCode);
       talker.debug('$result');
