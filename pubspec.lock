@@ -252,10 +252,10 @@ packages:
     dependency: transitive
     description:
       name: group_button
-      sha256: "1382097b97589a66601fbfdf244dc3214e396724ea43899c481fcd40f0d89298"
+      sha256: "138270bde01ff08581695d9489282212bca5c33368d95decba73ed9174ebb669"
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.0"
+    version: "5.3.2"
   http:
     dependency: transitive
     description:
@@ -545,26 +545,26 @@ packages:
     dependency: transitive
     description:
       name: talker
-      sha256: "74bf210eb0f706a0718f1beb3888c841d59c8b3d26e1bada6103dee12a6c1024"
+      sha256: cac6c1f6acf68419b14567e3ba9375083a3f267a58e088a454c983da1cd7cab4
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.2"
+    version: "3.1.0"
   talker_flutter:
     dependency: "direct main"
     description:
       name: talker_flutter
-      sha256: d09559a40332057e8127a500852ddc440aee7cabe115790f6b1be3e66317f8a7
+      sha256: ea15f7f54430ca540545e0580d22ee21ba8c02681eda2f0514a277575851ae0e
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.7"
+    version: "3.2.0"
   talker_logger:
     dependency: transitive
     description:
       name: talker_logger
-      sha256: d466b7ed10419f3ed3743320469aba99628c863ae79d025ac0abe3f69e88174f
+      sha256: "3f8d051e5821c4aa3c27efe8204829dde128724cbd0294ae3cee76b097cf2cbb"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.3"
+    version: "3.1.0"
   term_glyph:
     dependency: transitive
     description:
