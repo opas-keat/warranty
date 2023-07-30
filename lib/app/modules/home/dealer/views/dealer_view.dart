@@ -5,7 +5,6 @@ import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/header.dart';
 import '../../../../shared/main_drawer.dart';
-import 'dealer_layout_large.dart';
 import 'dealer_list.dart';
 
 class DealerView extends StatelessWidget {

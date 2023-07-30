@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:warranty/app/api/api_end_points.dart';
 
 import '../../../../api/api.dart';
+import '../../../../api/api_end_points.dart';
 import '../../../../data/response/dealer_response.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
@@ -110,7 +110,10 @@ class DealerList extends StatelessWidget {
                       itemCount: controller.dealerList.length,
                       itemBuilder: (context, index) {
                         return dealerDetailWidget(
-                            index, controller.dealerList[index]);
+                          index,
+                          controller.dealerList[index],
+                          controller,
+                        );
                       },
                     )),
               ],
@@ -123,7 +126,11 @@ class DealerList extends StatelessWidget {
   }
 }
 
-Widget dealerDetailWidget(int index, DealerSystemLink dealerData) {
+Widget dealerDetailWidget(
+  int index,
+  DealerSystemLink dealerData,
+  DealerController controller,
+) {
   return Row(
     children: [
       Expanded(
@@ -164,6 +171,23 @@ Widget dealerDetailWidget(int index, DealerSystemLink dealerData) {
                   ),
                   const SizedBox(height: defaultPadding / 2),
                 ],
+              ),
+              const Spacer(flex: 1),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: defaultPadding, horizontal: defaultPadding / 2),
+                ),
+                icon: const Icon(
+                  Icons.search_sharp,
+                ),
+                label: const CustomText(
+                  text: "พิมพ์",
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  controller.printQrCode(dealerData);
+                },
               ),
             ],
           ),
