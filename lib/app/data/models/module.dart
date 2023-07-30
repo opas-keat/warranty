@@ -8,7 +8,7 @@ List<Module> listModule = [
     nameTH: "การรับประกัน",
     nameEn: "home",
     icon: Icons.dashboard_sharp,
-    url: Routes.HOME,
+    url: Routes.WARRANTY,
   ),
   // Module(
   //   id: 2,

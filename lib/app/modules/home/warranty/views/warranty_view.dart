@@ -5,9 +5,10 @@ import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/header.dart';
 import '../../../../shared/main_drawer.dart';
+import 'warranty_list.dart';
 
-class CustomerView extends StatelessWidget {
-  const CustomerView({Key? key}) : super(key: key);
+class WarrantyView extends StatelessWidget {
+  const WarrantyView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +16,7 @@ class CustomerView extends StatelessWidget {
           ? AppBar(
               centerTitle: true,
               title: const CustomText(
-                text: "ลูกค้า",
+                text: "การรับประกัน",
                 color: Colors.white,
               ),
               actions: [
@@ -40,17 +41,17 @@ class CustomerView extends StatelessWidget {
           smallScreen: Container(
             padding: const EdgeInsets.all(defaultPadding / 2),
             // color: Colors.amber,
-            child: const SingleChildScrollView(
+            child: SingleChildScrollView(
               primary: true,
-              // child: StationLayoutSmall(),
+              child: WarrantyList(),
             ),
           ),
           mediumScreen: Container(
             padding: const EdgeInsets.all(defaultPadding),
             // color: Colors.amber,
-            child: const SingleChildScrollView(
+            child: SingleChildScrollView(
               primary: true,
-              // child: StationLayoutSmall(),
+              child: WarrantyList(),
             ),
           ),
           largeScreen: Row(
@@ -65,16 +66,17 @@ class CustomerView extends StatelessWidget {
                 child: LayoutBuilder(
                   builder: (context, constraints) => Container(
                     color: Colors.white,
-                    child: const Align(
+                    child: Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
-                        padding: EdgeInsets.only(left: defaultPadding / 2),
+                        padding:
+                            const EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [
-                            Header(moduleName: "ลูกค้า"),
-                            SizedBox(height: defaultPadding / 2),
-                            // StationLayoutLarge(),
+                            const Header(moduleName: "การรับประกัน"),
+                            const SizedBox(height: defaultPadding / 2),
+                            WarrantyList(),
                           ],
                         ),
                       ),

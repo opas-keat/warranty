@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
 import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/customer/bindings/customer_binding.dart';
-import '../modules/home/customer/views/customer_view.dart';
+import '../modules/home/warranty/bindings/warranty_binding.dart';
+import '../modules/home/warranty/views/warranty_view.dart';
 import '../modules/home/dealer/bindings/dealer_binding.dart';
 import '../modules/home/dealer/views/dealer_view.dart';
 import '../modules/home/views/home_view.dart';
@@ -28,9 +28,9 @@ class AppPages {
           binding: DealerBinding(),
         ),
         GetPage(
-          name: _Paths.CUSTOMER,
-          page: () => const CustomerView(),
-          binding: CustomerBinding(),
+          name: _Paths.WARRANTY,
+          page: () => const WarrantyView(),
+          binding: WarrantyBinding(),
         ),
       ],
     ),

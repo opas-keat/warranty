@@ -152,7 +152,7 @@ class SigninView extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.all(defaultPadding)),
                               onPressed: () async {
-                                Get.offAllNamed(Routes.CUSTOMER);
+                                Get.offAllNamed(Routes.WARRANTY);
                               },
                             ),
                           ),

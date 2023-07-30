@@ -6,7 +6,7 @@ abstract class Routes {
   static const HOME = _Paths.HOME;
   static const SIGNIN = _Paths.SIGNIN;
   static const DEALER = _Paths.HOME + _Paths.DEALER;
-  static const CUSTOMER = _Paths.HOME + _Paths.CUSTOMER;
+  static const WARRANTY = _Paths.HOME + _Paths.WARRANTY;
 }
 
 abstract class _Paths {
@@ -14,5 +14,5 @@ abstract class _Paths {
   static const HOME = '/home';
   static const SIGNIN = '/signin';
   static const DEALER = '/dealer';
-  static const CUSTOMER = '/customer';
+  static const WARRANTY = '/warranty';
 }
