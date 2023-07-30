@@ -6,6 +6,7 @@ import '../../../../shared/custom_text.dart';
 import '../../../../shared/header.dart';
 import '../../../../shared/main_drawer.dart';
 import 'dealer_layout_large.dart';
+import 'dealer_list.dart';
 
 class DealerView extends StatelessWidget {
   const DealerView({Key? key}) : super(key: key);
@@ -66,16 +67,17 @@ class DealerView extends StatelessWidget {
                 child: LayoutBuilder(
                   builder: (context, constraints) => Container(
                     color: Colors.white,
-                    child: const Align(
+                    child: Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
-                        padding: EdgeInsets.only(left: defaultPadding / 2),
+                        padding:
+                            const EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [
-                            Header(moduleName: "ร้านค้า"),
-                            SizedBox(height: defaultPadding / 2),
-                            DealerLayoutLarge(),
+                            const Header(moduleName: "ร้านค้า"),
+                            const SizedBox(height: defaultPadding / 2),
+                            DealerList(),
                           ],
                         ),
                       ),

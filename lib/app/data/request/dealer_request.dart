@@ -1,36 +1,37 @@
-class DealerRequest {
-  DealerRequest({
-    required this.criteria,
-    required this.limit,
-  });
-  late final Criteria criteria;
-  late final int limit;
+class DealerSystemLinkRequest {
+  DealerSystemLinkCriteria? criteria;
+  int? limit;
 
-  DealerRequest.fromJson(Map<String, dynamic> json) {
-    criteria = Criteria.fromJson(json['criteria']);
+  DealerSystemLinkRequest({this.criteria, this.limit});
+
+  DealerSystemLinkRequest.fromJson(Map<String, dynamic> json) {
+    criteria = json['criteria'] != null
+        ? DealerSystemLinkCriteria.fromJson(json['criteria'])
+        : null;
     limit = json['limit'];
   }
 
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['criteria'] = criteria.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (criteria != null) {
+      data['criteria'] = criteria!.toJson();
+    }
     data['limit'] = limit;
     return data;
   }
 }
 
-class Criteria {
-  Criteria({
-    required this.dealerCode,
-  });
-  late final String dealerCode;
+class DealerSystemLinkCriteria {
+  String? dealerCode;
 
-  Criteria.fromJson(Map<String, dynamic> json) {
+  DealerSystemLinkCriteria({this.dealerCode});
+
+  DealerSystemLinkCriteria.fromJson(Map<String, dynamic> json) {
     dealerCode = json['dealer_code'];
   }
 
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['dealer_code'] = dealerCode;
     return data;
   }

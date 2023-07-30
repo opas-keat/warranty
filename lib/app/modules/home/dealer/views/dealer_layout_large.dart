@@ -3,11 +3,15 @@ import 'package:get/get.dart';
 
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
+import '../controllers/dealer_controller.dart';
 
 class DealerLayoutLarge extends StatelessWidget {
-  const DealerLayoutLarge({
+  DealerLayoutLarge({
     super.key,
   });
+
+  final DealerController controller = Get.put(DealerController());
+  final dealerCodeTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,7 @@ class DealerLayoutLarge extends StatelessWidget {
                     const SizedBox(width: defaultPadding / 2),
                     Expanded(
                       child: TextFormField(
-                        // controller: controller.tffName,
+                        controller: dealerCodeTextController,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           fillColor: Colors.white.withOpacity(.8),
@@ -51,7 +55,6 @@ class DealerLayoutLarge extends StatelessWidget {
                     ),
                     const SizedBox(width: defaultPadding / 2),
                     ElevatedButton.icon(
-                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                             vertical: defaultPadding,
@@ -64,6 +67,11 @@ class DealerLayoutLarge extends StatelessWidget {
                         text: "ค้นหา",
                         color: Colors.white,
                       ),
+                      onPressed: () {
+                        controller.listSystemLinkDealerByCode(
+                          dealerCodeTextController.text,
+                        );
+                      },
                     ),
                     const SizedBox(width: defaultPadding / 2),
                     // ElevatedButton.icon(
@@ -87,7 +95,83 @@ class DealerLayoutLarge extends StatelessWidget {
                     const Spacer(flex: 1),
                   ],
                 ),
-                // const SizedBox(height: defaultPadding / 2),
+                const SizedBox(height: defaultPadding),
+                Row(
+                  children: [
+                    CustomText(
+                      text: 'รายชื่อร้านค้า',
+                    ),
+                    const SizedBox(height: defaultPadding),
+                  ],
+                ),
+
+                // const SizedBox(height: defaultPadding),
+                // Container(
+                //   color: Colors.blue,
+                //   padding: const EdgeInsets.all(defaultPadding / 2),
+                //   decoration: BoxDecoration(
+                //     color: canvasColor,
+                //     borderRadius: BorderRadius.circular(defaultPadding),
+                //   ),
+                //   child: SingleChildScrollView(
+                //     child: Column(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       mainAxisSize: MainAxisSize.max,
+                //       children: [
+                //         const Row(
+                //           children: [
+                //             CustomText(
+                //               text: "ข้อมูลสถิติรายจังหวัด",
+                //               weight: FontWeight.bold,
+                //             ),
+                //           ],
+                //         ),
+                //         accentDivider,
+                //         // ListView.builder(
+                //         //   shrinkWrap: true,
+                //         //   physics: const NeverScrollableScrollPhysics(),
+                //         //   itemCount: listStationStatisticsData.length,
+                //         //   itemBuilder: (context, index) {
+                //         //     return DashboardStatisticsSmallRow(
+                //         //         index, listStationStatisticsData[index]);
+                //         //   },
+                //         // ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                // Expanded(
+                //   child: Obx(() => ListView.separated(
+                //         separatorBuilder: (context, index) =>
+                //             const SizedBox(height: defaultPadding / 4),
+                //         shrinkWrap: true,
+                //         physics: const BouncingScrollPhysics(),
+                //         itemCount:
+                //             controller.dealerList.value.data!.totalCount!,
+                //         itemBuilder: (context, index) {
+                //           return Material(
+                //             color: Colors.grey.shade200,
+                //             child: ListTile(
+                //               // onTap: () async {
+                //               //   final result = await controller.addShipping(
+                //               //     controller.shippingList.value[index].id
+                //               //         .toString(),
+                //               //     controller.shippingList.value[index].name
+                //               //         .toString(),
+                //               //   );
+                //               //   Get.back();
+                //               // },
+                //               selectedColor: primaryColor,
+                //               selectedTileColor: primaryColor,
+                //               title: CustomText(
+                //                 text: controller
+                //                     .dealerList.value.data!.rows![index].name,
+                //               ),
+                //             ),
+                //           );
+                //         },
+                //       )),
+                // ),
                 // InfoCard(
                 //   childAspectRatio: 2.2,
                 //   listSummaryInfo: listDashboardSummaryInfo,

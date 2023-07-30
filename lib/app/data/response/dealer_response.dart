@@ -1,68 +1,74 @@
-class DealerResponse {
-  DealerResponse({
-    required this.statusCode,
-    required this.code,
-    required this.message,
-    required this.dealers,
-  });
-  late final int statusCode;
-  late final String code;
-  late final String message;
-  late final Dealers dealers;
+class DealerSystemLinkResponse {
+  int? statusCode;
+  String? code;
+  String? message;
+  DealerSystemLinkList? data;
 
-  DealerResponse.fromJson(Map<String, dynamic> json) {
+  DealerSystemLinkResponse(
+      {this.statusCode, this.code, this.message, this.data});
+
+  DealerSystemLinkResponse.fromJson(Map<String, dynamic> json) {
     statusCode = json['status_code'];
     code = json['code'];
     message = json['message'];
-    dealers = Dealers.fromJson(json['data']);
+    data = json['data'] != null
+        ? DealerSystemLinkList.fromJson(json['data'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['status_code'] = statusCode;
-    _data['code'] = code;
-    _data['message'] = message;
-    _data['data'] = dealers.toJson();
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status_code'] = statusCode;
+    data['code'] = code;
+    data['message'] = message;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    return data;
   }
+
+  DealerSystemLinkResponse.withError({
+    this.statusCode,
+    String? msg,
+  }) : message = msg;
 }
 
-class Dealers {
-  Dealers({
-    required this.dealer,
-    required this.totalCount,
-  });
-  late final List<Dealer> dealer;
-  late final int totalCount;
+class DealerSystemLinkList {
+  List<DealerSystemLink>? rows;
+  int? totalCount;
 
-  Dealers.fromJson(Map<String, dynamic> json) {
-    dealer = List.from(json['rows']).map((e) => Dealer.fromJson(e)).toList();
+  DealerSystemLinkList({this.rows, this.totalCount});
+
+  DealerSystemLinkList.fromJson(Map<String, dynamic> json) {
+    if (json['rows'] != null) {
+      rows = <DealerSystemLink>[];
+      json['rows'].forEach((v) {
+        rows!.add(DealerSystemLink.fromJson(v));
+      });
+    }
     totalCount = json['total_count'];
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['rows'] = dealer.map((e) => e.toJson()).toList();
-    _data['total_count'] = totalCount;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (rows != null) {
+      data['rows'] = rows!.map((v) => v.toJson()).toList();
+    }
+    data['total_count'] = totalCount;
+    return data;
   }
 }
 
-class Dealer {
-  Dealer({
-    required this.id,
-    required this.code,
-    required this.name,
-    required this.address,
-    required this.phone,
-  });
-  late final String id;
-  late final String code;
-  late final String name;
-  late final String address;
-  late final String phone;
+class DealerSystemLink {
+  String? id;
+  String? code;
+  String? name;
+  String? address;
+  String? phone;
 
-  Dealer.fromJson(Map<String, dynamic> json) {
+  DealerSystemLink({this.id, this.code, this.name, this.address, this.phone});
+
+  DealerSystemLink.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     code = json['code'];
     name = json['name'];
@@ -71,12 +77,12 @@ class Dealer {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['code'] = code;
-    _data['name'] = name;
-    _data['address'] = address;
-    _data['phone'] = phone;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['code'] = code;
+    data['name'] = name;
+    data['address'] = address;
+    data['phone'] = phone;
+    return data;
   }
 }
