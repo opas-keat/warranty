@@ -4,9 +4,7 @@ import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 
 class WarrantyList extends StatelessWidget {
-  WarrantyList({super.key});
-
-  final mobileNoTextController = TextEditingController();
+  const WarrantyList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,65 +13,9 @@ class WarrantyList extends StatelessWidget {
         Row(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Spacer(flex: 2),
-            Expanded(
-              flex: 2,
-              child: Container(
-                // color: Colors.amber,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const CustomText(
-                      text: "หมายเลขโทรศัพท์",
-                      weight: FontWeight.bold,
-                      size: 18,
-                    ),
-                    const SizedBox(width: defaultPadding / 2),
-                    Expanded(
-                      child: TextFormField(
-                        controller: mobileNoTextController,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          fillColor: Colors.white.withOpacity(.8),
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(defaultPadding / 2),
-                            borderSide: const BorderSide(
-                                color: Colors.black54, width: 1),
-                          ),
-                          isCollapsed: true,
-                          contentPadding:
-                              const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: defaultPadding / 2),
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: defaultPadding,
-                            horizontal: defaultPadding / 2),
-                      ),
-                      icon: const Icon(
-                        Icons.search_sharp,
-                      ),
-                      label: const CustomText(
-                        text: "ค้นหา",
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        // controller.listSystemLinkDealerByCode(
-                        //   dealerCodeTextController.text,
-                        // );
-                      },
-                    ),
-                    const SizedBox(width: defaultPadding / 2),
-                  ],
-                ),
-              ),
-            ),
-            const Spacer(flex: 2),
+            // const Spacer(flex: 2),
+            WarrantySearchWidget(),
+            // const Spacer(flex: 2),
           ],
         ),
         const SizedBox(height: defaultPadding),
@@ -115,6 +57,160 @@ class WarrantyList extends StatelessWidget {
         ),
         const SizedBox(height: defaultPadding / 2),
       ],
+    );
+  }
+}
+
+class WarrantySearchWidget extends StatelessWidget {
+  WarrantySearchWidget({
+    super.key,
+  });
+
+  final nameTextController = TextEditingController();
+  final licensePlate = TextEditingController();
+  final mobileNoTextController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      // flex: 2,
+      child: Container(
+        // color: Colors.amber,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const CustomText(
+              text: "ชื่อ-นามสกุล",
+              weight: FontWeight.bold,
+              size: 18,
+            ),
+            const SizedBox(width: defaultPadding / 2),
+            Expanded(
+              child: TextFormField(
+                controller: nameTextController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                ),
+              ),
+            ),
+            const SizedBox(width: defaultPadding / 2),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                    vertical: defaultPadding, horizontal: defaultPadding / 2),
+              ),
+              icon: const Icon(
+                Icons.search_sharp,
+              ),
+              label: const CustomText(
+                text: "ค้นหา",
+                color: Colors.white,
+              ),
+              onPressed: () {
+                // controller.listSystemLinkDealerByCode(
+                //   dealerCodeTextController.text,
+                // );
+              },
+            ),
+            const SizedBox(width: defaultPadding / 2),
+            const CustomText(
+              text: "ทะเบียนรถ",
+              weight: FontWeight.bold,
+              size: 18,
+            ),
+            const SizedBox(width: defaultPadding / 2),
+            Expanded(
+              child: TextFormField(
+                controller: licensePlate,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                ),
+              ),
+            ),
+            const SizedBox(width: defaultPadding / 2),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                    vertical: defaultPadding, horizontal: defaultPadding / 2),
+              ),
+              icon: const Icon(
+                Icons.search_sharp,
+              ),
+              label: const CustomText(
+                text: "ค้นหา",
+                color: Colors.white,
+              ),
+              onPressed: () {
+                // controller.listSystemLinkDealerByCode(
+                //   dealerCodeTextController.text,
+                // );
+              },
+            ),
+            const SizedBox(width: defaultPadding / 2),
+            const CustomText(
+              text: "หมายเลขโทรศัพท์",
+              weight: FontWeight.bold,
+              size: 18,
+            ),
+            const SizedBox(width: defaultPadding / 2),
+            Expanded(
+              child: TextFormField(
+                controller: mobileNoTextController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                ),
+              ),
+            ),
+            const SizedBox(width: defaultPadding / 2),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                    vertical: defaultPadding, horizontal: defaultPadding / 2),
+              ),
+              icon: const Icon(
+                Icons.search_sharp,
+              ),
+              label: const CustomText(
+                text: "ค้นหา",
+                color: Colors.white,
+              ),
+              onPressed: () {
+                // controller.listSystemLinkDealerByCode(
+                //   dealerCodeTextController.text,
+                // );
+              },
+            ),
+            const SizedBox(width: defaultPadding / 2),
+          ],
+        ),
+      ),
     );
   }
 }

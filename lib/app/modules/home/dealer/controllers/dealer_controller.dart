@@ -22,20 +22,8 @@ class DealerController extends GetxController {
   final dealerResponse = DealerSystemLinkResponse().obs;
   final dealerList = [].obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   Future<bool> listSystemLinkDealerByCode(String dealerCode) async {
     talker.info('$logTitle listSystemLinkDealerByCode');
