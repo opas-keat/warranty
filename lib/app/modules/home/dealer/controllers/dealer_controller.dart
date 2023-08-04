@@ -19,16 +19,31 @@ class DealerController extends GetxController {
   final offset = 0.obs;
   final limit = 50.obs;
 
+  RxBool checkedBKKRegion = false.obs;
+  RxBool checkedCentralRegion = false.obs;
+  RxBool checkedEastRegion = false.obs;
+  RxBool checkedNorthEastRegion = false.obs;
+  RxBool checkedNorthRegion = false.obs;
+  RxBool checkedSouthernRegion = false.obs;
+  RxBool checkedWestRegion = false.obs;
+
+  RxString fTBKKRegion = "0".obs;
+  RxString fTCentralRegion = "0".obs;
+  RxString fTEastRegion = "0".obs;
+  RxString fTNorthEastRegion = "0".obs;
+  RxString fTNorthRegion = "0".obs;
+  RxString fTSouthernRegion = "0".obs;
+  RxString fTWestRegion = "0".obs;
+
   final dealerResponse = DealerSystemLinkResponse().obs;
   final dealerList = [].obs;
 
-
-
+  final dealerListNew = [].obs;
 
   Future<bool> listSystemLinkDealerByCode(String dealerCode) async {
     talker.info('$logTitle listSystemLinkDealerByCode');
     try {
-      // dealerCode = "CL1713";
+      dealerCode = "CL1713";
       dealerList.clear();
       final result =
           await DealerService().listSystemLinkDealerByCode(dealerCode);
@@ -126,5 +141,9 @@ class DealerController extends GetxController {
     // final output = await getTemporaryDirectory();
     // final file = File('${output.path}/example.pdf');
     // await file.writeAsBytes(await doc.save());
+  }
+
+  Future<bool> addDealer() async {
+    return false;
   }
 }

@@ -8,6 +8,7 @@ import '../../../../data/response/dealer_response.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../controllers/dealer_controller.dart';
+import 'dealer_add.dart';
 
 class DealerList extends StatelessWidget {
   DealerList({super.key});
@@ -75,6 +76,30 @@ class DealerList extends StatelessWidget {
                         );
                       },
                     ),
+                    const SizedBox(width: defaultPadding),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: defaultPadding,
+                            horizontal: defaultPadding / 2),
+                      ),
+                      icon: const Icon(
+                        Icons.add_sharp,
+                      ),
+                      label: const CustomText(
+                        text: "เพิ่ม",
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        // controller.listSystemLinkDealerByCode(
+                        //   dealerCodeTextController.text,
+                        // );
+                        Get.dialog(
+                          DealerAddWidget(),
+                          barrierDismissible: false,
+                        );
+                      },
+                    ),
                     const SizedBox(width: defaultPadding / 2),
                   ],
                 ),
@@ -107,11 +132,11 @@ class DealerList extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       separatorBuilder: (_, __) =>
                           Container(height: 1.5, color: Colors.grey[300]),
-                      itemCount: controller.dealerList.length,
+                      itemCount: controller.dealerListNew.length,
                       itemBuilder: (context, index) {
                         return dealerDetailWidget(
                           index,
-                          controller.dealerList[index],
+                          controller.dealerListNew[index],
                           controller,
                         );
                       },
