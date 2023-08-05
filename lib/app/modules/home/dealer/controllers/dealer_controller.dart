@@ -1,4 +1,10 @@
+import 'dart:convert';
+import 'dart:html' as html;
+import 'dart:ui';
+
 import 'package:get/get.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:warranty/app/api/custom_log_interceptor.dart';
 import 'package:warranty/app/shared/constant.dart';
 
 import '../../../../api/api.dart';
@@ -115,7 +121,7 @@ class DealerController extends GetxController {
               ),
               pw.Center(
                 child: pw.Paragraph(
-                  text: dealerData.code,
+                  text: dealerData.name.toString(),
                   style: pw.TextStyle(
                     font: font,
                     fontSize: 18,
@@ -141,6 +147,34 @@ class DealerController extends GetxController {
     // final output = await getTemporaryDirectory();
     // final file = File('${output.path}/example.pdf');
     // await file.writeAsBytes(await doc.save());
+  }
+
+  Future downloadQrCode(
+    DealerSystemLink dealerData,
+  ) async {
+    talker.debug('$title:downloadQrCode');
+    try {
+      final image = await QrPainter(
+        data:
+            '${Api.baseUrlSystemLink}${ApiEndPoints.systemLinkDealers}/${dealerData.code}',
+        version: QrVersions.auto,
+      ).toImage(300);
+      final a = await image.toByteData(format: ImageByteFormat.png);
+      var bytes = a!.buffer.asUint8List();
+
+      final _base64 = base64Encode(bytes);
+      final anchor = html.AnchorElement(
+          href: 'data:application/octet-stream;base64,$_base64')
+        ..download = "image.png"
+        ..target = 'blank';
+
+      html.document.body!.append(anchor);
+      anchor.click();
+      anchor.remove();
+    } catch (e) {
+      talker.error('$title:downloadQrCode:$e');
+      rethrow;
+    }
   }
 
   Future<bool> addDealer() async {

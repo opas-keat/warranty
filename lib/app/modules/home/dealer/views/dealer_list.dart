@@ -132,11 +132,11 @@ class DealerList extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       separatorBuilder: (_, __) =>
                           Container(height: 1.5, color: Colors.grey[300]),
-                      itemCount: controller.dealerListNew.length,
+                      itemCount: controller.dealerList.length,
                       itemBuilder: (context, index) {
                         return dealerDetailWidget(
                           index,
-                          controller.dealerListNew[index],
+                          controller.dealerList[index],
                           controller,
                         );
                       },
@@ -200,8 +200,11 @@ Widget dealerDetailWidget(
               const Spacer(flex: 1),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
+                  backgroundColor: primaryColor,
                   padding: const EdgeInsets.symmetric(
-                      vertical: defaultPadding, horizontal: defaultPadding / 2),
+                    vertical: defaultPadding,
+                    horizontal: defaultPadding / 2,
+                  ),
                 ),
                 icon: const Icon(
                   Icons.search_sharp,
@@ -212,6 +215,26 @@ Widget dealerDetailWidget(
                 ),
                 onPressed: () {
                   controller.printQrCode(dealerData);
+                },
+              ),
+              const SizedBox(width: defaultPadding / 2),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: actionColor,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: defaultPadding,
+                    horizontal: defaultPadding / 2,
+                  ),
+                ),
+                icon: const Icon(
+                  Icons.download_sharp,
+                ),
+                label: const CustomText(
+                  text: "Download",
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  controller.downloadQrCode(dealerData);
                 },
               ),
             ],
