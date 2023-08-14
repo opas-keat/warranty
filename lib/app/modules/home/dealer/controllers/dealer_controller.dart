@@ -9,8 +9,8 @@ import 'package:warranty/app/shared/constant.dart';
 
 import '../../../../api/api.dart';
 import '../../../../api/api_end_points.dart';
-import '../../../../api/services/dealer_service.dart';
-import '../../../../data/response/dealer_response.dart';
+import '../../../../api/services/system_link_service.dart';
+import '../../../../data/response/dealer_system_link_response.dart';
 import '../../../../shared/utils.dart';
 
 import 'package:pdf/pdf.dart';
@@ -41,7 +41,7 @@ class DealerController extends GetxController {
   RxString fTSouthernRegion = "0".obs;
   RxString fTWestRegion = "0".obs;
 
-  final dealerResponse = DealerSystemLinkResponse().obs;
+  // final dealerResponse = DealerResponse().obs;
   final dealerList = [].obs;
 
   final dealerListNew = [].obs;
@@ -49,10 +49,9 @@ class DealerController extends GetxController {
   Future<bool> listSystemLinkDealerByCode(String dealerCode) async {
     talker.info('$logTitle listSystemLinkDealerByCode');
     try {
-      dealerCode = "CL1713";
+      dealerCode = "";
       dealerList.clear();
-      final result =
-          await DealerService().listSystemLinkDealerByCode(dealerCode);
+      final result = await SystemLinkService().listDealerByCode(dealerCode);
       talker.debug('$result');
       dealerList.addAll(result!.data!.rows!);
       update();
@@ -65,7 +64,7 @@ class DealerController extends GetxController {
 
   /// create PDF & print it
   void printQrCode(
-    DealerSystemLink dealerData,
+    DealerSystemLinkRows dealerData,
   ) async {
     final doc = pw.Document();
     // final font = await PdfGoogleFonts.notoSansThaiRegular();
@@ -150,7 +149,7 @@ class DealerController extends GetxController {
   }
 
   Future downloadQrCode(
-    DealerSystemLink dealerData,
+    DealerSystemLinkRows dealerData,
   ) async {
     talker.debug('$title:downloadQrCode');
     try {
@@ -162,9 +161,9 @@ class DealerController extends GetxController {
       final a = await image.toByteData(format: ImageByteFormat.png);
       var bytes = a!.buffer.asUint8List();
 
-      final _base64 = base64Encode(bytes);
+      final base64 = base64Encode(bytes);
       final anchor = html.AnchorElement(
-          href: 'data:application/octet-stream;base64,$_base64')
+          href: 'data:application/octet-stream;base64,$base64')
         ..download = "image.png"
         ..target = 'blank';
 

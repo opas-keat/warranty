@@ -118,98 +118,100 @@ class DealerAddWidget extends StatelessWidget {
             ),
             const SizedBox(height: defaultPadding),
             Expanded(
-              child: Obx(() => ListView.separated(
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: defaultPadding),
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: controller.dealerList.value.length,
-                    itemBuilder: (context, index) {
-                      return Material(
-                        color: Colors.grey.shade200,
-                        child: ListTile(
-                          onTap: () async {
-                            // final result = await controller.addDealer();
-                            // Get.back();
-                          },
-                          selectedColor: primaryColor,
-                          selectedTileColor: primaryColor,
-                          title: CustomText(
-                            maxLine: 2,
-                            // scale: 0.9,
-                            text:
-                                '${'รหัส ' + controller.dealerList.value[index].code} : ' +
-                                    controller.dealerList.value[index].name,
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CustomText(
-                                maxLine: 4,
-                                scale: 0.9,
-                                text:
-                                    controller.dealerList.value[index].address,
-                              ),
-                              CustomText(
-                                maxLine: 4,
-                                scale: 0.9,
-                                text: controller.dealerList.value[index].phone,
-                              ),
-                            ],
-                          ),
-                          trailing: CircleAvatar(
-                            radius: 30,
-                            backgroundColor: primaryColor,
-                            child: IconButton(
-                              icon: const Icon(
-                                Icons.add_sharp,
-                                color: Colors.white,
-                              ),
-                              // label: const CustomText(
-                              //   scale: 0.8,
-                              //   text: "บันทึก",
-                              //   color: Colors.white,
-                              // ),
-                              onPressed: () {},
+              child: Obx(
+                () => ListView.separated(
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: defaultPadding),
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: controller.dealerList.obs.value.length,
+                  itemBuilder: (context, index) {
+                    return Material(
+                      color: Colors.grey.shade200,
+                      child: ListTile(
+                        onTap: () async {
+                          // final result = await controller.addDealer();
+                          // Get.back();
+                        },
+                        selectedColor: primaryColor,
+                        selectedTileColor: primaryColor,
+                        title: CustomText(
+                          maxLine: 2,
+                          // scale: 0.9,
+                          text:
+                              'รหัส ${controller.dealerList.obs.value[index].code}: ${controller.dealerList.obs.value[index].name}',
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                              maxLine: 4,
+                              scale: 0.9,
+                              text: controller
+                                  .dealerList.obs.value[index].address,
                             ),
+                            CustomText(
+                              maxLine: 4,
+                              scale: 0.9,
+                              text:
+                                  controller.dealerList.obs.value[index].phone,
+                            ),
+                          ],
+                        ),
+                        trailing: CircleAvatar(
+                          radius: 30,
+                          backgroundColor: primaryColor,
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.add_sharp,
+                              color: Colors.white,
+                            ),
+                            // label: const CustomText(
+                            //   scale: 0.8,
+                            //   text: "บันทึก",
+                            //   color: Colors.white,
+                            // ),
+                            onPressed: () {},
                           ),
                         ),
-                      );
-                      // return Row(
-                      //   children: [
-                      //     Container(
-                      //       padding: const EdgeInsets.all(defaultPadding / 2),
-                      //       decoration: BoxDecoration(
-                      //         borderRadius:
-                      //             BorderRadius.circular(defaultPadding),
-                      //       ),
-                      //       child: Wrap(
-                      //         direction: Axis.vertical,
-                      //         children: [
-                      //           Text(
-                      //             "รหัส : ${controller.dealerList.value[index].code} ",
-                      //           ),
-                      //           const SizedBox(height: defaultPadding / 2),
-                      //           Text(
-                      //             "${controller.dealerList.value[index].name} ",
-                      //             maxLines: 2,
-                      //           ),
-                      //           const SizedBox(height: defaultPadding / 2),
-                      //           Text(
-                      //             "${controller.dealerList.value[index].address}",
-                      //           ),
-                      //           const SizedBox(height: defaultPadding / 2),
-                      //           Text(
-                      //             "${controller.dealerList.value[index].phone}",
-                      //           ),
-                      //           const SizedBox(height: defaultPadding / 2),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ],
-                      // );
-                    },
-                  )),
+                      ),
+                    );
+                    // return Row(
+                    //   children: [
+                    //     Container(
+                    //       padding: const EdgeInsets.all(defaultPadding / 2),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius:
+                    //             BorderRadius.circular(defaultPadding),
+                    //       ),
+                    //       child: Wrap(
+                    //         direction: Axis.vertical,
+                    //         children: [
+                    //           Text(
+                    //             "รหัส : ${controller.dealerList.value[index].code} ",
+                    //           ),
+                    //           const SizedBox(height: defaultPadding / 2),
+                    //           Text(
+                    //             "${controller.dealerList.value[index].name} ",
+                    //             maxLines: 2,
+                    //           ),
+                    //           const SizedBox(height: defaultPadding / 2),
+                    //           Text(
+                    //             "${controller.dealerList.value[index].address}",
+                    //           ),
+                    //           const SizedBox(height: defaultPadding / 2),
+                    //           Text(
+                    //             "${controller.dealerList.value[index].phone}",
+                    //           ),
+                    //           const SizedBox(height: defaultPadding / 2),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ],
+                    // );
+                  },
+                ),
+              ),
             ),
           ],
         ),

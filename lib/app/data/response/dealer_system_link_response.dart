@@ -2,17 +2,22 @@ class DealerSystemLinkResponse {
   int? statusCode;
   String? code;
   String? message;
-  DealerSystemLinkList? data;
+  DealerSystemLinkData? data;
 
   DealerSystemLinkResponse(
       {this.statusCode, this.code, this.message, this.data});
+
+  DealerSystemLinkResponse.withError({
+    this.statusCode,
+    String? msg,
+  }) : message = msg;
 
   DealerSystemLinkResponse.fromJson(Map<String, dynamic> json) {
     statusCode = json['status_code'];
     code = json['code'];
     message = json['message'];
     data = json['data'] != null
-        ? DealerSystemLinkList.fromJson(json['data'])
+        ? DealerSystemLinkData.fromJson(json['data'])
         : null;
   }
 
@@ -26,24 +31,19 @@ class DealerSystemLinkResponse {
     }
     return data;
   }
-
-  DealerSystemLinkResponse.withError({
-    this.statusCode,
-    String? msg,
-  }) : message = msg;
 }
 
-class DealerSystemLinkList {
-  List<DealerSystemLink>? rows;
+class DealerSystemLinkData {
+  List<DealerSystemLinkRows>? rows;
   int? totalCount;
 
-  DealerSystemLinkList({this.rows, this.totalCount});
+  DealerSystemLinkData({this.rows, this.totalCount});
 
-  DealerSystemLinkList.fromJson(Map<String, dynamic> json) {
+  DealerSystemLinkData.fromJson(Map<String, dynamic> json) {
     if (json['rows'] != null) {
-      rows = <DealerSystemLink>[];
+      rows = <DealerSystemLinkRows>[];
       json['rows'].forEach((v) {
-        rows!.add(DealerSystemLink.fromJson(v));
+        rows!.add(DealerSystemLinkRows.fromJson(v));
       });
     }
     totalCount = json['total_count'];
@@ -59,21 +59,24 @@ class DealerSystemLinkList {
   }
 }
 
-class DealerSystemLink {
+class DealerSystemLinkRows {
   String? id;
   String? code;
   String? name;
   String? address;
   String? phone;
+  String? tax;
 
-  DealerSystemLink({this.id, this.code, this.name, this.address, this.phone});
+  DealerSystemLinkRows(
+      {this.id, this.code, this.name, this.address, this.phone, this.tax});
 
-  DealerSystemLink.fromJson(Map<String, dynamic> json) {
+  DealerSystemLinkRows.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     code = json['code'];
     name = json['name'];
     address = json['address'];
     phone = json['phone'];
+    tax = json['tax'];
   }
 
   Map<String, dynamic> toJson() {
@@ -83,6 +86,7 @@ class DealerSystemLink {
     data['name'] = name;
     data['address'] = address;
     data['phone'] = phone;
+    data['tax'] = tax;
     return data;
   }
 }
