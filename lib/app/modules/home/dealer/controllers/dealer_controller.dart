@@ -42,11 +42,18 @@ class DealerController extends GetxController {
   RxString fTWestRegion = "0".obs;
 
   // final dealerResponse = DealerResponse().obs;
-  final dealerList = [].obs;
+  final dealerList = <DealerSystemLinkRows>[].obs;
 
   final dealerListNew = [].obs;
 
-  Future<bool> listSystemLinkDealerByCode(String dealerCode) async {
+  @override
+  void onInit() {
+    super.onInit();
+    isLoading.value = false;
+    // getSummaryInfo();
+  }
+
+  Future<void> listSystemLinkDealerByCode(String dealerCode) async {
     talker.info('$logTitle listSystemLinkDealerByCode');
     try {
       dealerCode = "";
@@ -54,11 +61,10 @@ class DealerController extends GetxController {
       final result = await SystemLinkService().listDealerByCode(dealerCode);
       talker.debug('$result');
       dealerList.addAll(result!.data!.rows!);
+      isLoading.value = false;
       update();
-      return true;
     } catch (e) {
       talker.error('$e');
-      return false;
     }
   }
 
@@ -176,7 +182,17 @@ class DealerController extends GetxController {
     }
   }
 
-  Future<bool> addDealer() async {
-    return false;
+  Future<void> addDealer(DealerSystemLinkRows dealer) async {
+    talker.debug('${dealer.code}');
+    talker.debug('${dealer.name}');
+    talker.debug('${dealer.address}');
+    talker.debug('${dealer.phone}');
+    talker.debug('${dealer.tax}');
+    isLoading.value =
+        await Future.delayed(Duration(seconds: randomValue()), () {
+      return false;
+    });
+    dealerList.removeWhere((element) => element.code == dealer.code);
+    update();
   }
 }

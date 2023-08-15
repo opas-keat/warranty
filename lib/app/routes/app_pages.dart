@@ -1,11 +1,13 @@
 import 'package:get/get.dart';
 
+import '../modules/customer/bindings/customer_binding.dart';
+import '../modules/customer/views/customer_view.dart';
 import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/warranty/bindings/warranty_binding.dart';
-import '../modules/home/warranty/views/warranty_view.dart';
 import '../modules/home/dealer/bindings/dealer_binding.dart';
 import '../modules/home/dealer/views/dealer_view.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/home/warranty/bindings/warranty_binding.dart';
+import '../modules/home/warranty/views/warranty_view.dart';
 import '../modules/signin/bindings/signin_binding.dart';
 import '../modules/signin/views/signin_view.dart';
 
@@ -38,6 +40,11 @@ class AppPages {
       name: _Paths.SIGNIN,
       page: () => SigninView(),
       binding: SigninBinding(),
+    ),
+    GetPage(
+      name: '${_Paths.CUSTOMER}/:dealerId',
+      page: () => CustomerView(),
+      binding: CustomerBinding(),
     ),
   ];
 }

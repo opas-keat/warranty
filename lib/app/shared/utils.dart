@@ -12,7 +12,7 @@ final formatterItem = NumberFormat('#,###,##0.##');
 final _random = Random();
 int randomValue() {
   int min = 0;
-  int max = 5;
+  int max = 3;
   return min + _random.nextInt(max - min);
   // return int next(int min, int max) => min + _random.nextInt(max - min);
 }

@@ -24,7 +24,7 @@ class SystemLinkService {
       final result = await apiUtils.post(
         url: '${Api.baseUrlSystemLink}${ApiEndPoints.systemLinkDealers}',
         data: DealerSystemLinkRequest(
-          limit: 50,
+          limit: 20,
           criteria: DealerSystemLinkCriteria(
             dealerCode: dealerCode,
           ),
