@@ -12,16 +12,5 @@ class CustomerController extends GetxController {
     print(dealerId);
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-    // var first = Get.parameters["first"];
-    // print(first);
-    // print("onReady");
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

@@ -189,7 +189,7 @@ class DealerController extends GetxController {
     talker.debug('${dealer.phone}');
     talker.debug('${dealer.tax}');
     isLoading.value =
-        await Future.delayed(Duration(seconds: randomValue()), () {
+        await Future.delayed(Duration(seconds: randomValue(0, 3)), () {
       return false;
     });
     dealerList.removeWhere((element) => element.code == dealer.code);

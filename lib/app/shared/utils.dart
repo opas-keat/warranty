@@ -10,9 +10,7 @@ final formatterPrice = NumberFormat('#,###,##0.00');
 final formatterItem = NumberFormat('#,###,##0.##');
 
 final _random = Random();
-int randomValue() {
-  int min = 0;
-  int max = 3;
+int randomValue(int min, int max) {
   return min + _random.nextInt(max - min);
   // return int next(int min, int max) => min + _random.nextInt(max - min);
 }

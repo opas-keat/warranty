@@ -20,6 +20,7 @@ class Header extends StatelessWidget {
         CustomText(
           text: moduleName,
           weight: FontWeight.bold,
+          scale: 2.0,
         ),
         const Spacer(flex: 2),
         // const Expanded(child: SearchField()),

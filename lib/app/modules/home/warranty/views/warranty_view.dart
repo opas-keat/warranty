@@ -38,22 +38,24 @@ class WarrantyView extends StatelessWidget {
       drawer: !Responsive.isLargeScreen(context) ? const MainDrawer() : null,
       body: SafeArea(
         child: Responsive(
-          smallScreen: Container(
-            padding: const EdgeInsets.all(defaultPadding / 2),
-            // color: Colors.amber,
-            child: const SingleChildScrollView(
-              primary: true,
-              child: WarrantyList(),
-            ),
-          ),
-          mediumScreen: Container(
-            padding: const EdgeInsets.all(defaultPadding),
-            // color: Colors.amber,
-            child: const SingleChildScrollView(
-              primary: true,
-              child: WarrantyList(),
-            ),
-          ),
+          // smallScreen: Container(
+          //   padding: const EdgeInsets.all(defaultPadding / 2),
+          //   // color: Colors.amber,
+          //   child: const SingleChildScrollView(
+          //     primary: true,
+          //     child: WarrantyList(),
+          //   ),
+          // ),
+          // mediumScreen: Container(
+          //   padding: const EdgeInsets.all(defaultPadding),
+          //   // color: Colors.amber,
+          //   child: const SingleChildScrollView(
+          //     primary: true,
+          //     child: WarrantyList(),
+          //   ),
+          // ),
+          smallScreen: const WarrantyList(),
+          mediumScreen: const WarrantyList(),
           largeScreen: Row(
             children: [
               Expanded(
@@ -63,26 +65,22 @@ class WarrantyView extends StatelessWidget {
               ),
               Expanded(
                 flex: Responsive.isLargeScreen(context) ? 6 : 1,
-                child: LayoutBuilder(
-                  builder: (context, constraints) => Container(
-                    color: Colors.white,
-                    child: const Align(
-                      alignment: Alignment.topCenter,
-                      child: SingleChildScrollView(
-                        padding:
-                            EdgeInsets.only(left: defaultPadding / 2),
-                        primary: true,
-                        child: Column(
-                          children: [
-                            Header(moduleName: "การรับประกัน"),
-                            SizedBox(height: defaultPadding / 2),
-                            WarrantyList(),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                child: const WarrantyList(),
+                // child: LayoutBuilder(
+                //   builder: (context, constraints) => Container(
+                //     color: Colors.white,
+                //     child: const Align(
+                //       alignment: Alignment.topCenter,
+                //       child: Column(
+                //         children: [
+                //           Header(moduleName: "การรับประกัน"),
+                //           SizedBox(height: defaultPadding / 2),
+                //           WarrantyList(),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ),
             ],
           ),
