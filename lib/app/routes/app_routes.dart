@@ -8,6 +8,7 @@ abstract class Routes {
   static const DEALER = _Paths.HOME + _Paths.DEALER;
   static const WARRANTY = _Paths.HOME + _Paths.WARRANTY;
   static const CUSTOMER = _Paths.CUSTOMER;
+  static const REGISTER = _Paths.REGISTER;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const DEALER = '/dealer';
   static const WARRANTY = '/warranty';
   static const CUSTOMER = '/customer';
+  static const REGISTER = '/register';
 }

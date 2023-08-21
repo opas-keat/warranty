@@ -10,19 +10,19 @@ List<Module> listModule = [
     icon: Icons.dashboard_sharp,
     url: Routes.WARRANTY,
   ),
-  // Module(
-  //   id: 2,
-  //   nameTH: "ลูกค้า",
-  //   nameEn: "warranty",
-  //   icon: Icons.account_box_sharp,
-  //   url: Routes.CUSTOMER,
-  // ),
   Module(
     id: 2,
     nameTH: "ร้านค้า",
     nameEn: "dealer",
     icon: Icons.account_balance_sharp,
     url: Routes.DEALER,
+  ),
+  Module(
+    id: 3,
+    nameTH: "ลงทะเบียน",
+    nameEn: "warranty",
+    icon: Icons.account_box_sharp,
+    url: Routes.REGISTER,
   ),
 ];
 

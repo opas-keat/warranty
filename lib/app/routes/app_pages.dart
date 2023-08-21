@@ -8,6 +8,8 @@ import '../modules/home/dealer/views/dealer_view.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/home/warranty/bindings/warranty_binding.dart';
 import '../modules/home/warranty/views/warranty_view.dart';
+import '../modules/register/bindings/register_binding.dart';
+import '../modules/register/views/register_view.dart';
 import '../modules/signin/bindings/signin_binding.dart';
 import '../modules/signin/views/signin_view.dart';
 
@@ -45,6 +47,11 @@ class AppPages {
       name: '${_Paths.CUSTOMER}/:dealerId',
       page: () => CustomerView(),
       binding: CustomerBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER,
+      page: () => const RegisterView(),
+      binding: RegisterBinding(),
     ),
   ];
 }
