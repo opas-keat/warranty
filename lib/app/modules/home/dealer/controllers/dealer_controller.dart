@@ -10,6 +10,8 @@ import 'package:warranty/app/shared/constant.dart';
 import '../../../../api/api.dart';
 import '../../../../api/api_end_points.dart';
 import '../../../../api/services/system_link_service.dart';
+import '../../../../data/models/dealer_model.dart';
+import '../../../../data/response/dealer_service_response.dart';
 import '../../../../data/response/dealer_system_link_response.dart';
 import '../../../../shared/utils.dart';
 
@@ -42,7 +44,8 @@ class DealerController extends GetxController {
   RxString fTWestRegion = "0".obs;
 
   // final dealerResponse = DealerResponse().obs;
-  final dealerList = <DealerSystemLinkRows>[].obs;
+  final dealerList = <DealerData>[].obs;
+  final dealerSystemLinkList = <DealerSystemLinkRows>[].obs;
 
   final dealerListNew = [].obs;
 
@@ -53,6 +56,19 @@ class DealerController extends GetxController {
     // getSummaryInfo();
   }
 
+  @override
+  void onReady() {
+    talker.info('$logTitle:onReady:');
+    // dealerSystemLinkList.clear();
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    talker.info('$logTitle:onClose:');
+    super.onClose();
+  }
+
   Future<void> listSystemLinkDealerByCode(String dealerCode) async {
     talker.info('$logTitle listSystemLinkDealerByCode');
     try {
@@ -60,9 +76,9 @@ class DealerController extends GetxController {
       dealerList.clear();
       final result = await SystemLinkService().listDealerByCode(dealerCode);
       talker.debug('$result');
-      dealerList.addAll(result!.data!.rows!);
+      dealerSystemLinkList.addAll(result!.data!.rows!);
       isLoading.value = false;
-      update();
+      dealerSystemLinkList.refresh();
     } catch (e) {
       talker.error('$e');
     }
@@ -70,7 +86,7 @@ class DealerController extends GetxController {
 
   /// create PDF & print it
   void printQrCode(
-    DealerSystemLinkRows dealerData,
+    DealerData dealerData,
   ) async {
     final doc = pw.Document();
     // final font = await PdfGoogleFonts.notoSansThaiRegular();
@@ -88,7 +104,7 @@ class DealerController extends GetxController {
               pw.SizedBox(
                 width: double.infinity,
                 child: pw.Text(
-                  dealerData.name.toString(),
+                  dealerData.dealerName!,
                   style: pw.TextStyle(
                     font: font,
                     fontSize: 20,
@@ -98,7 +114,7 @@ class DealerController extends GetxController {
               pw.SizedBox(height: defaultPadding),
               pw.SizedBox(
                 width: double.infinity,
-                child: pw.Text(dealerData.address.toString(),
+                child: pw.Text(dealerData.dealerAddress!,
                     style: pw.TextStyle(
                       font: font,
                       fontSize: 16,
@@ -107,7 +123,7 @@ class DealerController extends GetxController {
               pw.SizedBox(height: defaultPadding),
               pw.SizedBox(
                 width: double.infinity,
-                child: pw.Text(dealerData.phone.toString(),
+                child: pw.Text(dealerData.dealerPhone!,
                     style: pw.TextStyle(
                       font: font,
                       fontSize: 16,
@@ -118,7 +134,7 @@ class DealerController extends GetxController {
                 child: pw.BarcodeWidget(
                   drawText: true,
                   data:
-                      '${Api.baseUrlSystemLink}${ApiEndPoints.systemLinkDealers}/${dealerData.code}',
+                      '${Api.baseUrlSystemLink}${ApiEndPoints.systemLinkDealers}/${dealerData.dealerCode}',
                   width: 150,
                   height: 150,
                   barcode: pw.Barcode.qrCode(),
@@ -126,7 +142,7 @@ class DealerController extends GetxController {
               ),
               pw.Center(
                 child: pw.Paragraph(
-                  text: dealerData.name.toString(),
+                  text: dealerData.dealerName!,
                   style: pw.TextStyle(
                     font: font,
                     fontSize: 18,
@@ -155,13 +171,13 @@ class DealerController extends GetxController {
   }
 
   Future downloadQrCode(
-    DealerSystemLinkRows dealerData,
+    DealerData dealerData,
   ) async {
     talker.debug('$title:downloadQrCode');
     try {
       final image = await QrPainter(
         data:
-            '${Api.baseUrlSystemLink}${ApiEndPoints.systemLinkDealers}/${dealerData.code}',
+            '${Api.baseUrlSystemLink}${ApiEndPoints.systemLinkDealers}/${dealerData.id}',
         version: QrVersions.auto,
       ).toImage(300);
       final a = await image.toByteData(format: ImageByteFormat.png);
@@ -182,6 +198,20 @@ class DealerController extends GetxController {
     }
   }
 
+  searchDealer() {}
+
+  searchData() async {
+    talker.info('$logTitle:searchData:');
+    dealerList.clear();
+    isLoading.value =
+        await Future.delayed(Duration(seconds: randomValue(1, 3)), () {
+      dealerList.addAll(listDealer);
+      return false;
+    });
+    dealerList.refresh();
+    // isLoading.refresh();
+  }
+
   Future<void> addDealer(DealerSystemLinkRows dealer) async {
     talker.debug('${dealer.code}');
     talker.debug('${dealer.name}');
@@ -192,7 +222,7 @@ class DealerController extends GetxController {
         await Future.delayed(Duration(seconds: randomValue(0, 3)), () {
       return false;
     });
-    dealerList.removeWhere((element) => element.code == dealer.code);
+    dealerList.removeWhere((element) => element.dealerCode == dealer.code);
     update();
   }
 }

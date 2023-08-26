@@ -1,18 +1,24 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../../../data/response/warranty_customer_service_response.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/header.dart';
 import '../../../../shared/utils.dart';
+import '../controllers/warranty_controller.dart';
 
 class WarrantyList extends StatelessWidget {
   const WarrantyList({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final WarrantyController controller = Get.put(WarrantyController());
     return Padding(
       padding: const EdgeInsets.all(defaultPadding),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           const Header(moduleName: "การรับประกัน"),
           const SizedBox(height: defaultPadding),
@@ -24,33 +30,73 @@ class WarrantyList extends StatelessWidget {
             ],
           ),
           const SizedBox(height: defaultPadding),
-          const Row(
+          Row(
             children: [
-              CustomText(
-                text: "รายละเอียดลูกค้า",
-                weight: FontWeight.bold,
-                scale: 1.8,
+              const Expanded(
+                child: CustomText(
+                  text: "รายละเอียดลูกค้า",
+                  weight: FontWeight.bold,
+                  scale: 1.5,
+                ),
+              ),
+              Obx(
+                () => CustomText(
+                  text: "จำนวน : ${controller.customerList.length} รายการ",
+                  scale: 1.2,
+                ),
               ),
             ],
           ),
           accentDividerTop,
-          customerDetail(),
+          // customerDetail(),
+          Expanded(
+            child: Obx(
+              () => DataTable2(
+                columnSpacing: defaultPadding,
+                dividerThickness: 2,
+                showBottomBorder: true,
+                showCheckboxColumn: false,
+                headingRowColor: MaterialStateProperty.resolveWith(
+                    (states) => Colors.grey.shade200),
+                columns: listColumn,
+                rows: List.generate(
+                  controller.customerList.length,
+                  (index) => setDataRow(
+                    index,
+                    controller.customerList[index],
+                    controller,
+                  ),
+                ),
+              ),
+            ),
+          ),
           const SizedBox(height: defaultPadding),
-          const Row(
+          Row(
             children: [
-              CustomText(
-                text: "รายการรับประกัน",
-                weight: FontWeight.bold,
-                scale: 1.8,
+              const Expanded(
+                child: CustomText(
+                  text: "รายการรับประกัน",
+                  weight: FontWeight.bold,
+                  scale: 1.5,
+                ),
+              ),
+              Obx(
+                () => CustomText(
+                  text: "จำนวน : ${controller.warrantyList.length} รายการ",
+                  scale: 1.2,
+                ),
               ),
             ],
           ),
           accentDividerTop,
           Expanded(
-            child: ListView.builder(
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return Card(
+            flex: 3,
+            child: Obx(
+              () => ListView.builder(
+                shrinkWrap: true,
+                itemCount: controller.warrantyList.length,
+                itemBuilder: (context, index) {
+                  return Card(
                     // color: Colors.white38.withOpacity(0.9),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -68,7 +114,8 @@ class WarrantyList extends StatelessWidget {
                           child: ListTile(
                             dense: true,
                             title: Padding(
-                              padding: const EdgeInsets.all(defaultPadding / 2),
+                              padding: const EdgeInsets.only(
+                                  top: defaultPadding / 2),
                               child: Wrap(
                                 alignment: WrapAlignment.spaceBetween,
                                 spacing: defaultPadding / 2,
@@ -77,8 +124,8 @@ class WarrantyList extends StatelessWidget {
                                     children: [
                                       CustomText(
                                         text:
-                                            "เลขที่ใบเสร็จ : ${randomValue(100, 1000)}",
-                                        scale: 2.0,
+                                            "เลขที่ใบเสร็จ : ${controller.warrantyList[index].receiveNo}",
+                                        scale: 1.8,
                                       ),
                                       IconButton(
                                         onPressed: () {},
@@ -89,17 +136,16 @@ class WarrantyList extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  const CustomText(
-                                    text: "วันที่ซื้อสินค้า : 08/08/2023",
-                                    scale: 1.8,
+                                  CustomText(
+                                    text:
+                                        "วันที่ซื้อสินค้า : ${controller.warrantyList[index].receiveDate}",
+                                    scale: 1.5,
                                   ),
                                 ],
                               ),
                             ),
                             subtitle: Padding(
                               padding: const EdgeInsets.only(
-                                // top: defaultPadding / 2,
-                                right: defaultPadding / 2,
                                 bottom: defaultPadding / 2,
                               ),
                               child: Wrap(
@@ -108,13 +154,13 @@ class WarrantyList extends StatelessWidget {
                                 children: [
                                   CustomText(
                                     text:
-                                        "รหัสร้านค้า : ${randomValue(100, 1000)}",
-                                    scale: 1.3,
+                                        "รหัสร้านค้า : ${controller.warrantyList[index].dealerCode}",
+                                    scale: 1.2,
                                   ),
-                                  const CustomText(
+                                  CustomText(
                                     text:
-                                        "ชื่อร้านค้า : PPSUPERWHEEL SUPER STORE.",
-                                    scale: 1.3,
+                                        "ชื่อร้านค้า : ${controller.warrantyList[index].dealerName}",
+                                    scale: 1.2,
                                   ),
                                 ],
                               ),
@@ -127,133 +173,49 @@ class WarrantyList extends StatelessWidget {
                               vertical: defaultPadding / 2),
                           child: CustomText(
                             text: "รายการสินค้า",
-                            scale: 1.5,
+                            scale: 1.2,
                           ),
                         ),
-                        // const Divider(),
-                        Container(
-                          // color: Colors.black38,
-                          // width: double.infinity,
-                          // padding: const EdgeInsets.symmetric(
-                          //   // horizontal: defaultPadding * 4,
-                          //   vertical: defaultPadding,
-                          // ),
-                          child: const Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: defaultPadding / 2,
-                                  horizontal: defaultPadding,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    CustomText(
-                                      text:
-                                          "1. ล้อแม็ก : Cosmic DEVIL-M8(YA9987) 16X9.0 6X139.7 ET0 CB.106 BLK-W-(R)Z  (สีดำ+CNCข้างก้าน+ตัวหนังสือแดง) ",
-                                      scale: 1.5,
-                                    ),
-                                    CustomText(
-                                      text: "จำนวน : 4",
-                                      scale: 1.5,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: defaultPadding,
-                                  horizontal: defaultPadding,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    CustomText(
-                                      text: "2. ล้อแม็ก : Cosmic ขนาด 19 นิ้ว",
-                                      scale: 1.5,
-                                    ),
-                                    CustomText(
-                                      text: "จำนวน : 4",
-                                      scale: 1.5,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: defaultPadding,
-                                  horizontal: defaultPadding,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    CustomText(
-                                      text:
-                                          "3. ยาง : AUSTONE 215-55-17 (D2) ปี 2020",
-                                      scale: 1.5,
-                                    ),
-                                    CustomText(
-                                      text: "จำนวน : 4",
-                                      scale: 1.5,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                        Column(
+                          children: [
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              itemCount: controller
+                                  .warrantyList[index].products!.length,
+                              itemBuilder: (context, index2) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: defaultPadding / 2,
+                                    horizontal: defaultPadding,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CustomText(
+                                        text:
+                                            "${index2 + 1}. ${controller.warrantyList[index].products![index2].type} : ${controller.warrantyList[index].products![index2].detail} ",
+                                        scale: 1.2,
+                                      ),
+                                      CustomText(
+                                        text:
+                                            "จำนวน : ${controller.warrantyList[index].products![index2].amount}",
+                                        scale: 1.2,
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         ),
-
                         const SizedBox(height: defaultPadding),
                       ],
-                    ));
-                // return Padding(
-                //   padding: const EdgeInsets.symmetric(
-                //     horizontal: defaultPadding,
-                //     vertical: defaultPadding / 2,
-                //   ),
-                //   child: Container(
-                //     // height: 200,
-                //     padding: const EdgeInsets.all(
-                //       defaultPadding,
-                //     ),
-                //     color: Colors.amber,
-                //     child: ListTile(
-                //       dense: true,
-                //       title: Wrap(
-                //         alignment: WrapAlignment.spaceBetween,
-                //         spacing: defaultPadding / 2,
-                //         children: [
-                //           CustomText(
-                //             text: "เลขที่ใบเสร็จ : ${randomValue(100, 1000)}",
-                //             scale: 1.5,
-                //           ),
-                //           const CustomText(
-                //             text: "วันที่ซื้อสินค้า : 08/08/2023",
-                //             scale: 1.5,
-                //           ),
-                //         ],
-                //       ),
-                //       subtitle: Wrap(
-                //         alignment: WrapAlignment.end,
-                //         spacing: defaultPadding / 2,
-                //         children: [
-                //           CustomText(
-                //             text: "รหัสร้านค้า : ${randomValue(100, 1000)}",
-                //             scale: 1.5,
-                //           ),
-                //           const CustomText(
-                //             text: "ชื่อร้านค้า : PPSUPERWHEEL SUPER STORE.",
-                //             scale: 1.5,
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // );
-              },
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -311,6 +273,95 @@ class WarrantyList extends StatelessWidget {
       ),
     );
   }
+}
+
+List<DataColumn> listColumn = [
+  const DataColumn2(
+    label: CustomText(text: "ลำดับ", scale: 0.9),
+    fixedWidth: 50,
+  ),
+  const DataColumn2(
+    label: CustomText(text: "หมายเลขโทรศัพท์", scale: 0.9),
+    size: ColumnSize.M,
+  ),
+  const DataColumn2(
+    label: CustomText(text: "ชื่อ-นามสกุล", scale: 0.9),
+    size: ColumnSize.M,
+  ),
+  const DataColumn2(
+    label: CustomText(text: "ทะเบียนรถ", scale: 0.9),
+    size: ColumnSize.S,
+  ),
+  const DataColumn2(
+    label: CustomText(text: "EMAIL", scale: 0.9),
+    size: ColumnSize.S,
+  ),
+];
+
+DataRow setDataRow(
+  int index,
+  WarrantyCustomerData warrantyCustomerData,
+  WarrantyController controller,
+) {
+  return DataRow.byIndex(
+    index: index + 1,
+    // color: MaterialStateProperty.resolveWith(
+    //   (states) {
+    //     if ((index) == controller.selectedIndexFromTable) {
+    //       return Colors.amber.shade200;
+    //     } else if (index % 2 == 0) {
+    //       return Colors.blue[50];
+    //     } else {
+    //       return Colors.white;
+    //     }
+    //   },
+    // ),
+    onSelectChanged: (value) async {
+      // controller.selectDataFromTable(index);
+      // controller.selectDataFromTable(index, warrantyCustomerData.id!);
+      Get.dialog(
+        const Center(
+          child: CircularProgressIndicator(),
+        ),
+        barrierDismissible: false,
+      );
+      await controller.selectDataFromTable(index, warrantyCustomerData.id!);
+      Get.back();
+    },
+    cells: [
+      DataCell(
+        CustomText(text: formatterItem.format(index + 1)),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            CustomText(text: warrantyCustomerData.telephone!),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            CustomText(text: warrantyCustomerData.fullName!),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            CustomText(text: warrantyCustomerData.licensePlate!),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            CustomText(text: warrantyCustomerData.email!),
+          ],
+        ),
+      ),
+    ],
+  );
 }
 
 Padding customerDetail() {
@@ -409,6 +460,8 @@ class WarrantySearchWidget extends StatelessWidget {
     super.key,
   });
 
+  final WarrantyController controller = Get.find<WarrantyController>();
+
   final nameTextController = TextEditingController();
   final licensePlate = TextEditingController();
   final mobileNoTextController = TextEditingController();
@@ -423,14 +476,14 @@ class WarrantySearchWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const CustomText(
-              text: "ชื่อ-นามสกุล",
+              text: "หมายเลขโทรศัพท์",
               weight: FontWeight.bold,
               size: 18,
             ),
             const SizedBox(width: defaultPadding / 2),
             Expanded(
               child: TextFormField(
-                controller: nameTextController,
+                controller: mobileNoTextController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   fillColor: Colors.white.withOpacity(.8),
@@ -458,10 +511,15 @@ class WarrantySearchWidget extends StatelessWidget {
                 text: "ค้นหา",
                 color: Colors.white,
               ),
-              onPressed: () {
-                // controller.listSystemLinkDealerByCode(
-                //   dealerCodeTextController.text,
-                // );
+              onPressed: () async {
+                Get.dialog(
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  barrierDismissible: false,
+                );
+                await controller.searchData();
+                Get.back();
               },
             ),
             const SizedBox(width: defaultPadding / 2),
@@ -501,22 +559,27 @@ class WarrantySearchWidget extends StatelessWidget {
                 text: "ค้นหา",
                 color: Colors.white,
               ),
-              onPressed: () {
-                // controller.listSystemLinkDealerByCode(
-                //   dealerCodeTextController.text,
-                // );
+              onPressed: () async {
+                Get.dialog(
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  barrierDismissible: false,
+                );
+                await controller.searchData();
+                Get.back();
               },
             ),
             const SizedBox(width: defaultPadding / 2),
             const CustomText(
-              text: "หมายเลขโทรศัพท์",
+              text: "ชื่อ-นามสกุล",
               weight: FontWeight.bold,
               size: 18,
             ),
             const SizedBox(width: defaultPadding / 2),
             Expanded(
               child: TextFormField(
-                controller: mobileNoTextController,
+                controller: nameTextController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   fillColor: Colors.white.withOpacity(.8),
@@ -544,10 +607,15 @@ class WarrantySearchWidget extends StatelessWidget {
                 text: "ค้นหา",
                 color: Colors.white,
               ),
-              onPressed: () {
-                // controller.listSystemLinkDealerByCode(
-                //   dealerCodeTextController.text,
-                // );
+              onPressed: () async {
+                Get.dialog(
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  barrierDismissible: false,
+                );
+                await controller.searchData();
+                Get.back();
               },
             ),
             const SizedBox(width: defaultPadding / 2),

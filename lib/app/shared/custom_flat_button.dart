@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:warranty/app/shared/custom_text.dart';
 
 class CustomFlatButton extends StatelessWidget {
   const CustomFlatButton({
@@ -66,15 +67,19 @@ class CustomFlatButton extends StatelessWidget {
                 : child!,
           );
         },
-        child: Text(
-          label,
-          style: labelStyle ??
-              GoogleFonts.mulish(
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
+        child: CustomText(
+          text: label,
+          color: Colors.white,
         ),
+        // child: Text(
+        //   label,
+        //   style: labelStyle ??
+        //       GoogleFonts.sarabun(
+        //         fontSize: 18,
+        //         fontWeight: FontWeight.w800,
+        //         color: Theme.of(context).colorScheme.onPrimary,
+        //       ),
+        // ),
       ),
     );
   }

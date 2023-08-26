@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
+import '../../../../api/api.dart';
+import '../../../../api/api_end_points.dart';
+import '../../../../data/response/dealer_service_response.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../controllers/dealer_controller.dart';
 import 'dealer_add.dart';
+// import 'dealer_add.dart';
 
 class DealerList extends StatelessWidget {
   DealerList({super.key});
 
-  final DealerController controller = Get.put(DealerController());
+  // final DealerController controller = Get.put(DealerController());
   final dealerCodeTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final DealerController controller = Get.put(DealerController());
     return Column(
       children: [
         Row(
@@ -66,10 +72,15 @@ class DealerList extends StatelessWidget {
                         text: "ค้นหา",
                         color: Colors.white,
                       ),
-                      onPressed: () {
-                        controller.listSystemLinkDealerByCode(
-                          dealerCodeTextController.text,
+                      onPressed: () async {
+                        Get.dialog(
+                          const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                          barrierDismissible: false,
                         );
+                        await controller.searchData();
+                        Get.back();
                       },
                     ),
                     const SizedBox(width: defaultPadding),
@@ -91,7 +102,11 @@ class DealerList extends StatelessWidget {
                         //   dealerCodeTextController.text,
                         // );
                         Get.dialog(
-                          DealerAddWidget(),
+                          useSafeArea: true,
+                          SizedBox(
+                            height: 300,
+                            child: DealerAddWidget(),
+                          ),
                           barrierDismissible: false,
                         );
                       },
@@ -114,31 +129,40 @@ class DealerList extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const Row(
+                Row(
                   children: [
-                    CustomText(
-                      text: "รายชื่อร้านค้า",
-                      weight: FontWeight.bold,
+                    const Expanded(
+                      child: CustomText(
+                        text: "รายชื่อร้านค้า",
+                        weight: FontWeight.bold,
+                        scale: 1.8,
+                      ),
+                    ),
+                    Obx(
+                      () => CustomText(
+                        text: "จำนวน : ${controller.dealerList.length} รายการ",
+                        scale: 1.5,
+                      ),
                     ),
                   ],
                 ),
                 accentDividerTop,
-                // Obx(
-                //   () => ListView.separated(
-                //     shrinkWrap: true,
-                //     physics: const NeverScrollableScrollPhysics(),
-                //     separatorBuilder: (_, __) =>
-                //         Container(height: 1.5, color: Colors.grey[300]),
-                //     itemCount: controller.dealerList.length,
-                //     itemBuilder: (context, index) {
-                //       return dealerDetailWidget(
-                //         index,
-                //         controller.dealerList[index],
-                //         controller,
-                //       );
-                //     },
-                //   ),
-                // ),
+                Obx(
+                  () => ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    separatorBuilder: (_, __) =>
+                        Container(height: 1.5, color: Colors.grey[300]),
+                    itemCount: controller.dealerList.length,
+                    itemBuilder: (context, index) {
+                      return dealerDetailWidget(
+                        index,
+                        controller.dealerList[index],
+                        controller,
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -149,96 +173,102 @@ class DealerList extends StatelessWidget {
   }
 }
 
-// Widget dealerDetailWidget(
-//   int index,
-//   DealerSystemLink dealerData,
-//   DealerController controller,
-// ) {
-//   return Row(
-//     children: [
-//       Expanded(
-//         flex: 8,
-//         child: Container(
-//           padding: const EdgeInsets.all(defaultPadding / 2),
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(defaultPadding),
-//           ),
-//           child: Row(
-//             mainAxisAlignment: MainAxisAlignment.start,
-//             // crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               QrImageView(
-//                 data:
-//                     '${Api.baseUrlSystemLink}${ApiEndPoints.systemLinkDealers}/${dealerData.code}',
-//                 version: QrVersions.auto,
-//                 size: 128,
-//                 gapless: false,
-//               ),
-//               Wrap(
-//                 direction: Axis.vertical,
-//                 children: [
-//                   Text(
-//                     "${dealerData.code} ",
-//                   ),
-//                   const SizedBox(height: defaultPadding / 2),
-//                   Text(
-//                     "${dealerData.name} ",
-//                   ),
-//                   const SizedBox(height: defaultPadding / 2),
-//                   Text(
-//                     "${dealerData.address}",
-//                   ),
-//                   const SizedBox(height: defaultPadding / 2),
-//                   Text(
-//                     "${dealerData.phone}",
-//                   ),
-//                   const SizedBox(height: defaultPadding / 2),
-//                 ],
-//               ),
-//               const Spacer(flex: 1),
-//               ElevatedButton.icon(
-//                 style: ElevatedButton.styleFrom(
-//                   backgroundColor: primaryColor,
-//                   padding: const EdgeInsets.symmetric(
-//                     vertical: defaultPadding,
-//                     horizontal: defaultPadding / 2,
-//                   ),
-//                 ),
-//                 icon: const Icon(
-//                   Icons.search_sharp,
-//                 ),
-//                 label: const CustomText(
-//                   text: "พิมพ์",
-//                   color: Colors.white,
-//                 ),
-//                 onPressed: () {
-//                   controller.printQrCode(dealerData);
-//                 },
-//               ),
-//               const SizedBox(width: defaultPadding / 2),
-//               ElevatedButton.icon(
-//                 style: ElevatedButton.styleFrom(
-//                   backgroundColor: actionColor,
-//                   padding: const EdgeInsets.symmetric(
-//                     vertical: defaultPadding,
-//                     horizontal: defaultPadding / 2,
-//                   ),
-//                 ),
-//                 icon: const Icon(
-//                   Icons.download_sharp,
-//                 ),
-//                 label: const CustomText(
-//                   text: "Download",
-//                   color: Colors.white,
-//                 ),
-//                 onPressed: () {
-//                   controller.downloadQrCode(dealerData);
-//                 },
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     ],
-//   );
-// }
+Widget dealerDetailWidget(
+  int index,
+  DealerData dealerData,
+  DealerController controller,
+) {
+  return Row(
+    children: [
+      Expanded(
+        flex: 8,
+        child: Container(
+          padding: const EdgeInsets.all(defaultPadding / 2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(defaultPadding),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              QrImageView(
+                data:
+                    '${Api.baseUrlSystemLink}${ApiEndPoints.systemLinkDealers}/${dealerData.id}',
+                version: QrVersions.auto,
+                size: 128,
+                gapless: false,
+              ),
+              const SizedBox(width: defaultPadding / 2),
+              Wrap(
+                direction: Axis.vertical,
+                runSpacing: defaultPadding / 2,
+                children: [
+                  CustomText(
+                    text: "${dealerData.dealerCode} ",
+                    // weight: FontWeight.bold,
+                    scale: 1.5,
+                  ),
+                  CustomText(
+                    text: "${dealerData.dealerName} ",
+                    // weight: FontWeight.bold,
+                    scale: 1.5,
+                  ),
+                  CustomText(
+                    text: "${dealerData.dealerAddress} ",
+                    // weight: FontWeight.bold,
+                    scale: 1.5,
+                  ),
+                  CustomText(
+                    text: "${dealerData.dealerPhone} ",
+                    // weight: FontWeight.bold,
+                    scale: 1.5,
+                  ),
+                ],
+              ),
+              const Spacer(flex: 1),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: primaryColor,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: defaultPadding,
+                    horizontal: defaultPadding / 2,
+                  ),
+                ),
+                icon: const Icon(
+                  Icons.search_sharp,
+                ),
+                label: const CustomText(
+                  text: "พิมพ์",
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  controller.printQrCode(dealerData);
+                },
+              ),
+              const SizedBox(width: defaultPadding / 2),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: actionColor,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: defaultPadding,
+                    horizontal: defaultPadding / 2,
+                  ),
+                ),
+                icon: const Icon(
+                  Icons.download_sharp,
+                ),
+                label: const CustomText(
+                  text: "Download",
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  controller.downloadQrCode(dealerData);
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    ],
+  );
+}

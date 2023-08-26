@@ -113,8 +113,26 @@ class DealerAddWidget extends StatelessWidget {
               ],
             ),
             const SizedBox(height: defaultPadding),
-            const CustomText(
-              text: 'รายชื่อร้านค้า',
+            // const CustomText(
+            //   text: 'รายชื่อร้านค้า',
+            // ),
+            Row(
+              children: [
+                const Expanded(
+                  child: CustomText(
+                    text: "รายชื่อร้านค้า",
+                    weight: FontWeight.bold,
+                    scale: 1.5,
+                  ),
+                ),
+                Obx(
+                  () => CustomText(
+                    text:
+                        "จำนวน : ${controller.dealerSystemLinkList.length} รายการ",
+                    scale: 1.5,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: defaultPadding),
             Expanded(
@@ -126,7 +144,8 @@ class DealerAddWidget extends StatelessWidget {
                             const SizedBox(height: defaultPadding),
                         shrinkWrap: true,
                         physics: const BouncingScrollPhysics(),
-                        itemCount: controller.dealerList.obs.value.length,
+                        itemCount:
+                            controller.dealerSystemLinkList.obs.value.length,
                         itemBuilder: (context, index) {
                           return Material(
                             color: Colors.grey.shade200,
@@ -138,7 +157,7 @@ class DealerAddWidget extends StatelessWidget {
                                 maxLine: 2,
                                 // scale: 0.9,
                                 text:
-                                    'รหัส ${controller.dealerList.obs.value[index].code}: ${controller.dealerList.obs.value[index].name}',
+                                    'รหัส ${controller.dealerSystemLinkList[index].code}: ${controller.dealerSystemLinkList.obs.value[index].name}',
                               ),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,14 +165,14 @@ class DealerAddWidget extends StatelessWidget {
                                   CustomText(
                                     maxLine: 4,
                                     scale: 0.9,
-                                    text: controller
-                                        .dealerList.obs.value[index].address,
+                                    text: controller.dealerSystemLinkList.obs
+                                        .value[index].address,
                                   ),
                                   CustomText(
                                     maxLine: 4,
                                     scale: 0.9,
-                                    text: controller
-                                        .dealerList.obs.value[index].phone,
+                                    text: controller.dealerSystemLinkList.obs
+                                        .value[index].phone,
                                   ),
                                 ],
                               ),
@@ -173,8 +192,8 @@ class DealerAddWidget extends StatelessWidget {
                                   onPressed: () async {
                                     controller.isLoading.value = true;
                                     controller.update();
-                                    await controller.addDealer(
-                                        controller.dealerList.obs.value[index]);
+                                    await controller.addDealer(controller
+                                        .dealerSystemLinkList.obs.value[index]);
                                   },
                                 ),
                               ),
@@ -221,14 +240,57 @@ class DealerAddWidget extends StatelessWidget {
         ),
       ),
       actions: [
-        // TextButton(
-        //   child: const Text("เพิ่ม"),
-        //   onPressed: () {},
-        // ),
-        TextButton(
-          child: const Text("ปิด"),
-          onPressed: () => Get.back(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              child: const CustomText(
+                text: "โหลดเพิ่ม",
+                color: Colors.blue,
+                weight: FontWeight.bold,
+                scale: 1.2,
+              ),
+              onPressed: () {
+                // controller.dealerSystemLinkList.clear();
+                // Get.back();
+              },
+            ),
+            TextButton(
+              child: const CustomText(
+                text: "ปิด",
+                color: Colors.blue,
+                weight: FontWeight.bold,
+                scale: 1.2,
+              ),
+              onPressed: () {
+                controller.dealerSystemLinkList.clear();
+                Get.back();
+              },
+            ),
+          ],
         ),
+
+        // Expanded(
+        //   child: const CustomText(
+        //     text: "โหลดเพิ่ม",
+        //     color: Colors.blue,
+        //     weight: FontWeight.bold,
+        //     scale: 1.2,
+        //   ),
+        // ),
+        // const SizedBox(width: 1),
+        // TextButton(
+        //   child: const CustomText(
+        //     text: "ปิด",
+        //     color: Colors.blue,
+        //     weight: FontWeight.bold,
+        //     scale: 1.2,
+        //   ),
+        //   onPressed: () {
+        //     controller.dealerSystemLinkList.clear();
+        //     Get.back();
+        //   },
+        // ),
       ],
     );
   }
