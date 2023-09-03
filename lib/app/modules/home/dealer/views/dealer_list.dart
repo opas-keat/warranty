@@ -15,7 +15,6 @@ class DealerList extends StatelessWidget {
   DealerList({super.key});
 
   // final DealerController controller = Get.put(DealerController());
-  final dealerCodeTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +40,7 @@ class DealerList extends StatelessWidget {
                     const SizedBox(width: defaultPadding / 2),
                     Expanded(
                       child: TextFormField(
-                        controller: dealerCodeTextController,
+                        controller: controller.dealerCodeSearch,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           fillColor: Colors.white.withOpacity(.8),
@@ -79,7 +78,7 @@ class DealerList extends StatelessWidget {
                           ),
                           barrierDismissible: false,
                         );
-                        await controller.searchData();
+                        await controller.list();
                         Get.back();
                       },
                     ),

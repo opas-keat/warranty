@@ -4,6 +4,8 @@ class ApiEndPoints {
   static const systemLinkProducts = "/products";
   static const systemLinkShippings = "/shippings";
   static const systemLinkPreSaleOrder = "/presaleorders";
+  // ---- dealer ----
+  static const dealer = "/dealer";
   // ---- logs ----
   static const logs = "/logs";
 }

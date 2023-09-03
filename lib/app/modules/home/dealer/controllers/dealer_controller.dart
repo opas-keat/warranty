@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:warranty/app/api/custom_log_interceptor.dart';
@@ -9,8 +10,10 @@ import 'package:warranty/app/shared/constant.dart';
 
 import '../../../../api/api.dart';
 import '../../../../api/api_end_points.dart';
+import '../../../../api/api_params.dart';
+import '../../../../api/services/delaer_service.dart';
 import '../../../../api/services/system_link_service.dart';
-import '../../../../data/models/dealer_model.dart';
+import '../../../../data/request/dealer_service_request.dart';
 import '../../../../data/response/dealer_service_response.dart';
 import '../../../../data/response/dealer_system_link_response.dart';
 import '../../../../shared/utils.dart';
@@ -43,17 +46,21 @@ class DealerController extends GetxController {
   RxString fTSouthernRegion = "0".obs;
   RxString fTWestRegion = "0".obs;
 
+  final dealerCodeSearch = TextEditingController();
+
   // final dealerResponse = DealerResponse().obs;
   final dealerList = <DealerData>[].obs;
   final dealerSystemLinkList = <DealerSystemLinkRows>[].obs;
 
   final dealerListNew = [].obs;
 
+  final dealers = <Dealers>[].obs;
+
   @override
   void onInit() {
     super.onInit();
     isLoading.value = false;
-    // getSummaryInfo();
+    // list();
   }
 
   @override
@@ -69,12 +76,97 @@ class DealerController extends GetxController {
     super.onClose();
   }
 
-  Future<void> listSystemLinkDealerByCode(String dealerCode) async {
+  list() async {
+    talker.info('$logTitle:list:');
+    isLoading.value = true;
+    Map<String, String> qParams = {
+      "offset": offset.value.toString(),
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "dealer_code": dealerCodeSearch.text,
+    };
+    try {
+      final response = await DealerService().list(qParams);
+      // listIncidentStatistics.clear();
+      for (final item in response!.data!) {
+        dealerList.add(
+          DealerData(
+            id: item.id,
+            dealerAddress: item.dealerAddress,
+            dealerArea: item.dealerArea,
+            dealerCode: item.dealerCode,
+            dealerName: item.dealerName,
+            dealerPhone: item.dealerPhone,
+            dealerTax: item.dealerTax,
+          ),
+        );
+      }
+      isLoading.value = false;
+      resetSearch();
+    } catch (e) {
+      talker.error('$e');
+    }
+  }
+
+  resetSearch() {
+    update();
+  }
+
+  addDealer(DealerSystemLinkRows dealer) async {
+    talker.debug('${dealer.code}');
+    talker.debug('${dealer.name}');
+    talker.debug('${dealer.address}');
+    talker.debug('${dealer.phone}');
+    talker.debug('${dealer.tax}');
+    bool result = true;
+    isLoading.value = true;
+    try {
+      Map<String, String> qParams = {
+        "offset": offset.value.toString(),
+        "limit": queryParamLimit,
+        "order": queryParamOrderBy,
+        "dealer_code": dealer.code.toString(),
+      };
+      final responseList = await DealerService().list(qParams);
+      if (responseList!.data!.isNotEmpty) {
+        result = false;
+      } else {
+        dealers.add(Dealers(
+          dealerAddress: dealer.address,
+          dealerArea: 0,
+          dealerCode: dealer.code,
+          dealerName: dealer.name,
+          dealerPhone: dealer.phone,
+          dealerTax: dealer.tax,
+        ));
+        final response = await DealerService().create(dealers.obs.value);
+        talker.debug('response message : ${response?.message}');
+        dealers.clear();
+        dealerSystemLinkList
+            .removeWhere((element) => element.code == dealer.code);
+        dealerSystemLinkList.refresh();
+        result = true;
+      }
+    } catch (e) {
+      talker.error('$e');
+      result = false;
+    }
+    isLoading.value = false;
+    return result;
+    // isLoading.value =
+    //     await Future.delayed(Duration(seconds: randomValue(0, 3)), () {
+    //   return false;
+    // });
+    // dealerList.removeWhere((element) => element.dealerCode == dealer.code);
+    // update();
+  }
+
+  listSystemLinkDealerByCode(String dealerCode) async {
     talker.info('$logTitle listSystemLinkDealerByCode');
     try {
-      dealerCode = "";
-      dealerList.clear();
-      final result = await SystemLinkService().listDealerByCode(dealerCode);
+      // dealerCode = "";
+      // dealerList.clear();
+      final result = await SystemLinkService().list(dealerCode);
       talker.debug('$result');
       dealerSystemLinkList.addAll(result!.data!.rows!);
       isLoading.value = false;
@@ -140,6 +232,7 @@ class DealerController extends GetxController {
                   barcode: pw.Barcode.qrCode(),
                 ),
               ),
+              pw.SizedBox(height: defaultPadding),
               pw.Center(
                 child: pw.Paragraph(
                   text: dealerData.dealerName!,
@@ -198,31 +291,17 @@ class DealerController extends GetxController {
     }
   }
 
-  searchDealer() {}
+  // searchDealer() {}
 
-  searchData() async {
-    talker.info('$logTitle:searchData:');
-    dealerList.clear();
-    isLoading.value =
-        await Future.delayed(Duration(seconds: randomValue(1, 3)), () {
-      dealerList.addAll(listDealer);
-      return false;
-    });
-    dealerList.refresh();
-    // isLoading.refresh();
-  }
-
-  Future<void> addDealer(DealerSystemLinkRows dealer) async {
-    talker.debug('${dealer.code}');
-    talker.debug('${dealer.name}');
-    talker.debug('${dealer.address}');
-    talker.debug('${dealer.phone}');
-    talker.debug('${dealer.tax}');
-    isLoading.value =
-        await Future.delayed(Duration(seconds: randomValue(0, 3)), () {
-      return false;
-    });
-    dealerList.removeWhere((element) => element.dealerCode == dealer.code);
-    update();
-  }
+  // searchData() async {
+  //   talker.info('$logTitle:searchData:');
+  //   dealerList.clear();
+  //   isLoading.value =
+  //       await Future.delayed(Duration(seconds: randomValue(1, 3)), () {
+  //     dealerList.addAll(listDealer);
+  //     return false;
+  //   });
+  //   dealerList.refresh();
+  //   // isLoading.refresh();
+  // }
 }

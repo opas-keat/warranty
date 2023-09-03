@@ -31,8 +31,8 @@ class DealerAddWidget extends StatelessWidget {
                 labelText: "รหัสร้านค้า",
                 suffixIcon: IconButton(
                   color: primaryColor,
-                  onPressed: () {
-                    controller.listSystemLinkDealerByCode(
+                  onPressed: () async {
+                    await controller.listSystemLinkDealerByCode(
                       dealerCode.text,
                     );
                   },
@@ -177,7 +177,7 @@ class DealerAddWidget extends StatelessWidget {
                                 ],
                               ),
                               trailing: CircleAvatar(
-                                radius: 30,
+                                radius: 20,
                                 backgroundColor: primaryColor,
                                 child: IconButton(
                                   icon: const Icon(
@@ -190,10 +190,31 @@ class DealerAddWidget extends StatelessWidget {
                                   //   color: Colors.white,
                                   // ),
                                   onPressed: () async {
-                                    controller.isLoading.value = true;
-                                    controller.update();
-                                    await controller.addDealer(controller
-                                        .dealerSystemLinkList.obs.value[index]);
+                                    final result = await controller.addDealer(
+                                        controller.dealerSystemLinkList.obs
+                                            .value[index]);
+                                    if (!result) {
+                                      Get.dialog(
+                                        AlertDialog(
+                                          content: const CustomText(
+                                              text: 'มีรหัสร้านค้านี้อยู่แล้ว'),
+                                          actions: [
+                                            TextButton(
+                                              child: const CustomText(
+                                                text: "ปิด",
+                                                color: Colors.blue,
+                                                weight: FontWeight.bold,
+                                                scale: 1.2,
+                                              ),
+                                              onPressed: () {
+                                                Get.back();
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                        barrierDismissible: false,
+                                      );
+                                    }
                                   },
                                 ),
                               ),

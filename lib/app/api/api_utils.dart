@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:dio/dio.dart';
 
 import '../shared/utils.dart';
@@ -20,7 +22,7 @@ class ApiUtils {
 
   ApiUtils._i() {
     _dio.interceptors.add(CustomLogInterceptor(
-      requestHeader: true,
+      requestHeader: false,
       requestBody: true,
       responseHeader: false,
       responseBody: true,
@@ -51,10 +53,15 @@ class ApiUtils {
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
+    var opts = Options(
+      headers: {
+        "Authorization": 'Bearer ${window.sessionStorage["token"]}',
+      },
+    );
     var result = await _dio.get(
       url,
       queryParameters: queryParameters,
-      options: options,
+      options: opts,
     );
     // talker.error(result);
     return result;
@@ -68,13 +75,61 @@ class ApiUtils {
   }) async {
     //Sending FormData:
     //FormData formData = FormData.fromMap({"name": ""});
-
+    var opts = Options(
+      headers: {
+        "Authorization": 'Bearer ${window.sessionStorage["token"]}',
+      },
+    );
     var result = await _dio.post(
       url,
       data: data,
       queryParameters: queryParameters,
-      options: options,
+      options: opts,
     );
+    return result;
+  }
+
+  Future<Response> put({
+    required String url,
+    data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+  }) async {
+    //Sending FormData:
+    //FormData formData = FormData.fromMap({"name": ""});
+    // options!.headers = secureHeaders;
+    // options!.headers?['Authorization'] =
+    //     'Bearer: ${window.sessionStorage["token"]}';
+    var opts = Options(
+      headers: {
+        "Authorization": 'Bearer ${window.sessionStorage["token"]}',
+      },
+    );
+    var result = await _dio.put(
+      url,
+      data: data,
+      queryParameters: queryParameters,
+      options: opts,
+    );
+    return result;
+  }
+
+  Future<Response> delete({
+    required String url,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+  }) async {
+    var opts = Options(
+      headers: {
+        "Authorization": 'Bearer ${window.sessionStorage["token"]}',
+      },
+    );
+    var result = await _dio.delete(
+      url,
+      queryParameters: queryParameters,
+      options: opts,
+    );
+    // talker.error(result);
     return result;
   }
 

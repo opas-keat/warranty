@@ -1,39 +1,27 @@
-class DealerServiceResponse {
-  String? code;
-  String? message;
-  List<DealerData>? data;
+class DealerServiceRequest {
+  List<Dealers>? dealers;
 
-  DealerServiceResponse({this.code, this.message, this.data});
+  DealerServiceRequest({this.dealers});
 
-  DealerServiceResponse.withError({
-    code,
-    String? msg,
-  }) : message = msg;
-
-  DealerServiceResponse.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-    message = json['message'];
-    if (json['data'] != null) {
-      data = <DealerData>[];
-      json['data'].forEach((v) {
-        data!.add(DealerData.fromJson(v));
+  DealerServiceRequest.fromJson(Map<String, dynamic> json) {
+    if (json['dealers'] != null) {
+      dealers = <Dealers>[];
+      json['dealers'].forEach((v) {
+        dealers!.add(Dealers.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['code'] = code;
-    data['message'] = message;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    if (dealers != null) {
+      data['dealers'] = dealers!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class DealerData {
-  String? id;
+class Dealers {
   String? dealerCode;
   String? dealerName;
   String? dealerAddress;
@@ -41,17 +29,15 @@ class DealerData {
   String? dealerTax;
   int? dealerArea;
 
-  DealerData(
-      {this.id,
-      this.dealerCode,
+  Dealers(
+      {this.dealerCode,
       this.dealerName,
       this.dealerAddress,
       this.dealerPhone,
       this.dealerTax,
       this.dealerArea});
 
-  DealerData.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+  Dealers.fromJson(Map<String, dynamic> json) {
     dealerCode = json['dealer_code'];
     dealerName = json['dealer_name'];
     dealerAddress = json['dealer_address'];
@@ -62,7 +48,6 @@ class DealerData {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
     data['dealer_code'] = dealerCode;
     data['dealer_name'] = dealerName;
     data['dealer_address'] = dealerAddress;
