@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:warranty/app/shared/custom_text.dart';
+
+import 'custom_text.dart';
 
 class CustomFlatButton extends StatelessWidget {
   const CustomFlatButton({
