@@ -8,7 +8,7 @@ class Api {
   static const baseUrl = "http://127.0.0.1:9999";
   static const baseUrlSystemLink = "https://pp-salesite.com/api/v1";
 
-  // ectApi
+  // warrantyapi
   static const apiContext = "/warrantyapi";
   static const apiVersion = "/v1";
 }

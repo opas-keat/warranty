@@ -14,7 +14,7 @@ class RegisterController extends GetxController {
   Rx<String> filePathProduct = ''.obs;
   Rx<XFile> fileUploadProduct = XFile('').obs;
 
-  final productType = <String>["wheels", "tires"].obs;
+  final productType = <String>["wheels", "tire"].obs;
   Rx<String> productTypeSelected = "wheels".obs;
 
   final productBrand = <String>["COSMIC1", "COSMIC2"].obs;
