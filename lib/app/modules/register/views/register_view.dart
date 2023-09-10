@@ -33,7 +33,7 @@ class RegisterView extends StatelessWidget {
           child: Column(
             children: <Widget>[
               const WarrantyDetail(),
-              const SizedBox(height: defaultPadding),
+              // const SizedBox(height: defaultPadding / 2),
               const Divider(),
               CustomerDetail(),
               Expanded(
@@ -56,7 +56,7 @@ class RegisterView extends StatelessWidget {
                     : Container(
                         padding: const EdgeInsets.symmetric(
                             vertical: defaultPadding),
-                        width: 200,
+                        width: 100,
                         child: CustomFlatButton(
                           label: "บันทึก",
                           onPressed: () async {
@@ -372,9 +372,7 @@ class CustomerDetail extends StatelessWidget {
                             )
                           : Image.network(
                               'assets/images/undraw_Add_files_re_v09g.png',
-                              fit: BoxFit.fitHeight,
-                              height: 100,
-                              width: 100,
+                              fit: BoxFit.fitWidth,
                             ),
                     ),
                   ),
@@ -427,9 +425,7 @@ class CustomerDetail extends StatelessWidget {
                                 )
                               : Image.network(
                                   'assets/images/undraw_Add_files_re_v09g.png',
-                                  fit: BoxFit.fitHeight,
-                                  height: 100,
-                                  width: 100,
+                                  fit: BoxFit.fitWidth,
                                 ),
                     ),
                   ),
@@ -437,7 +433,7 @@ class CustomerDetail extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: defaultPadding),
+          // const SizedBox(height: defaultPadding),
           CustomFlatButton(
             label: "เพิ่มรายการสินค้า",
             onPressed: () {
@@ -473,24 +469,31 @@ class WarrantyDetail extends StatelessWidget {
                 children: [
                   CustomText(
                     text: 'เลชที่ใบรับประกัน : ${controller.warrantyNo.value}',
-                    weight: FontWeight.bold,
+                    // weight: FontWeight.bold,
+                    scale: 0.8,
                   ),
                   CustomText(
-                    text:
-                        'วัน-เวลาที่ลงทะเบียน : ${controller.warrantyDate.value}',
-                    weight: FontWeight.bold,
+                    // text:
+                    //     'วัน-เวลาที่ลงทะเบียน : ${controller.warrantyDate.value}',
+                    // weight: FontWeight.bold,
+                    text: controller.warrantyDate.value,
+                    scale: 0.8,
                   ),
                 ],
               ),
-              const SizedBox(height: defaultPadding * 2),
+              const SizedBox(height: defaultPadding / 2),
               Row(
                 children: [
                   const CustomText(
                     text: 'ตัวแทนจำหน่าย : ',
+                    scale: 0.8,
                   ),
-                  CustomText(
-                    text:
-                        '${controller.dealerData.value.dealerCode!} ${controller.dealerData.value.dealerName}',
+                  Expanded(
+                    child: CustomText(
+                      text:
+                          '${controller.dealerData.value.dealerCode!} ${controller.dealerData.value.dealerName}',
+                      scale: 0.8,
+                    ),
                   ),
                 ],
               ),
@@ -499,9 +502,13 @@ class WarrantyDetail extends StatelessWidget {
                 children: [
                   const CustomText(
                     text: 'ที่อยู่ : ',
+                    scale: 0.8,
                   ),
-                  CustomText(
-                    text: controller.dealerData.value.dealerAddress!,
+                  Expanded(
+                    child: CustomText(
+                      text: controller.dealerData.value.dealerAddress!,
+                      scale: 0.8,
+                    ),
                   ),
                 ],
               ),
@@ -510,9 +517,11 @@ class WarrantyDetail extends StatelessWidget {
                 children: [
                   const CustomText(
                     text: 'โทรศัพท์ : ',
+                    scale: 0.8,
                   ),
                   CustomText(
                     text: controller.dealerData.value.dealerPhone!,
+                    scale: 0.8,
                   ),
                 ],
               ),

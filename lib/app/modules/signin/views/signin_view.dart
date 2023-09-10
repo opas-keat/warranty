@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -155,6 +157,27 @@ class SigninView extends StatelessWidget {
                                 Get.offAllNamed(Routes.WARRANTY);
                               },
                             ),
+                          ),
+                          const SizedBox(height: defaultPadding * 2),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CustomText(
+                                text: "Version 0.0.1",
+                                color: Colors.white.withOpacity(.9),
+                                scale: 0.9,
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  window.location.reload();
+                                },
+                                icon: const Icon(
+                                  Icons.refresh_sharp,
+                                ),
+                                color: primaryColor,
+                                iconSize: 14,
+                              ),
+                            ],
                           ),
                         ],
                       ),
