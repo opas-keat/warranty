@@ -11,7 +11,7 @@ import 'package:warranty/app/shared/constant.dart';
 import '../../../../api/api.dart';
 import '../../../../api/api_end_points.dart';
 import '../../../../api/api_params.dart';
-import '../../../../api/services/delaer_service.dart';
+import '../../../../api/services/dealer_service.dart';
 import '../../../../api/services/system_link_service.dart';
 import '../../../../data/request/dealer_service_request.dart';
 import '../../../../data/response/dealer_service_response.dart';
@@ -226,7 +226,8 @@ class DealerController extends GetxController {
                 child: pw.BarcodeWidget(
                   drawText: true,
                   data:
-                      '${Api.baseUrlSystemLink}${ApiEndPoints.systemLinkDealers}/${dealerData.dealerCode}',
+                      // '${Api.baseUrlSystemLink}${ApiEndPoints.systemLinkDealers}/${dealerData.dealerCode}',
+                      '${Api.baseUrlQr}${ApiEndPoints.register}/${dealerData.id}',
                   width: 150,
                   height: 150,
                   barcode: pw.Barcode.qrCode(),

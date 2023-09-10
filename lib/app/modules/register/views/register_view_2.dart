@@ -3,14 +3,13 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:warranty/app/shared/custom_flat_button.dart';
 
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../controllers/register_controller.dart';
 
-class RegisterView extends GetView<RegisterController> {
-  const RegisterView({Key? key}) : super(key: key);
+class RegisterView2 extends GetView<RegisterController> {
+  const RegisterView2({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

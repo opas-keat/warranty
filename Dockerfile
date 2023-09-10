@@ -8,5 +8,5 @@ RUN flutter pub get
 RUN flutter build web
 
 # Stage 2
-FROM nginx:1.25.1-alpine
+FROM nginx:1.25.2-alpine
 COPY --from=build-env /app/build/web /usr/share/nginx/html

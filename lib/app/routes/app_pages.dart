@@ -49,7 +49,8 @@ class AppPages {
       binding: CustomerBinding(),
     ),
     GetPage(
-      name: _Paths.REGISTER,
+      // name: _Paths.REGISTER,
+      name: '${_Paths.REGISTER}/:dealerId',
       page: () => RegisterView(),
       binding: RegisterBinding(),
     ),

@@ -45,6 +45,27 @@ class DealerService {
     }
   }
 
+  Future<DealerServiceResponse?> getById(
+    Map<String, String> qParams,
+  ) async {
+    try {
+      final response = await apiUtils.get(
+        url:
+            Api.baseUrl + Api.apiContext + Api.apiVersion + ApiEndPoints.dealer,
+        queryParameters: qParams,
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      DealerServiceResponse dealerServiceResponse =
+          DealerServiceResponse.fromJson(jsonDecode(response.toString()));
+      return dealerServiceResponse;
+    } catch (e) {
+      talker.error(e);
+    }
+    return null;
+  }
+
   Future<DealerServiceResponse?> list(
     Map<String, String> qParams,
   ) async {

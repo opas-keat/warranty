@@ -6,6 +6,7 @@ class Api {
   static const int connectionTimeout = 15000;
   // static const baseUrl = "https://pp-salesite.com";
   static const baseUrl = "http://127.0.0.1:9999";
+  static const baseUrlQr = "https://warranty.ppsuperwheels.com/#/";
   static const baseUrlSystemLink = "https://pp-salesite.com/api/v1";
 
   // warrantyapi

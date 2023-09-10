@@ -35,7 +35,7 @@ class RegisterView extends StatelessWidget {
               const WarrantyDetail(),
               const SizedBox(height: defaultPadding),
               const Divider(),
-              CustomerDetail(controller: controller),
+              CustomerDetail(),
               Expanded(
                 child: SingleChildScrollView(
                   child: Obx(
@@ -50,13 +50,62 @@ class RegisterView extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: defaultPadding),
-                width: 200,
-                child: CustomFlatButton(
-                  label: "บันทึก",
-                  onPressed: () {},
-                ),
+              Obx(
+                () => controller.isSavedData.value
+                    ? Container()
+                    : Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: defaultPadding),
+                        width: 200,
+                        child: CustomFlatButton(
+                          label: "บันทึก",
+                          onPressed: () async {
+                            Get.dialog(
+                              const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              barrierDismissible: false,
+                            );
+                            final result = await controller.save();
+                            Get.back();
+                            if (result) {
+                              controller.isSavedData.value = true;
+                              Get.dialog(
+                                SizedBox(
+                                  height: 300,
+                                  child: AlertDialog(
+                                    // title: const Text('เพิ่มร้านค้า'),
+                                    content: const CustomText(
+                                      text:
+                                          "กรุณา capture หน้าจอเก็บไว้ หลังจากกด ปิด",
+                                    ),
+                                    actions: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          TextButton(
+                                            child: const CustomText(
+                                              text: "ปิด",
+                                              color: Colors.blue,
+                                              weight: FontWeight.bold,
+                                              scale: 1.2,
+                                            ),
+                                            onPressed: () {
+                                              Get.back();
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                barrierDismissible: false,
+                              );
+                            }
+                          },
+                        ),
+                      ),
               ),
             ],
           ),
@@ -67,301 +116,341 @@ class RegisterView extends StatelessWidget {
 }
 
 class CustomerDetail extends StatelessWidget {
-  const CustomerDetail({
+  CustomerDetail({
     super.key,
-    required this.controller,
   });
 
-  final RegisterController controller;
-
+  final _formKeyCustomer = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Flexible(
-              child: TextFormField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  label: Wrap(
-                    direction: Axis.horizontal,
-                    children: [
-                      CustomText(
-                        text: "ชื่อ-นามสกุล",
-                        color: Colors.black87.withOpacity(.9),
-                      ),
-                      CustomText(
-                        text: "*",
-                        color: Colors.red.withOpacity(.9),
-                      ),
-                    ],
-                  ),
-                  labelStyle: const TextStyle(
-                    fontSize: 10,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Flexible(
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(10),
-                ],
-                style: const TextStyle(
-                    // fontSize: 24,
+    final RegisterController controller = Get.find<RegisterController>();
+    return Form(
+      key: _formKeyCustomer,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Flexible(
+                child: TextFormField(
+                  controller: controller.customerName,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    fillColor: Colors.white.withOpacity(.8),
+                    filled: true,
+                    label: Wrap(
+                      direction: Axis.horizontal,
+                      children: [
+                        CustomText(
+                          text: "ชื่อ-นามสกุล",
+                          color: Colors.black87.withOpacity(.9),
+                        ),
+                        CustomText(
+                          text: "*",
+                          color: Colors.red.withOpacity(.9),
+                        ),
+                      ],
                     ),
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  label: Wrap(
-                    direction: Axis.horizontal,
-                    children: [
-                      CustomText(
-                        text: "โทรศัพท์",
-                        color: Colors.black87.withOpacity(.9),
-                      ),
-                      CustomText(
-                        text: "*",
-                        color: Colors.red.withOpacity(.9),
-                      ),
-                    ],
-                  ),
-                  labelStyle: const TextStyle(
-                    fontSize: 10,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: defaultPadding / 2),
-            Flexible(
-              child: TextFormField(
-                keyboardType: TextInputType.text,
-                style: const TextStyle(
-                    // fontSize: 24,
+                    labelStyle: const TextStyle(
+                      fontSize: 10,
                     ),
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  label: Wrap(
-                    direction: Axis.horizontal,
-                    children: [
-                      CustomText(
-                        text: "ทะเบียนรถ",
-                        color: Colors.black87.withOpacity(.9),
-                      ),
-                      CustomText(
-                        text: "*",
-                        color: Colors.red.withOpacity(.9),
-                      ),
-                    ],
                   ),
-                  labelStyle: const TextStyle(
-                    fontSize: 10,
-                  ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'กรุณากรอก ชื่อ-นามสกุล';
+                    }
+                    return null;
+                  },
                 ),
               ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Flexible(
-              flex: 2,
-              child: TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                // inputFormatters: <TextInputFormatter>[
-                //   FilteringTextInputFormatter.digitsOnly,
-                //   LengthLimitingTextInputFormatter(10),
-                // ],
-                style: const TextStyle(
-                    // fontSize: 24,
+            ],
+          ),
+          Row(
+            children: [
+              Flexible(
+                child: TextFormField(
+                  controller: controller.customerPhone,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(10),
+                  ],
+                  decoration: InputDecoration(
+                    fillColor: Colors.white.withOpacity(.8),
+                    filled: true,
+                    label: Wrap(
+                      direction: Axis.horizontal,
+                      children: [
+                        CustomText(
+                          text: "โทรศัพท์",
+                          color: Colors.black87.withOpacity(.9),
+                        ),
+                        CustomText(
+                          text: "*",
+                          color: Colors.red.withOpacity(.9),
+                        ),
+                      ],
                     ),
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  label: Wrap(
-                    direction: Axis.horizontal,
-                    children: [
-                      CustomText(
-                        text: "email",
-                        color: Colors.black87.withOpacity(.9),
-                      ),
-                      CustomText(
-                        text: "*",
-                        color: Colors.red.withOpacity(.9),
-                      ),
-                    ],
+                    labelStyle: const TextStyle(
+                      fontSize: 10,
+                    ),
                   ),
-                  labelStyle: const TextStyle(
-                    fontSize: 10,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'กรุณากรอก โทรศัพท์';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              const SizedBox(width: defaultPadding / 2),
+              Flexible(
+                child: TextFormField(
+                  controller: controller.customerLicensePlate,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    fillColor: Colors.white.withOpacity(.8),
+                    filled: true,
+                    label: Wrap(
+                      direction: Axis.horizontal,
+                      children: [
+                        CustomText(
+                          text: "ทะเบียนรถ",
+                          color: Colors.black87.withOpacity(.9),
+                        ),
+                        CustomText(
+                          text: "*",
+                          color: Colors.red.withOpacity(.9),
+                        ),
+                      ],
+                    ),
+                    labelStyle: const TextStyle(
+                      fontSize: 10,
+                    ),
+                  ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'กรุณากรอก ทะเบียนรถ';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Flexible(
+                flex: 2,
+                child: TextFormField(
+                  controller: controller.customerEmail,
+                  keyboardType: TextInputType.emailAddress,
+                  // inputFormatters: <TextInputFormatter>[
+                  //   FilteringTextInputFormatter.digitsOnly,
+                  //   LengthLimitingTextInputFormatter(10),
+                  // ],
+                  style: const TextStyle(
+                      // fontSize: 24,
+                      ),
+                  decoration: InputDecoration(
+                    fillColor: Colors.white.withOpacity(.8),
+                    filled: true,
+                    label: Wrap(
+                      direction: Axis.horizontal,
+                      children: [
+                        CustomText(
+                          text: "Email",
+                          color: Colors.black87.withOpacity(.9),
+                        ),
+                        CustomText(
+                          text: "*",
+                          color: Colors.red.withOpacity(.9),
+                        ),
+                      ],
+                    ),
+                    labelStyle: const TextStyle(
+                      fontSize: 10,
+                    ),
+                  ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'กรุณากรอก Email';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              const SizedBox(width: defaultPadding / 2),
+              Flexible(
+                child: TextFormField(
+                  controller: controller.customerMile,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(10),
+                  ],
+                  decoration: InputDecoration(
+                    fillColor: Colors.white.withOpacity(.8),
+                    filled: true,
+                    label: Wrap(
+                      direction: Axis.horizontal,
+                      children: [
+                        CustomText(
+                          text: "เลขไมล์",
+                          color: Colors.black87.withOpacity(.9),
+                        ),
+                        CustomText(
+                          text: "*",
+                          color: Colors.red.withOpacity(.9),
+                        ),
+                      ],
+                    ),
+                    labelStyle: const TextStyle(
+                      fontSize: 10,
+                    ),
+                  ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'กรุณากรอก เลขไมล์';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: defaultPadding / 2),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Flexible(
+                child: Wrap(
+                  direction: Axis.horizontal,
+                  children: [
+                    CustomText(
+                      text: "รูปรถ",
+                      color: Colors.black87.withOpacity(.9),
+                      scale: 0.9,
+                    ),
+                    CustomText(
+                      text: "*",
+                      scale: 0.9,
+                      color: Colors.red.withOpacity(.9),
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: InkWell(
+                  hoverColor: Colors.white,
+                  onTap: () async {
+                    final ImagePicker picker = ImagePicker();
+                    final XFile? pickedFile = await picker.pickImage(
+                      source: ImageSource.gallery,
+                      maxHeight: 640,
+                      maxWidth: 480,
+                    );
+                    if (pickedFile != null) {
+                      controller.fileUploadCar.value = pickedFile;
+                      controller.fileUploadReceive.refresh();
+                    }
+                  },
+                  child: Obx(
+                    () => SizedBox(
+                      height: 100,
+                      width: 100,
+                      child: (controller.fileUploadCar.value.path.isNotEmpty)
+                          ? Image.network(
+                              controller.fileUploadCar.value.path,
+                              height: 100,
+                              width: 100,
+                              // fit: BoxFit.fitHeight,
+                            )
+                          : Image.network(
+                              'assets/images/undraw_Add_files_re_v09g.png',
+                              fit: BoxFit.fitHeight,
+                              height: 100,
+                              width: 100,
+                            ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(width: defaultPadding / 2),
-            Flexible(
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(10),
-                ],
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  label: Wrap(
-                    direction: Axis.horizontal,
-                    children: [
-                      CustomText(
-                        text: "เลขไมล์",
-                        color: Colors.black87.withOpacity(.9),
-                      ),
-                      CustomText(
-                        text: "*",
-                        color: Colors.red.withOpacity(.9),
-                      ),
-                    ],
-                  ),
-                  labelStyle: const TextStyle(
-                    fontSize: 10,
+              Flexible(child: Container()),
+              Flexible(
+                child: Wrap(
+                  direction: Axis.horizontal,
+                  children: [
+                    CustomText(
+                      text: "รูปใบเสร็จ",
+                      color: Colors.black87.withOpacity(.9),
+                      scale: 0.9,
+                    ),
+                    CustomText(
+                      text: "*",
+                      scale: 0.9,
+                      color: Colors.red.withOpacity(.9),
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: InkWell(
+                  hoverColor: Colors.white,
+                  onTap: () async {
+                    final ImagePicker picker = ImagePicker();
+                    final XFile? pickedFile = await picker.pickImage(
+                      source: ImageSource.gallery,
+                      maxHeight: 640,
+                      maxWidth: 480,
+                    );
+                    if (pickedFile != null) {
+                      controller.fileUploadReceive.value = pickedFile;
+                      controller.update();
+                    }
+                  },
+                  child: Obx(
+                    () => SizedBox(
+                      height: 100,
+                      width: 100,
+                      child:
+                          (controller.fileUploadReceive.value.path.isNotEmpty)
+                              ? Image.network(
+                                  controller.fileUploadReceive.value.path,
+                                  height: 100,
+                                  width: 100,
+                                  // fit: BoxFit.fitHeight,
+                                )
+                              : Image.network(
+                                  'assets/images/undraw_Add_files_re_v09g.png',
+                                  fit: BoxFit.fitHeight,
+                                  height: 100,
+                                  width: 100,
+                                ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-        const SizedBox(height: defaultPadding / 2),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Flexible(
-              child: Wrap(
-                direction: Axis.horizontal,
-                children: [
-                  CustomText(
-                    text: "รูปรถ",
-                    color: Colors.black87.withOpacity(.9),
-                    scale: 0.9,
-                  ),
-                  CustomText(
-                    text: "*",
-                    scale: 0.9,
-                    color: Colors.red.withOpacity(.9),
-                  ),
-                ],
-              ),
-            ),
-            Flexible(
-              child: InkWell(
-                hoverColor: Colors.white,
-                onTap: () async {
-                  final ImagePicker picker = ImagePicker();
-                  final XFile? pickedFile = await picker.pickImage(
-                    source: ImageSource.gallery,
-                    maxHeight: 640,
-                    maxWidth: 480,
-                  );
-                  if (pickedFile != null) {
-                    controller.fileUploadCar.value = pickedFile;
-                    controller.update();
-                  }
-                },
-                child: Obx(
-                  () => SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: (controller.fileUploadCar.value.path.isNotEmpty)
-                        ? Image.network(
-                            controller.fileUploadCar.value.path,
-                            height: 100,
-                            width: 100,
-                            // fit: BoxFit.fitHeight,
-                          )
-                        : Image.network(
-                            'assets/images/undraw_Add_files_re_v09g.png',
-                            fit: BoxFit.fitHeight,
-                            height: 100,
-                            width: 100,
-                          ),
-                  ),
-                ),
-              ),
-            ),
-            Flexible(child: Container()),
-            Flexible(
-              child: Wrap(
-                direction: Axis.horizontal,
-                children: [
-                  CustomText(
-                    text: "รูปใบเสร็จ",
-                    color: Colors.black87.withOpacity(.9),
-                    scale: 0.9,
-                  ),
-                  CustomText(
-                    text: "*",
-                    scale: 0.9,
-                    color: Colors.red.withOpacity(.9),
-                  ),
-                ],
-              ),
-            ),
-            Flexible(
-              child: InkWell(
-                hoverColor: Colors.white,
-                onTap: () async {
-                  final ImagePicker picker = ImagePicker();
-                  final XFile? pickedFile = await picker.pickImage(
-                    source: ImageSource.gallery,
-                    maxHeight: 640,
-                    maxWidth: 480,
-                  );
-                  if (pickedFile != null) {
-                    controller.fileUploadReceive.value = pickedFile;
-                    controller.update();
-                  }
-                },
-                child: Obx(
-                  () => SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: (controller.fileUploadReceive.value.path.isNotEmpty)
-                        ? Image.network(
-                            controller.fileUploadReceive.value.path,
-                            height: 100,
-                            width: 100,
-                            // fit: BoxFit.fitHeight,
-                          )
-                        : Image.network(
-                            'assets/images/undraw_Add_files_re_v09g.png',
-                            fit: BoxFit.fitHeight,
-                            height: 100,
-                            width: 100,
-                          ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: defaultPadding),
-        CustomFlatButton(
-          label: "เพิ่มรายการสินค้า",
-          onPressed: () {
-            controller.productList.add(
-              WarrantyProductModel(),
-            );
-          },
-        ),
-      ],
+            ],
+          ),
+          const SizedBox(height: defaultPadding),
+          CustomFlatButton(
+            label: "เพิ่มรายการสินค้า",
+            onPressed: () {
+              final isValid = _formKeyCustomer.currentState!.validate();
+              if (isValid) {
+                controller.productList.add(
+                  WarrantyProductModel(),
+                );
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }
@@ -373,47 +462,62 @@ class WarrantyDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final RegisterController controller = Get.find<RegisterController>();
     return Container(
       // color: Colors.blue,
       // height: 100,
-      child: const Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Obx(() => Column(
             children: [
-              CustomText(
-                text: 'เลชที่ใบรับประกัน',
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomText(
+                    text: 'เลชที่ใบรับประกัน : ${controller.warrantyNo.value}',
+                    weight: FontWeight.bold,
+                  ),
+                  CustomText(
+                    text:
+                        'วัน-เวลาที่ลงทะเบียน : ${controller.warrantyDate.value}',
+                    weight: FontWeight.bold,
+                  ),
+                ],
               ),
-              CustomText(
-                text: 'วัน-เวลาที่ลงทะเบียน',
+              const SizedBox(height: defaultPadding * 2),
+              Row(
+                children: [
+                  const CustomText(
+                    text: 'ตัวแทนจำหน่าย : ',
+                  ),
+                  CustomText(
+                    text:
+                        '${controller.dealerData.value.dealerCode!} ${controller.dealerData.value.dealerName}',
+                  ),
+                ],
+              ),
+              const SizedBox(height: defaultPadding / 2),
+              Row(
+                children: [
+                  const CustomText(
+                    text: 'ที่อยู่ : ',
+                  ),
+                  CustomText(
+                    text: controller.dealerData.value.dealerAddress!,
+                  ),
+                ],
+              ),
+              const SizedBox(height: defaultPadding / 2),
+              Row(
+                children: [
+                  const CustomText(
+                    text: 'โทรศัพท์ : ',
+                  ),
+                  CustomText(
+                    text: controller.dealerData.value.dealerPhone!,
+                  ),
+                ],
               ),
             ],
-          ),
-          SizedBox(height: defaultPadding * 2),
-          Row(
-            children: [
-              CustomText(
-                text: 'ตัวแทนจำหน่าย : ',
-              ),
-              CustomText(
-                text: '[CL1111] บริษัท เอ็นเอส ออโต้วีล จำกัด ',
-              ),
-            ],
-          ),
-          SizedBox(height: defaultPadding / 2),
-          Row(
-            children: [
-              CustomText(
-                text: 'ที่อยู่ : ',
-              ),
-              CustomText(
-                text:
-                    '654/2 ถ.บางบอน 3 แขวงบางบอน เขตบางบอน กรุงเทพมหานคร 10150 ',
-              ),
-            ],
-          ),
-        ],
-      ),
+          )),
     );
   }
 }

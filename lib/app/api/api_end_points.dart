@@ -6,6 +6,12 @@ class ApiEndPoints {
   static const systemLinkPreSaleOrder = "/presaleorders";
   // ---- dealer ----
   static const dealer = "/dealer";
+  // ---- file ----
+  static const file = "/file_attach";
   // ---- logs ----
   static const logs = "/logs";
+  // ---- file ----
+  static const register = "/register";
+  // ---- warranty ----
+  static const warranty = "/warranty";
 }

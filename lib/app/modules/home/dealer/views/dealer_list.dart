@@ -192,7 +192,7 @@ Widget dealerDetailWidget(
             children: [
               QrImageView(
                 data:
-                    '${Api.baseUrlSystemLink}${ApiEndPoints.systemLinkDealers}/${dealerData.id}',
+                    '${Api.baseUrlQr}${ApiEndPoints.register}/${dealerData.id}',
                 version: QrVersions.auto,
                 size: 128,
                 gapless: false,

@@ -87,8 +87,6 @@ class CustomLogInterceptor extends Interceptor {
     }
     if (responseBody) {
       logPrint("Response Text:");
-      // logPrint(responseBody);
-      printAll(response.toString());
 
       final pattern = RegExp(".{1,800}"); // 800 is the size of each chunk
       pattern
