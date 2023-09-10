@@ -78,6 +78,7 @@ class DealerList extends StatelessWidget {
                           ),
                           barrierDismissible: false,
                         );
+                        controller.dealerList.clear();
                         await controller.list();
                         Get.back();
                       },
