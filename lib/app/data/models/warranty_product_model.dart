@@ -6,7 +6,7 @@ class WarrantyProductModel {
     this.type,
     this.brand,
     this.detail,
-    this.amount,
+    this.amount = 0,
     this.imagePath,
   });
 }

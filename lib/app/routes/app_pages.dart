@@ -10,6 +10,8 @@ import '../modules/home/warranty/bindings/warranty_binding.dart';
 import '../modules/home/warranty/views/warranty_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
+import '../modules/register_result/bindings/register_result_binding.dart';
+import '../modules/register_result/views/register_result_view.dart';
 import '../modules/signin/bindings/signin_binding.dart';
 import '../modules/signin/views/signin_view.dart';
 
@@ -53,6 +55,11 @@ class AppPages {
       name: '${_Paths.REGISTER}/:dealerId',
       page: () => RegisterView(),
       binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER_RESULT,
+      page: () => RegisterResultView(),
+      binding: RegisterResultBinding(),
     ),
   ];
 }

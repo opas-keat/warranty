@@ -27,8 +27,24 @@ class RegisterController extends GetxController {
   final productType = <String>["wheels", "tire"].obs;
   Rx<String> productTypeSelected = "wheels".obs;
 
-  final productBrand = <String>["COSMIC1", "COSMIC2"].obs;
-  Rx<String> productBrandSelected = "COSMIC1".obs;
+  final tireBrand = <String>[
+    "COSMIS",
+    "ZESTINO",
+  ].obs;
+  // Rx<String> productTireSelected = "COSMIS".obs;
+
+  final wheelBrand = <String>[
+    "COSMIS",
+    "COSMIS2",
+    "FATTAH",
+    "FORCE",
+    "NAYA",
+    "UNIVERSE",
+    "VALENZA",
+  ].obs;
+  // Rx<String> productWheelSelected = "COSMIS".obs;
+  // final productBrand = <String>[].obs;
+  // Rx<String> productBrandSelected = "".obs;
 
   RxBool isLoading = true.obs;
   RxBool isAddReceive = false.obs;
@@ -167,7 +183,7 @@ class RegisterController extends GetxController {
   addProduct() {
     productList.add(WarrantyProductModel(
       type: productTypeSelected.value,
-      brand: productBrandSelected.value,
+      // brand: productBrandSelected.value,
       detail: productDetail.text,
       amount: int.parse(productAmount.text),
       imagePath: "",
