@@ -96,6 +96,11 @@ class Products {
   String? productType;
   String? productBrand;
   int? productAmount;
+  String? productStructureExpire;
+  String? productColorExpire;
+  String? columnProductTireExpire;
+  String? columnProductMileExpire;
+  String? columnProductPromotionExpire;
   String? warrantyNo;
 
   Products(
@@ -103,6 +108,11 @@ class Products {
       this.productType,
       this.productBrand,
       this.productAmount,
+      this.productStructureExpire,
+      this.productColorExpire,
+      this.columnProductTireExpire,
+      this.columnProductMileExpire,
+      this.columnProductPromotionExpire,
       this.warrantyNo});
 
   Products.fromJson(Map<String, dynamic> json) {
@@ -110,6 +120,11 @@ class Products {
     productType = json['product_type'];
     productBrand = json['product_brand'];
     productAmount = json['product_amount'];
+    productStructureExpire = json['product_structure_expire'];
+    productColorExpire = json['product_color_expire'];
+    columnProductTireExpire = json['column:product_tire_expire'];
+    columnProductMileExpire = json['column:product_mile_expire'];
+    columnProductPromotionExpire = json['column:product_promotion_expire'];
     warrantyNo = json['warranty_no'];
   }
 
@@ -119,6 +134,11 @@ class Products {
     data['product_type'] = productType;
     data['product_brand'] = productBrand;
     data['product_amount'] = productAmount;
+    data['product_structure_expire'] = productStructureExpire;
+    data['product_color_expire'] = productColorExpire;
+    data['column:product_tire_expire'] = columnProductTireExpire;
+    data['column:product_mile_expire'] = columnProductMileExpire;
+    data['column:product_promotion_expire'] = columnProductPromotionExpire;
     data['warranty_no'] = warrantyNo;
     return data;
   }

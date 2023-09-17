@@ -57,7 +57,7 @@ class AppPages {
       binding: RegisterBinding(),
     ),
     GetPage(
-      name: _Paths.REGISTER_RESULT,
+      name: '${_Paths.REGISTER_RESULT}/:warrantyId',
       page: () => RegisterResultView(),
       binding: RegisterResultBinding(),
     ),

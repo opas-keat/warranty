@@ -9,7 +9,6 @@ abstract class Routes {
   static const WARRANTY = _Paths.HOME + _Paths.WARRANTY;
   static const CUSTOMER = _Paths.CUSTOMER;
   static const REGISTER = _Paths.REGISTER;
-  static const REGISTER_RESULET = _Paths.REGISTER_RESULET;
   static const REGISTER_RESULT = _Paths.REGISTER_RESULT;
 }
 
@@ -21,6 +20,5 @@ abstract class _Paths {
   static const WARRANTY = '/warranty';
   static const CUSTOMER = '/customer';
   static const REGISTER = '/register';
-  static const REGISTER_RESULET = '/register-resulet';
   static const REGISTER_RESULT = '/register-result';
 }
