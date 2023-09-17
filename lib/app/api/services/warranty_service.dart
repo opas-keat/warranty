@@ -95,26 +95,26 @@ class WarrantyService {
   //   return null;
   // }
 
-  // Future<WarrantyServiceResponse?> getById(
-  //   int id,
-  // ) async {
-  //   try {
-  //     final response = await apiUtils.get(
-  //       url:
-  //           "${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.Warranty}/$id",
-  //       options: Options(
-  //         headers: apiUtils.secureHeaders,
-  //       ),
-  //     );
-  //     WarrantyServiceResponse WarrantyServiceResponse =
-  //         WarrantyServiceResponse.fromJson(jsonDecode(response.toString()));
-  //     // talker.debug("WarrantyServiceResponse $WarrantyServiceResponse");
-  //     return WarrantyServiceResponse;
-  //   } catch (e) {
-  //     talker.error(e);
-  //   }
-  //   return null;
-  // }
+  Future<WarrantyServiceResponse?> getById(
+    String id,
+  ) async {
+    try {
+      final response = await apiUtils.get(
+        url:
+            '${Api.baseUrl}${Api.apiContext}${Api.apiVersion}${ApiEndPoints.warranty}/$id',
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      WarrantyServiceResponse warrantyServiceResponse =
+          WarrantyServiceResponse.fromJson(jsonDecode(response.toString()));
+      // talker.debug("WarrantyServiceResponse $WarrantyServiceResponse");
+      return warrantyServiceResponse;
+    } catch (e) {
+      talker.error(e);
+    }
+    return null;
+  }
 
   Future<WarrantyServiceResponse?> list(
     Map<String, String> qParams,

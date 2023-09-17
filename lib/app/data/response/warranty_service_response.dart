@@ -98,9 +98,9 @@ class Products {
   int? productAmount;
   String? productStructureExpire;
   String? productColorExpire;
-  String? columnProductTireExpire;
-  String? columnProductMileExpire;
-  String? columnProductPromotionExpire;
+  String? productTireExpire;
+  String? productMileExpire;
+  String? productPromotionExpire;
   String? warrantyNo;
 
   Products(
@@ -110,9 +110,9 @@ class Products {
       this.productAmount,
       this.productStructureExpire,
       this.productColorExpire,
-      this.columnProductTireExpire,
-      this.columnProductMileExpire,
-      this.columnProductPromotionExpire,
+      this.productTireExpire,
+      this.productMileExpire,
+      this.productPromotionExpire,
       this.warrantyNo});
 
   Products.fromJson(Map<String, dynamic> json) {
@@ -122,9 +122,9 @@ class Products {
     productAmount = json['product_amount'];
     productStructureExpire = json['product_structure_expire'];
     productColorExpire = json['product_color_expire'];
-    columnProductTireExpire = json['column:product_tire_expire'];
-    columnProductMileExpire = json['column:product_mile_expire'];
-    columnProductPromotionExpire = json['column:product_promotion_expire'];
+    productTireExpire = json['product_tire_expire'];
+    productMileExpire = json['product_mile_expire'];
+    productPromotionExpire = json['product_promotion_expire'];
     warrantyNo = json['warranty_no'];
   }
 
@@ -136,9 +136,9 @@ class Products {
     data['product_amount'] = productAmount;
     data['product_structure_expire'] = productStructureExpire;
     data['product_color_expire'] = productColorExpire;
-    data['column:product_tire_expire'] = columnProductTireExpire;
-    data['column:product_mile_expire'] = columnProductMileExpire;
-    data['column:product_promotion_expire'] = columnProductPromotionExpire;
+    data['product_tire_expire'] = productTireExpire;
+    data['product_mile_expire'] = productMileExpire;
+    data['product_promotion_expire'] = productPromotionExpire;
     data['warranty_no'] = warrantyNo;
     return data;
   }

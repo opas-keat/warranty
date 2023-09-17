@@ -1,5 +1,3 @@
-import 'dart:html' as html;
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -51,6 +49,7 @@ class RegisterController extends GetxController {
   RxBool isAddProduct = false.obs;
   RxBool isSavedData = false.obs;
 
+  Rx<String> warrantyId = "".obs;
   Rx<String> warrantyNo = "".obs;
   Rx<String> warrantyDate = "".obs;
 
@@ -147,23 +146,29 @@ class RegisterController extends GetxController {
       //upload image car
       final bytesCar = await fileUploadCar.value.readAsBytes();
       final sizeCar = await fileUploadCar.value.length();
-      await FileService().create(
-        fileUploadCar.value.name,
-        sizeCar,
-        bytesCar,
-        response.data!.warrantyNo,
-        'car',
-      );
+      if (fileUploadCar.value.name != '') {
+        await FileService().create(
+          fileUploadCar.value.name,
+          sizeCar,
+          bytesCar,
+          response.data!.warrantyNo,
+          'car',
+        );
+      }
+
       //upload image receive
       final bytesReceive = await fileUploadReceive.value.readAsBytes();
       final sizeReceive = await fileUploadReceive.value.length();
-      await FileService().create(
-        fileUploadReceive.value.name,
-        sizeReceive,
-        bytesReceive,
-        response.data!.warrantyNo,
-        'receive',
-      );
+      if (fileUploadReceive.value.name != '') {
+        await FileService().create(
+          fileUploadReceive.value.name,
+          sizeReceive,
+          bytesReceive,
+          response.data!.warrantyNo,
+          'receive',
+        );
+      }
+      warrantyId.value = response.data!.id!;
       warrantyNo.value = response.data!.warrantyNo!;
       warrantyDate.value = response.data!.warrantyDate!;
       result = true;

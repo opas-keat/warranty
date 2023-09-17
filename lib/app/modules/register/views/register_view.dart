@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../data/models/warranty_product_model.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_flat_button.dart';
 import '../../../shared/custom_text.dart';
@@ -85,38 +86,40 @@ class RegisterView extends StatelessWidget {
                             Get.back();
                             if (result) {
                               controller.isSavedData.value = true;
-                              Get.dialog(
-                                SizedBox(
-                                  height: 300,
-                                  child: AlertDialog(
-                                    // title: const Text('เพิ่มร้านค้า'),
-                                    content: const CustomText(
-                                      text:
-                                          "กรุณา capture หน้าจอเก็บไว้ หลังจากกด ปิด",
-                                    ),
-                                    actions: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          TextButton(
-                                            child: const CustomText(
-                                              text: "ปิด",
-                                              color: Colors.blue,
-                                              weight: FontWeight.bold,
-                                              scale: 1.2,
-                                            ),
-                                            onPressed: () {
-                                              Get.back();
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                barrierDismissible: false,
-                              );
+                              Get.offAllNamed(
+                                  '${Routes.REGISTER_RESULT}/${controller.warrantyId}');
+                              // Get.dialog(
+                              //   SizedBox(
+                              //     height: 300,
+                              //     child: AlertDialog(
+                              //       // title: const Text('เพิ่มร้านค้า'),
+                              //       content: const CustomText(
+                              //         text:
+                              //             "กรุณา capture หน้าจอเก็บไว้ หลังจากกด ปิด",
+                              //       ),
+                              //       actions: [
+                              //         Row(
+                              //           mainAxisAlignment:
+                              //               MainAxisAlignment.spaceBetween,
+                              //           children: [
+                              //             TextButton(
+                              //               child: const CustomText(
+                              //                 text: "ปิด",
+                              //                 color: Colors.blue,
+                              //                 weight: FontWeight.bold,
+                              //                 scale: 1.2,
+                              //               ),
+                              //               onPressed: () {
+                              //                 Get.back();
+                              //               },
+                              //             ),
+                              //           ],
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              //   barrierDismissible: false,
+                              // );
                             }
                           },
                         ),
@@ -460,7 +463,7 @@ class CustomerDetail extends StatelessWidget {
                   // controller.productBrand.addAll(controller.wheelBrand);
                   controller.productList.add(
                     WarrantyProductModel(
-                      amount: 0,
+                      amount: 4,
                       brand: 'COSMIS',
                       type: 'wheels',
                     ),
@@ -662,6 +665,9 @@ class ProductList extends StatelessWidget {
                 FilteringTextInputFormatter.digitsOnly,
                 LengthLimitingTextInputFormatter(3),
               ],
+              onChanged: (value) {
+                controller.productList[index].amount = int.tryParse(value);
+              },
               style: const TextStyle(fontSize: 16),
               decoration: InputDecoration(
                 fillColor: Colors.white.withOpacity(.8),
