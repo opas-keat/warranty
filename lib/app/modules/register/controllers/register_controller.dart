@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../api/api_params.dart';
 import '../../../api/services/dealer_service.dart';
 import '../../../api/services/file_service.dart';
 import '../../../api/services/warranty_service.dart';
@@ -100,9 +99,9 @@ class RegisterController extends GetxController {
   getDealer(String dealerId) async {
     talker.info('$logTitle:getDealer:$dealerId');
     Map<String, String> qParams = {
-      "offset": offset.value.toString(),
-      "limit": queryParamLimit,
-      "order": queryParamOrderBy,
+      "offset": "0",
+      "limit": "10",
+      "order": "",
       "dealer_id": dealerId,
     };
     final response = await DealerService().list(qParams);

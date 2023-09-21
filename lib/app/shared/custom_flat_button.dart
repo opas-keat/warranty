@@ -70,6 +70,7 @@ class CustomFlatButton extends StatelessWidget {
         child: CustomText(
           text: label,
           color: Colors.white,
+          scale: 1.0,
         ),
         // child: Text(
         //   label,

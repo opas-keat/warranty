@@ -19,10 +19,11 @@ class RegisterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Column(
           children: [
             SizedBox(
-              width: 120,
+              width: 140,
               child: Image.network(
                 "assets/images/logo_0.png",
                 fit: BoxFit.contain,
@@ -31,8 +32,8 @@ class RegisterView extends StatelessWidget {
             const SizedBox(height: defaultPadding / 2),
             const CustomText(
               text: "ลงทะเบียนรับประกัน",
-              color: Colors.white,
-              scale: 0.6,
+              color: Colors.black,
+              scale: 0.8,
             ),
           ],
         ),
@@ -107,7 +108,7 @@ class RegisterView extends StatelessWidget {
                               //                 text: "ปิด",
                               //                 color: Colors.blue,
                               //                 weight: FontWeight.bold,
-                              //                 scale: 1.2,
+                              //                 scale: 0.8,
                               //               ),
                               //               onPressed: () {
                               //                 Get.back();
@@ -163,15 +164,14 @@ class CustomerDetail extends StatelessWidget {
                           CustomText(
                             text: "ชื่อ-นามสกุล",
                             color: Colors.black87.withOpacity(.9),
+                            scale: 0.8,
                           ),
                           CustomText(
                             text: "*",
                             color: Colors.red.withOpacity(.9),
+                            scale: 0.8,
                           ),
                         ],
-                      ),
-                      labelStyle: const TextStyle(
-                        fontSize: 10,
                       ),
                     ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -204,15 +204,14 @@ class CustomerDetail extends StatelessWidget {
                           CustomText(
                             text: "โทรศัพท์",
                             color: Colors.black87.withOpacity(.9),
+                            scale: 0.8,
                           ),
                           CustomText(
                             text: "*",
                             color: Colors.red.withOpacity(.9),
+                            scale: 0.8,
                           ),
                         ],
-                      ),
-                      labelStyle: const TextStyle(
-                        fontSize: 10,
                       ),
                     ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -238,15 +237,14 @@ class CustomerDetail extends StatelessWidget {
                           CustomText(
                             text: "ทะเบียนรถ",
                             color: Colors.black87.withOpacity(.9),
+                            scale: 0.8,
                           ),
                           CustomText(
                             text: "*",
                             color: Colors.red.withOpacity(.9),
+                            scale: 0.8,
                           ),
                         ],
-                      ),
-                      labelStyle: const TextStyle(
-                        fontSize: 10,
                       ),
                     ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -283,15 +281,14 @@ class CustomerDetail extends StatelessWidget {
                           CustomText(
                             text: "Email",
                             color: Colors.black87.withOpacity(.9),
+                            scale: 0.8,
                           ),
                           CustomText(
                             text: "*",
                             color: Colors.red.withOpacity(.9),
+                            scale: 0.8,
                           ),
                         ],
-                      ),
-                      labelStyle: const TextStyle(
-                        fontSize: 10,
                       ),
                     ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -321,15 +318,14 @@ class CustomerDetail extends StatelessWidget {
                           CustomText(
                             text: "เลขไมล์",
                             color: Colors.black87.withOpacity(.9),
+                            scale: 0.8,
                           ),
                           CustomText(
                             text: "*",
                             color: Colors.red.withOpacity(.9),
+                            scale: 0.8,
                           ),
                         ],
-                      ),
-                      labelStyle: const TextStyle(
-                        fontSize: 10,
                       ),
                     ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -354,11 +350,11 @@ class CustomerDetail extends StatelessWidget {
                       CustomText(
                         text: "รูปรถ",
                         color: Colors.black87.withOpacity(.9),
-                        scale: 0.9,
+                        scale: 1.0,
                       ),
                       CustomText(
                         text: "*",
-                        scale: 0.9,
+                        scale: 0.8,
                         color: Colors.red.withOpacity(.9),
                       ),
                     ],
@@ -406,11 +402,11 @@ class CustomerDetail extends StatelessWidget {
                       CustomText(
                         text: "รูปใบเสร็จ",
                         color: Colors.black87.withOpacity(.9),
-                        scale: 0.9,
+                        scale: 1.0,
                       ),
                       CustomText(
                         text: "*",
-                        scale: 0.9,
+                        scale: 0.8,
                         color: Colors.red.withOpacity(.9),
                       ),
                     ],
@@ -513,45 +509,45 @@ class WarrantyDetail extends StatelessWidget {
                 children: [
                   const CustomText(
                     text: 'ตัวแทนจำหน่าย : ',
-                    scale: 0.8,
+                    scale: 1.0,
                   ),
                   Expanded(
                     child: CustomText(
                       text:
                           '${controller.dealerData.value.dealerCode!} ${controller.dealerData.value.dealerName}',
-                      scale: 0.8,
+                      scale: 1.0,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: defaultPadding / 2),
-              Row(
-                children: [
-                  const CustomText(
-                    text: 'ที่อยู่ : ',
-                    scale: 0.8,
-                  ),
-                  Expanded(
-                    child: CustomText(
-                      text: controller.dealerData.value.dealerAddress!,
-                      scale: 0.8,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: defaultPadding / 2),
-              Row(
-                children: [
-                  const CustomText(
-                    text: 'โทรศัพท์ : ',
-                    scale: 0.8,
-                  ),
-                  CustomText(
-                    text: controller.dealerData.value.dealerPhone!,
-                    scale: 0.8,
-                  ),
-                ],
-              ),
+              // const SizedBox(height: defaultPadding / 2),
+              // Row(
+              //   children: [
+              //     const CustomText(
+              //       text: 'ที่อยู่ : ',
+              //       scale: 0.8,
+              //     ),
+              //     Expanded(
+              //       child: CustomText(
+              //         text: controller.dealerData.value.dealerAddress!,
+              //         scale: 0.8,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(height: defaultPadding / 2),
+              // Row(
+              //   children: [
+              //     const CustomText(
+              //       text: 'โทรศัพท์ : ',
+              //       scale: 0.8,
+              //     ),
+              //     CustomText(
+              //       text: controller.dealerData.value.dealerPhone!,
+              //       scale: 0.8,
+              //     ),
+              //   ],
+              // ),
             ],
           )),
     );
@@ -595,7 +591,7 @@ class ProductList extends StatelessWidget {
                   child: CustomText(
                     text: item,
                     color: Colors.black87.withOpacity(.9),
-                    scale: 0.8,
+                    scale: 1.0,
                   ),
                 );
               }).toList(),
@@ -624,7 +620,7 @@ class ProductList extends StatelessWidget {
                           child: CustomText(
                             text: item,
                             color: Colors.black87.withOpacity(.9),
-                            scale: 0.8,
+                            scale: 1.0,
                           ),
                         );
                       }).toList(),
@@ -647,7 +643,7 @@ class ProductList extends StatelessWidget {
                           child: CustomText(
                             text: item,
                             color: Colors.black87.withOpacity(.9),
-                            scale: 0.8,
+                            scale: 1.0,
                           ),
                         );
                       }).toList(),

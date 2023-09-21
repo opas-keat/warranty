@@ -18,7 +18,7 @@ class RegisterResultView extends StatelessWidget {
         title: Column(
           children: [
             SizedBox(
-              width: 120,
+              width: 140,
               child: Image.network(
                 "assets/images/logo_0.png",
                 fit: BoxFit.contain,
@@ -38,7 +38,7 @@ class RegisterResultView extends StatelessWidget {
             const CustomText(
               text: "ลงทะเบียนรับประกัน",
               color: Colors.black,
-              scale: 0.9,
+              scale: 1.0,
             ),
             const SizedBox(height: defaultPadding / 4),
             const Divider(height: 1, color: Colors.black87),
@@ -51,12 +51,13 @@ class RegisterResultView extends StatelessWidget {
                 children: [
                   CustomText(
                     text: 'สินค้า',
-                    scale: 0.9,
+                    scale: 1.0,
                   ),
                 ],
               ),
             ),
             Expanded(
+              flex: 1,
               child: SingleChildScrollView(
                 child: Obx(
                   () => Column(
@@ -91,7 +92,7 @@ class RegisterResultView extends StatelessWidget {
             const SizedBox(height: defaultPadding / 4),
             const Divider(height: 1, color: Colors.black87),
             const SizedBox(height: defaultPadding / 4),
-            const CompanyInfo(),
+            const Expanded(child: CompanyInfo()),
           ],
         ),
       ),
@@ -113,7 +114,7 @@ Widget productDetailTire(
               child: CustomText(
                 text:
                     'ประเภท ยางรถยนต์ แบรนด์ ${product.productBrand} จำนวน ${product.productAmount} เส้น',
-                scale: 0.9,
+                scale: 1.0,
               ),
             ),
           ],
@@ -125,13 +126,13 @@ Widget productDetailTire(
               const Expanded(
                 child: CustomText(
                   text: '- รับประกันสภาพยาง 2 ปี',
-                  scale: 0.9,
+                  scale: 1.0,
                 ),
               ),
               Expanded(
                 child: CustomText(
                   text: 'การรับประกันหมดอายุ ${product.productTireExpire}',
-                  scale: 0.9,
+                  scale: 1.0,
                 ),
               ),
             ],
@@ -144,13 +145,13 @@ Widget productDetailTire(
               const Expanded(
                 child: CustomText(
                   text: '- รับประกันระยะ 50,000 กม.',
-                  scale: 0.9,
+                  scale: 1.0,
                 ),
               ),
               Expanded(
                 child: CustomText(
                   text: 'การรับประกันหมดอายุ ${product.productMileExpire} กม.',
-                  scale: 0.9,
+                  scale: 1.0,
                 ),
               ),
             ],
@@ -158,29 +159,32 @@ Widget productDetailTire(
         ),
         const CustomText(
           text: '**การรับประกันจะหมด หากอย่างใดอย่างหนึ่งถึงก่อน**',
-          scale: 0.9,
+          scale: 1.0,
           color: Colors.red,
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: defaultPadding / 2),
-          child: Row(
-            children: [
-              const Expanded(
-                child: CustomText(
-                  maxLine: 2,
-                  text: '- รับประกันตามแคมเปญ บาด บวม แตก ตำ 60 วัน',
-                  scale: 0.9,
+        product.productBrand == 'COSMIS'
+            ? Padding(
+                padding: const EdgeInsets.only(left: defaultPadding / 2),
+                child: Row(
+                  children: [
+                    const Expanded(
+                      child: CustomText(
+                        maxLine: 2,
+                        text: '- รับประกันตามแคมเปญ บาด บวม แตก ตำ 60 วัน',
+                        scale: 1.0,
+                      ),
+                    ),
+                    Expanded(
+                      child: CustomText(
+                        text:
+                            'การรับประกันหมดอายุ ${product.productPromotionExpire}',
+                        scale: 1.0,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Expanded(
-                child: CustomText(
-                  text: 'การรับประกันหมดอายุ ${product.productPromotionExpire}',
-                  scale: 0.9,
-                ),
-              ),
-            ],
-          ),
-        ),
+              )
+            : Container(),
       ],
     ),
   );
@@ -200,7 +204,7 @@ Widget productDetailWheel(
               child: CustomText(
                 text:
                     'ประเภท ล้อแม็ก แบรนด์ ${product.productBrand} จำนวน ${product.productAmount} วง',
-                scale: 0.9,
+                scale: 1.0,
               ),
             ),
           ],
@@ -212,13 +216,13 @@ Widget productDetailWheel(
               const Expanded(
                 child: CustomText(
                   text: '- รับประกันโครงสร้าง 6 ปี',
-                  scale: 0.9,
+                  scale: 1.0,
                 ),
               ),
               Expanded(
                 child: CustomText(
                   text: 'การรับประกันหมดอายุ ${product.productStructureExpire}',
-                  scale: 0.9,
+                  scale: 1.0,
                 ),
               ),
             ],
@@ -231,13 +235,13 @@ Widget productDetailWheel(
               const Expanded(
                 child: CustomText(
                   text: '- รับประกันสี 6 เดือน',
-                  scale: 0.9,
+                  scale: 1.0,
                 ),
               ),
               Expanded(
                 child: CustomText(
                   text: 'การรับประกันหมดอายุ ${product.productColorExpire}',
-                  scale: 0.9,
+                  scale: 1.0,
                 ),
               ),
             ],
@@ -269,19 +273,19 @@ class CompanyInfo extends StatelessWidget {
                   children: [
                     CustomText(
                       text: 'ข้อมูลติดต่อบริษัท',
-                      scale: 0.9,
+                      scale: 1.0,
                     ),
                     CustomText(
                       maxLine: 2,
                       text:
                           '74/14 หมู่ 6 ตำบลบางจาก อำเภอพระประแดง จังหวัดสมุทรปราการ รหัสไปรษณีย์ 10130',
-                      scale: 0.8,
+                      scale: 1.0,
                     ),
                     CustomText(
                       maxLine: 2,
                       text:
                           'อีเมล info@ppsuperwheels.com, โทร 024086794-6, LineID @ppsuperwheels',
-                      scale: 0.8,
+                      scale: 1.0,
                     ),
                   ],
                 ),
@@ -302,7 +306,7 @@ class CompanyInfo extends StatelessWidget {
             maxLine: 2,
             text:
                 'กรุณาบันทึกเอกสารการรับประกันนี้เก็บไว้เพื่อเป็นหลักฐานในการส่งรับประกันสินค้า',
-            scale: 0.8,
+            scale: 1.0,
             color: Colors.red,
           ),
           const SizedBox(height: defaultPadding / 4),
@@ -330,20 +334,20 @@ class RegisterDetail extends StatelessWidget {
               children: [
                 const CustomText(
                   text: 'เลขที่ใบรับประกัน',
-                  scale: 0.9,
+                  scale: 1.0,
                   weight: FontWeight.bold,
                 ),
                 const SizedBox(width: defaultPadding / 4),
                 Expanded(
                   child: CustomText(
                     text: controller.warrantyData.value.warrantyNo,
-                    scale: 0.9,
+                    scale: 1.0,
                   ),
                 ),
                 const SizedBox(width: 1),
                 CustomText(
                   text: controller.warrantyData.value.warrantyDate,
-                  scale: 0.9,
+                  scale: 1.0,
                 ),
               ],
             ),
@@ -353,7 +357,7 @@ class RegisterDetail extends StatelessWidget {
               children: [
                 const CustomText(
                   text: 'ตัวแทนจำหน่าย ',
-                  scale: 0.9,
+                  scale: 1.0,
                   weight: FontWeight.bold,
                 ),
                 const SizedBox(width: defaultPadding / 4),
@@ -361,54 +365,89 @@ class RegisterDetail extends StatelessWidget {
                   child: CustomText(
                     maxLine: 3,
                     text: controller.warrantyData.value.dealerName,
-                    scale: 0.9,
+                    scale: 1.0,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: defaultPadding / 2),
+            const SizedBox(height: defaultPadding + 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const CustomText(
                   text: 'ชื่อ - นามสกุล ',
-                  scale: 0.9,
+                  scale: 1.0,
                   weight: FontWeight.bold,
                 ),
                 const SizedBox(width: defaultPadding / 4),
                 Expanded(
                   child: CustomText(
                     text: controller.warrantyData.value.customerName,
-                    scale: 0.9,
+                    scale: 1.0,
                   ),
                 ),
               ],
             ),
+            // const SizedBox(height: defaultPadding / 2),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     const CustomText(
+            //       text: 'เบอร์โทร ',
+            //       scale: 1.0,
+            //       weight: FontWeight.bold,
+            //     ),
+            //     const SizedBox(width: defaultPadding / 4),
+            //     Expanded(
+            //       child: CustomText(
+            //         text: controller.warrantyData.value.customerPhone,
+            //         scale: 1.0,
+            //       ),
+            //     ),
+            //     const CustomText(
+            //       text: 'Email ',
+            //       scale: 1.0,
+            //       weight: FontWeight.bold,
+            //     ),
+            //     const SizedBox(width: defaultPadding / 4),
+            //     CustomText(
+            //       text: controller.warrantyData.value.customerEmail,
+            //       scale: 1.0,
+            //     ),
+            //   ],
+            // ),
             const SizedBox(height: defaultPadding / 2),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const CustomText(
-                  text: 'เบอร์โทร ',
-                  scale: 0.9,
-                  weight: FontWeight.bold,
-                ),
-                const SizedBox(width: defaultPadding / 4),
                 Expanded(
-                  child: CustomText(
-                    text: controller.warrantyData.value.customerPhone,
-                    scale: 0.9,
+                  child: Row(
+                    children: [
+                      const CustomText(
+                        text: 'เบอร์โทร ',
+                        scale: 1.0,
+                        weight: FontWeight.bold,
+                      ),
+                      CustomText(
+                        text: controller.warrantyData.value.customerPhone,
+                        scale: 0.9,
+                      ),
+                    ],
                   ),
                 ),
-                const CustomText(
-                  text: 'Email ',
-                  scale: 0.9,
-                  weight: FontWeight.bold,
-                ),
-                const SizedBox(width: defaultPadding / 4),
-                CustomText(
-                  text: controller.warrantyData.value.customerEmail,
-                  scale: 0.9,
+                Expanded(
+                  child: Row(
+                    children: [
+                      const CustomText(
+                        text: 'Email ',
+                        scale: 1.0,
+                        weight: FontWeight.bold,
+                      ),
+                      CustomText(
+                        text: controller.warrantyData.value.customerEmail,
+                        scale: 0.9,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -420,7 +459,7 @@ class RegisterDetail extends StatelessWidget {
                     children: [
                       const CustomText(
                         text: 'ทะเบียนรถ ',
-                        scale: 0.9,
+                        scale: 1.0,
                         weight: FontWeight.bold,
                       ),
                       CustomText(
@@ -436,7 +475,7 @@ class RegisterDetail extends StatelessWidget {
                     children: [
                       const CustomText(
                         text: 'เลขไมล์ ',
-                        scale: 0.9,
+                        scale: 1.0,
                         weight: FontWeight.bold,
                       ),
                       CustomText(
