@@ -124,7 +124,24 @@ class WarrantyList extends StatelessWidget {
                                     children: [
                                       CustomText(
                                         text:
-                                            "เลขที่ใบเสร็จ : ${controller.warrantyList[index].receiveNo}",
+                                            "เลขที่ใบรับประกัน : ${controller.warrantyList[index].receiveNo}",
+                                        scale: 1.8,
+                                      ),
+                                      const SizedBox(width: defaultPadding),
+                                      const CustomText(
+                                        text: "รูปรถ ",
+                                        scale: 1.8,
+                                      ),
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.image_sharp,
+                                        ),
+                                        color: primaryColor,
+                                      ),
+                                      const SizedBox(width: defaultPadding),
+                                      const CustomText(
+                                        text: "รูปใบเสร็จ ",
                                         scale: 1.8,
                                       ),
                                       IconButton(

@@ -9,7 +9,7 @@ class DealerAddWidget extends StatelessWidget {
   DealerAddWidget({
     Key? key,
   }) : super(key: key);
-  final DealerController controller = Get.find<DealerController>();
+  final DealerController controller = Get.put(DealerController());
 
   final dealerCode = TextEditingController();
   @override
@@ -41,78 +41,78 @@ class DealerAddWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: defaultPadding / 2),
-            Row(
-              children: [
-                Checkbox(
-                  value: controller.checkedBKKRegion.value,
-                  onChanged: (newValue) {
-                    controller.checkedBKKRegion.value = newValue!;
-                  },
-                ),
-                const CustomText(
-                  text: 'กรุงเทพและปริมณฑล',
-                ),
-                Checkbox(
-                  value: controller.checkedCentralRegion.value,
-                  onChanged: (newValue) {
-                    controller.checkedCentralRegion.value = newValue!;
-                  },
-                ),
-                const CustomText(
-                  text: 'ภาคกลาง',
-                ),
-                Checkbox(
-                  value: controller.checkedEastRegion.value,
-                  onChanged: (newValue) {
-                    controller.checkedEastRegion.value = newValue!;
-                  },
-                ),
-                const CustomText(
-                  text: 'ภาคตะวันออก',
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Checkbox(
-                  value: controller.checkedNorthEastRegion.value,
-                  onChanged: (newValue) {
-                    controller.checkedNorthEastRegion.value = newValue!;
-                  },
-                ),
-                const CustomText(
-                  text: 'ภาคอีสาน',
-                ),
-                Checkbox(
-                  value: controller.checkedNorthRegion.value,
-                  onChanged: (newValue) {
-                    controller.checkedNorthRegion.value = newValue!;
-                  },
-                ),
-                const CustomText(
-                  text: 'ภาคเหนือ',
-                ),
-                Checkbox(
-                  value: controller.checkedSouthernRegion.value,
-                  onChanged: (newValue) {
-                    controller.checkedSouthernRegion.value = newValue!;
-                  },
-                ),
-                const CustomText(
-                  text: 'ภาคใต้',
-                ),
-                Checkbox(
-                  value: controller.checkedWestRegion.value,
-                  onChanged: (newValue) {
-                    controller.checkedWestRegion.value = newValue!;
-                  },
-                ),
-                const CustomText(
-                  text: 'ภาคตะวันตก',
-                ),
-              ],
-            ),
-            const SizedBox(height: defaultPadding),
+            // Row(
+            //   children: [
+            //     Checkbox(
+            //       value: controller.checkedBKKRegion.value,
+            //       onChanged: (newValue) {
+            //         controller.checkedBKKRegion.value = newValue!;
+            //       },
+            //     ),
+            //     const CustomText(
+            //       text: 'กรุงเทพและปริมณฑล',
+            //     ),
+            //     Checkbox(
+            //       value: controller.checkedCentralRegion.value,
+            //       onChanged: (newValue) {
+            //         controller.checkedCentralRegion.value = newValue!;
+            //       },
+            //     ),
+            //     const CustomText(
+            //       text: 'ภาคกลาง',
+            //     ),
+            //     Checkbox(
+            //       value: controller.checkedEastRegion.value,
+            //       onChanged: (newValue) {
+            //         controller.checkedEastRegion.value = newValue!;
+            //       },
+            //     ),
+            //     const CustomText(
+            //       text: 'ภาคตะวันออก',
+            //     ),
+            //   ],
+            // ),
+            // Row(
+            //   children: [
+            //     Checkbox(
+            //       value: controller.checkedNorthEastRegion.value,
+            //       onChanged: (newValue) {
+            //         controller.checkedNorthEastRegion.value = newValue!;
+            //       },
+            //     ),
+            //     const CustomText(
+            //       text: 'ภาคอีสาน',
+            //     ),
+            //     Checkbox(
+            //       value: controller.checkedNorthRegion.value,
+            //       onChanged: (newValue) {
+            //         controller.checkedNorthRegion.value = newValue!;
+            //       },
+            //     ),
+            //     const CustomText(
+            //       text: 'ภาคเหนือ',
+            //     ),
+            //     Checkbox(
+            //       value: controller.checkedSouthernRegion.value,
+            //       onChanged: (newValue) {
+            //         controller.checkedSouthernRegion.value = newValue!;
+            //       },
+            //     ),
+            //     const CustomText(
+            //       text: 'ภาคใต้',
+            //     ),
+            //     Checkbox(
+            //       value: controller.checkedWestRegion.value,
+            //       onChanged: (newValue) {
+            //         controller.checkedWestRegion.value = newValue!;
+            //       },
+            //     ),
+            //     const CustomText(
+            //       text: 'ภาคตะวันตก',
+            //     ),
+            //   ],
+            // ),
+            // const SizedBox(height: defaultPadding),
             // const CustomText(
             //   text: 'รายชื่อร้านค้า',
             // ),

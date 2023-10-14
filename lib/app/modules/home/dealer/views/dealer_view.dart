@@ -41,7 +41,7 @@ class DealerView extends StatelessWidget {
           smallScreen: Container(
             padding: const EdgeInsets.all(defaultPadding / 2),
             // color: Colors.amber,
-            child: const SingleChildScrollView(
+            child: SingleChildScrollView(
               primary: true,
               child: DealerList(),
             ),
@@ -49,7 +49,7 @@ class DealerView extends StatelessWidget {
           mediumScreen: Container(
             padding: const EdgeInsets.all(defaultPadding),
             // color: Colors.amber,
-            child: const SingleChildScrollView(
+            child: SingleChildScrollView(
               primary: true,
               child: DealerList(),
             ),
@@ -66,16 +66,16 @@ class DealerView extends StatelessWidget {
                 child: LayoutBuilder(
                   builder: (context, constraints) => Container(
                     color: Colors.white,
-                    child: const Align(
+                    child: Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
                         padding:
-                            EdgeInsets.only(left: defaultPadding / 2),
+                            const EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [
-                            Header(moduleName: "ร้านค้า"),
-                            SizedBox(height: defaultPadding / 2),
+                            const Header(moduleName: "ร้านค้า"),
+                            const SizedBox(height: defaultPadding / 2),
                             DealerList(),
                           ],
                         ),

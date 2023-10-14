@@ -137,40 +137,45 @@ class RegisterController extends GetxController {
       warranty.customerMile = customerMile.text;
       warranty.products = products;
 
-      final response = await WarrantyService().create(warranty);
-      talker.debug('response message : ${response?.message}');
-      talker.debug('response message : ${response!.data!.warrantyNo}');
-      talker.debug('response message : ${response.data!.warrantyDate}');
+      if (fileUploadCar.value.name != '' &&
+          fileUploadReceive.value.name != '') {
+        final response = await WarrantyService().create(warranty);
+        talker.debug('response message : ${response?.message}');
+        talker.debug('response message : ${response!.data!.warrantyNo}');
+        talker.debug('response message : ${response.data!.warrantyDate}');
 
-      //upload image car
-      final bytesCar = await fileUploadCar.value.readAsBytes();
-      final sizeCar = await fileUploadCar.value.length();
-      if (fileUploadCar.value.name != '') {
-        await FileService().create(
-          fileUploadCar.value.name,
-          sizeCar,
-          bytesCar,
-          response.data!.warrantyNo,
-          'car',
-        );
-      }
+        //upload image car
+        final bytesCar = await fileUploadCar.value.readAsBytes();
+        final sizeCar = await fileUploadCar.value.length();
+        if (fileUploadCar.value.name != '') {
+          await FileService().create(
+            fileUploadCar.value.name,
+            sizeCar,
+            bytesCar,
+            response.data!.warrantyNo,
+            'car',
+          );
+        }
 
-      //upload image receive
-      final bytesReceive = await fileUploadReceive.value.readAsBytes();
-      final sizeReceive = await fileUploadReceive.value.length();
-      if (fileUploadReceive.value.name != '') {
-        await FileService().create(
-          fileUploadReceive.value.name,
-          sizeReceive,
-          bytesReceive,
-          response.data!.warrantyNo,
-          'receive',
-        );
+        //upload image receive
+        final bytesReceive = await fileUploadReceive.value.readAsBytes();
+        final sizeReceive = await fileUploadReceive.value.length();
+        if (fileUploadReceive.value.name != '') {
+          await FileService().create(
+            fileUploadReceive.value.name,
+            sizeReceive,
+            bytesReceive,
+            response.data!.warrantyNo,
+            'receive',
+          );
+        }
+        warrantyId.value = response.data!.id!;
+        warrantyNo.value = response.data!.warrantyNo!;
+        warrantyDate.value = response.data!.warrantyDate!;
+        result = true;
+      } else {
+        result = false;
       }
-      warrantyId.value = response.data!.id!;
-      warrantyNo.value = response.data!.warrantyNo!;
-      warrantyDate.value = response.data!.warrantyDate!;
-      result = true;
     } catch (e) {
       talker.error('$e');
       result = false;

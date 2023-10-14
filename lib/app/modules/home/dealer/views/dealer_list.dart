@@ -12,13 +12,10 @@ import 'dealer_add.dart';
 // import 'dealer_add.dart';
 
 class DealerList extends StatelessWidget {
-  const DealerList({super.key});
-
-  // final DealerController controller = Get.put(DealerController());
-
+  DealerList({super.key});
+  final DealerController controller = Get.put(DealerController());
   @override
   Widget build(BuildContext context) {
-    final DealerController controller = Get.put(DealerController());
     return Column(
       children: [
         Row(

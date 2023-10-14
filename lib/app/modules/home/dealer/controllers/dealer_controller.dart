@@ -59,6 +59,7 @@ class DealerController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    talker.info('$logTitle:onInit:');
     isLoading.value = false;
     // list();
   }

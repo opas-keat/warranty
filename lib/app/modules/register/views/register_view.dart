@@ -121,6 +121,13 @@ class RegisterView extends StatelessWidget {
                               //   ),
                               //   barrierDismissible: false,
                               // );
+                            }else{
+                              Get.dialog(
+                              const Center(
+                                child: CustomText(text: "กรุณาเพิ่มข้อมูลรูปรถและใบเสร็จรับเงิน"),
+                              ),
+                              barrierDismissible: true,
+                            );
                             }
                           },
                         ),
