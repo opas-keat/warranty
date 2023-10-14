@@ -44,18 +44,18 @@ class RegisterResultView extends StatelessWidget {
             const Divider(height: 1, color: Colors.black87),
             const RegisterDetail(),
             const Divider(height: 1, color: Colors.black87),
-            const SizedBox(height: defaultPadding / 2),
-            const Padding(
-              padding: EdgeInsets.only(left: defaultPadding / 2),
-              child: Row(
-                children: [
-                  CustomText(
-                    text: 'สินค้า',
-                    scale: 1.0,
-                  ),
-                ],
-              ),
-            ),
+            // const SizedBox(height: defaultPadding / 2),
+            // const Padding(
+            //   padding: EdgeInsets.only(left: defaultPadding / 2),
+            //   child: Row(
+            //     children: [
+            //       CustomText(
+            //         text: 'สินค้า',
+            //         scale: 1.0,
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Expanded(
               flex: 1,
               child: SingleChildScrollView(
@@ -89,10 +89,36 @@ class RegisterResultView extends StatelessWidget {
                 // ),
               ),
             ),
+            // Expanded(
+            //   flex: 1,
+            //   child: Obx(
+            //     () => Column(
+            //       children: List.generate(
+            //           controller.warrantyData.value.products!.length,
+            //           (index) {
+            //         if (controller.warrantyData.value.products![index]
+            //                 .productType ==
+            //             'tire' && controller.warrantyData.value.products![index]
+            //                 .productBrand != 'COSMIS') {
+            //           return productDetailWheel(
+            //             controller.warrantyData.value.products![index],
+            //           );
+            //         } else {
+            //           return productDetailTire(
+            //             controller.warrantyData.value.products![index],
+            //           );
+            //         }
+            //       }),
+            //     ),
+            //   ),
+            // ),
             const SizedBox(height: defaultPadding / 4),
             const Divider(height: 1, color: Colors.black87),
             const SizedBox(height: defaultPadding / 4),
-            const Expanded(child: CompanyInfo()),
+            const SizedBox(
+              height: 250,
+              child: CompanyInfo(),
+            ),
           ],
         ),
       ),
@@ -105,79 +131,140 @@ Widget productDetailTire(
 ) {
   return Padding(
     padding:
-        const EdgeInsets.only(left: defaultPadding / 2, top: defaultPadding),
+        const EdgeInsets.only(left: defaultPadding / 4, top: defaultPadding),
     child: Column(
       children: [
-        Row(
+        const Row(
           children: [
             Expanded(
+              flex: 1,
               child: CustomText(
-                text:
-                    'ประเภท ยางรถยนต์ แบรนด์ ${product.productBrand} จำนวน ${product.productAmount} เส้น',
+                text: 'ประกันสินค้า',
+                scale: 1.0,
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: CustomText(
+                text: 'ประเภท ยางรถยนต์',
                 scale: 1.0,
               ),
             ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: defaultPadding / 2),
-          child: Row(
-            children: [
-              const Expanded(
-                child: CustomText(
-                  text: '- รับประกันสภาพยาง 2 ปี',
-                  scale: 1.0,
-                ),
+        Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: CustomText(
+                text: 'แบรนด์ ${product.productBrand}',
+                scale: 1.0,
               ),
-              Expanded(
-                child: CustomText(
-                  text: 'การรับประกันหมดอายุ ${product.productTireExpire}',
-                  scale: 1.0,
-                ),
+            ),
+            Expanded(
+              flex: 1,
+              child: CustomText(
+                text: 'จำนวน ${product.productAmount} เส้น',
+                scale: 1.0,
               ),
-            ],
-          ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(right: defaultPadding / 4),
+              child: CustomText(
+                text: 'การรับประกันหมดอายุ',
+                scale: 1.0,
+              ),
+            ),
+          ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: defaultPadding / 2),
-          child: Row(
-            children: [
-              const Expanded(
+        Row(
+          children: [
+            const Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '- รับประกันคุณภาพตามกระบวนการผลิต',
+                scale: 1.0,
+                maxLine: 2,
+              ),
+            ),
+            const Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '2 ปี',
+                scale: 1.0,
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: defaultPadding / 4),
                 child: CustomText(
-                  text: '- รับประกันระยะ 50,000 กม.',
+                  text: '${product.productTireExpire}',
                   scale: 1.0,
                 ),
               ),
-              Expanded(
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            const Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '- รับประกันระยะ',
+                scale: 1.0,
+              ),
+            ),
+            const Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '50,000 กม.',
+                scale: 1.0,
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: defaultPadding / 4),
                 child: CustomText(
-                  text: 'การรับประกันหมดอายุ ${product.productMileExpire} กม.',
+                  text: '${product.productMileExpire} กม.',
                   scale: 1.0,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         const CustomText(
           text: '**การรับประกันจะหมด หากอย่างใดอย่างหนึ่งถึงก่อน**',
           scale: 1.0,
           color: Colors.red,
         ),
-        product.productBrand == 'COSMIS'
-            ? Padding(
-                padding: const EdgeInsets.only(left: defaultPadding / 2),
+        const SizedBox(height: defaultPadding),
+        product.productBrand != 'COSMIS'
+            ? const Padding(
+                padding: EdgeInsets.only(left: defaultPadding / 2),
                 child: Row(
                   children: [
-                    const Expanded(
+                    Expanded(
+                      flex: 1,
                       child: CustomText(
-                        maxLine: 2,
-                        text: '- รับประกันตามแคมเปญ บาด บวม แตก ตำ 60 วัน',
+                        text: 'แคมเปญ',
                         scale: 1.0,
                       ),
                     ),
                     Expanded(
+                      flex: 1,
                       child: CustomText(
-                        text:
-                            'การรับประกันหมดอายุ ${product.productPromotionExpire}',
+                        text: 'ประเภท ยางรถยนต์',
+                        scale: 1.0,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: defaultPadding / 4),
+                      child: CustomText(
+                        text: 'การรับประกันหมดอายุ',
                         scale: 1.0,
                       ),
                     ),
@@ -185,6 +272,119 @@ Widget productDetailTire(
                 ),
               )
             : Container(),
+        product.productBrand != 'COSMIS'
+            ? Padding(
+                padding: const EdgeInsets.only(left: defaultPadding / 2),
+                child: Row(
+                  children: [
+                    const Expanded(
+                      flex: 1,
+                      child: CustomText(
+                        text: '- รับประกัน บาด บวม แตก ตำ',
+                        scale: 1.0,
+                        maxLine: 2,
+                      ),
+                    ),
+                    const Expanded(
+                      flex: 1,
+                      child: CustomText(
+                        text: '60 วัน',
+                        scale: 1.0,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        padding:
+                            const EdgeInsets.only(right: defaultPadding / 4),
+                        child: CustomText(
+                          text: '${product.productPromotionExpire}',
+                          scale: 1.0,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : Container(),
+        //   Row(
+        //     children: [
+        //       Expanded(
+        //         child: CustomText(
+        //           text:
+        //               'ประเภท ยางรถยนต์ แบรนด์ ${product.productBrand} จำนวน ${product.productAmount} เส้น',
+        //           scale: 1.0,
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        //   Padding(
+        //     padding: const EdgeInsets.only(left: defaultPadding / 2),
+        //     child: Row(
+        //       children: [
+        //         const Expanded(
+        //           child: CustomText(
+        //             text: '- รับประกันสภาพยาง 2 ปี',
+        //             scale: 1.0,
+        //           ),
+        //         ),
+        //         Expanded(
+        //           child: CustomText(
+        //             text: 'การรับประกันหมดอายุ ${product.productTireExpire}',
+        //             scale: 1.0,
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        //   Padding(
+        //     padding: const EdgeInsets.only(left: defaultPadding / 2),
+        //     child: Row(
+        //       children: [
+        //         const Expanded(
+        //           child: CustomText(
+        //             text: '- รับประกันระยะ 50,000 กม.',
+        //             scale: 1.0,
+        //           ),
+        //         ),
+        //         Expanded(
+        //           child: CustomText(
+        //             text: 'การรับประกันหมดอายุ ${product.productMileExpire} กม.',
+        //             scale: 1.0,
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        //   const CustomText(
+        //     text: '**การรับประกันจะหมด หากอย่างใดอย่างหนึ่งถึงก่อน**',
+        //     scale: 1.0,
+        //     color: Colors.red,
+        //   ),
+        //   product.productBrand == 'COSMIS'
+        //       ? Padding(
+        //           padding: const EdgeInsets.only(left: defaultPadding / 2),
+        //           child: Row(
+        //             children: [
+        //               const Expanded(
+        //                 child: CustomText(
+        //                   maxLine: 2,
+        //                   text: '- รับประกันตามแคมเปญ บาด บวม แตก ตำ 60 วัน',
+        //                   scale: 1.0,
+        //                 ),
+        //               ),
+        //               Expanded(
+        //                 child: CustomText(
+        //                   text:
+        //                       'การรับประกันหมดอายุ ${product.productPromotionExpire}',
+        //                   scale: 1.0,
+        //                 ),
+        //               ),
+        //             ],
+        //           ),
+        //         )
+        //       : Container(),
       ],
     ),
   );
@@ -194,59 +394,172 @@ Widget productDetailWheel(
   Products product,
 ) {
   return Padding(
-    padding:
-        const EdgeInsets.only(left: defaultPadding / 2, top: defaultPadding),
+    padding: const EdgeInsets.only(
+      left: defaultPadding / 2,
+      top: defaultPadding,
+    ),
     child: Column(
       children: [
-        Row(
+        const Row(
           children: [
             Expanded(
+              flex: 1,
               child: CustomText(
-                text:
-                    'ประเภท ล้อแม็ก แบรนด์ ${product.productBrand} จำนวน ${product.productAmount} วง',
+                text: 'ประกันสินค้า',
+                scale: 1.0,
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: CustomText(
+                text: 'ประเภท ล้อแม็ก',
                 scale: 1.0,
               ),
             ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: defaultPadding / 2),
-          child: Row(
-            children: [
-              const Expanded(
-                child: CustomText(
-                  text: '- รับประกันโครงสร้าง 6 ปี',
-                  scale: 1.0,
-                ),
+        Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: CustomText(
+                text: 'แบรนด์ ${product.productBrand}',
+                scale: 1.0,
               ),
-              Expanded(
-                child: CustomText(
-                  text: 'การรับประกันหมดอายุ ${product.productStructureExpire}',
-                  scale: 1.0,
-                ),
+            ),
+            Expanded(
+              flex: 1,
+              child: CustomText(
+                text: 'จำนวน ${product.productAmount} วง',
+                scale: 1.0,
               ),
-            ],
-          ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(right: defaultPadding / 4),
+              child: CustomText(
+                text: 'การรับประกันหมดอายุ',
+                scale: 1.0,
+              ),
+            ),
+            // Expanded(
+            //   flex: 1,
+            //   child: Container(
+            //     padding: const EdgeInsets.only(right: defaultPadding / 4),
+            //     child: CustomText(
+            //       text: 'การรับประกันหมดอายุ',
+            //       scale: 1.0,
+            //     ),
+            //   ),
+            // ),
+          ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: defaultPadding / 2),
-          child: Row(
-            children: [
-              const Expanded(
+        Row(
+          children: [
+            const Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '- รับประกันโครงสร้าง',
+                scale: 1.0,
+              ),
+            ),
+            const Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '6 ปี',
+                scale: 1.0,
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: defaultPadding / 4),
                 child: CustomText(
-                  text: '- รับประกันสี 6 เดือน',
+                  text: '${product.productStructureExpire}',
                   scale: 1.0,
                 ),
               ),
-              Expanded(
-                child: CustomText(
-                  text: 'การรับประกันหมดอายุ ${product.productColorExpire}',
-                  scale: 1.0,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
+        Row(
+          children: [
+            const Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '- รับประกันสี',
+                scale: 1.0,
+              ),
+            ),
+            const Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '6 เดือน',
+                scale: 1.0,
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: defaultPadding / 4),
+                child: CustomText(
+                  text: '${product.productColorExpire}',
+                  scale: 1.0,
+                ),
+              ),
+            ),
+          ],
+        ),
+        // Row(
+        //   children: [
+        //     Expanded(
+        //       child: CustomText(
+        //         text:
+        //             'ประเภท ล้อแม็ก แบรนด์ ${product.productBrand} จำนวน ${product.productAmount} วง',
+        //         scale: 1.0,
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        // Padding(
+        //   padding: const EdgeInsets.only(left: defaultPadding / 2),
+        //   child: Row(
+        //     children: [
+        //       const Expanded(
+        //         child: CustomText(
+        //           text: '- รับประกันโครงสร้าง 6 ปี',
+        //           scale: 1.0,
+        //         ),
+        //       ),
+        //       Expanded(
+        //         child: CustomText(
+        //           text: 'การรับประกันหมดอายุ ${product.productStructureExpire}',
+        //           scale: 1.0,
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        // Padding(
+        //   padding: const EdgeInsets.only(left: defaultPadding / 2),
+        //   child: Row(
+        //     children: [
+        //       const Expanded(
+        //         child: CustomText(
+        //           text: '- รับประกันสี 6 เดือน',
+        //           scale: 1.0,
+        //         ),
+        //       ),
+        //       Expanded(
+        //         child: CustomText(
+        //           text: 'การรับประกันหมดอายุ ${product.productColorExpire}',
+        //           scale: 1.0,
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ],
     ),
   );
@@ -338,9 +651,10 @@ class RegisterDetail extends StatelessWidget {
                   weight: FontWeight.bold,
                 ),
                 const SizedBox(width: defaultPadding / 4),
-                Expanded(
+                const Expanded(
                   child: CustomText(
-                    text: controller.warrantyData.value.warrantyNo,
+                    // text: controller.warrantyData.value.warrantyNo,
+                    text: '2309000001',
                     scale: 1.0,
                   ),
                 ),

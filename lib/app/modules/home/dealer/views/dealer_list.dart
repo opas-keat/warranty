@@ -12,7 +12,7 @@ import 'dealer_add.dart';
 // import 'dealer_add.dart';
 
 class DealerList extends StatelessWidget {
-  DealerList({super.key});
+  const DealerList({super.key});
 
   // final DealerController controller = Get.put(DealerController());
 
