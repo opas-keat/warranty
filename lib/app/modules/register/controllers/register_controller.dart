@@ -122,6 +122,7 @@ class RegisterController extends GetxController {
     bool result = true;
     try {
       for (var product in productList) {
+        talker.info('$logTitle:save:${product.brand}');
         products.add(Products(
           productType: product.type,
           productBrand: product.brand,

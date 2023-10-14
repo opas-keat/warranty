@@ -69,8 +69,7 @@ class RegisterView extends StatelessWidget {
               ),
               Obx(
                 () => controller.isSavedData.value
-                    ? Container()
-                    : Container(
+                    ? Container(
                         padding: const EdgeInsets.symmetric(
                             vertical: defaultPadding),
                         width: 100,
@@ -121,17 +120,43 @@ class RegisterView extends StatelessWidget {
                               //   ),
                               //   barrierDismissible: false,
                               // );
-                            }else{
+                            } else {
                               Get.dialog(
-                              const Center(
-                                child: CustomText(text: "กรุณาเพิ่มข้อมูลรูปรถและใบเสร็จรับเงิน"),
-                              ),
-                              barrierDismissible: true,
-                            );
+                                SizedBox(
+                                  height: 300,
+                                  child: AlertDialog(
+                                    // title: const Text('เพิ่มร้านค้า'),
+                                    content: const CustomText(
+                                      text: "กรุณาเพิ่มรูปรถและรูปใบเสร็จ",
+                                    ),
+                                    actions: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          TextButton(
+                                            child: const CustomText(
+                                              text: "ปิด",
+                                              color: Colors.blue,
+                                              weight: FontWeight.bold,
+                                              scale: 0.8,
+                                            ),
+                                            onPressed: () {
+                                              Get.back();
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                barrierDismissible: false,
+                              );
                             }
                           },
                         ),
-                      ),
+                      )
+                    : Container(),
               ),
             ],
           ),
@@ -464,6 +489,7 @@ class CustomerDetail extends StatelessWidget {
                 if (isValid) {
                   // controller.productBrand.clear();
                   // controller.productBrand.addAll(controller.wheelBrand);
+                  controller.isSavedData.value = true;
                   controller.productList.add(
                     WarrantyProductModel(
                       amount: 4,
