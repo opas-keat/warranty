@@ -28,7 +28,7 @@ class WarrantyCustomerServiceResponse {
 }
 
 class WarrantyCustomerData {
-  int? id;
+  String? id;
   String? fullName;
   String? licensePlate;
   String? telephone;

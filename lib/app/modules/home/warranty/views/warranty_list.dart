@@ -2,7 +2,10 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../api/api.dart';
+import '../../../../api/api_end_points.dart';
 import '../../../../data/response/warranty_customer_service_response.dart';
+import '../../../../data/response/warranty_service_list_response.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/header.dart';
@@ -22,7 +25,7 @@ class WarrantyList extends StatelessWidget {
         children: [
           const Header(moduleName: "การรับประกัน"),
           const SizedBox(height: defaultPadding),
-          Row(
+          const Row(
             children: [
               // const Spacer(flex: 2),
               WarrantySearchWidget(),
@@ -124,7 +127,7 @@ class WarrantyList extends StatelessWidget {
                                     children: [
                                       CustomText(
                                         text:
-                                            "เลขที่ใบรับประกัน : ${controller.warrantyList[index].receiveNo}",
+                                            "เลขที่ใบรับประกัน : ${controller.warrantyList[index].warrantyNo}",
                                         scale: 1.8,
                                       ),
                                       const SizedBox(width: defaultPadding),
@@ -133,7 +136,45 @@ class WarrantyList extends StatelessWidget {
                                         scale: 1.8,
                                       ),
                                       IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          print(Api.baseUrl +
+                                              Api.apiContext +
+                                              Api.apiVersion +
+                                              ApiEndPoints.warranty +
+                                              controller
+                                                  .warrantyList[index].urlCar!);
+                                          Get.dialog(
+                                            AlertDialog(
+                                              content: SizedBox(
+                                                width: 480,
+                                                child: Image.network(
+                                                  Api.baseUrl +
+                                                      Api.apiContext +
+                                                      Api.apiVersion +
+                                                      ApiEndPoints.warranty +
+                                                      controller
+                                                          .warrantyList[index]
+                                                          .urlCar!,
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  child: const CustomText(
+                                                    text: "ปิด",
+                                                    color: Colors.blue,
+                                                    weight: FontWeight.bold,
+                                                    scale: 1.2,
+                                                  ),
+                                                  onPressed: () {
+                                                    Get.back();
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                            barrierDismissible: true,
+                                          );
+                                        },
                                         icon: const Icon(
                                           Icons.image_sharp,
                                         ),
@@ -145,7 +186,39 @@ class WarrantyList extends StatelessWidget {
                                         scale: 1.8,
                                       ),
                                       IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Get.dialog(
+                                            AlertDialog(
+                                              content: SizedBox(
+                                                width: 480,
+                                                child: Image.network(
+                                                  Api.baseUrl +
+                                                      Api.apiContext +
+                                                      Api.apiVersion +
+                                                      ApiEndPoints.warranty +
+                                                      controller
+                                                          .warrantyList[index]
+                                                          .urlReceive!,
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  child: const CustomText(
+                                                    text: "ปิด",
+                                                    color: Colors.blue,
+                                                    weight: FontWeight.bold,
+                                                    scale: 1.2,
+                                                  ),
+                                                  onPressed: () {
+                                                    Get.back();
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                            barrierDismissible: true,
+                                          );
+                                        },
                                         icon: const Icon(
                                           Icons.image_sharp,
                                         ),
@@ -155,7 +228,7 @@ class WarrantyList extends StatelessWidget {
                                   ),
                                   CustomText(
                                     text:
-                                        "วันที่ซื้อสินค้า : ${controller.warrantyList[index].receiveDate}",
+                                        "วันที่ซื้อสินค้า : ${controller.warrantyList[index].warrantyDate}",
                                     scale: 1.5,
                                   ),
                                 ],
@@ -172,12 +245,10 @@ class WarrantyList extends StatelessWidget {
                                   CustomText(
                                     text:
                                         "รหัสร้านค้า : ${controller.warrantyList[index].dealerCode}",
-                                    scale: 1.2,
                                   ),
                                   CustomText(
                                     text:
                                         "ชื่อร้านค้า : ${controller.warrantyList[index].dealerName}",
-                                    scale: 1.2,
                                   ),
                                 ],
                               ),
@@ -190,42 +261,58 @@ class WarrantyList extends StatelessWidget {
                               vertical: defaultPadding / 2),
                           child: CustomText(
                             text: "รายการสินค้า",
-                            scale: 1.2,
+                            weight: FontWeight.bold,
                           ),
                         ),
-                        Column(
-                          children: [
-                            ListView.builder(
-                              shrinkWrap: true,
-                              physics: const ClampingScrollPhysics(),
-                              itemCount: controller
-                                  .warrantyList[index].products!.length,
-                              itemBuilder: (context, index2) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: defaultPadding / 2,
-                                    horizontal: defaultPadding,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      CustomText(
-                                        text:
-                                            "${index2 + 1}. ${controller.warrantyList[index].products![index2].type} : ${controller.warrantyList[index].products![index2].detail} ",
-                                        scale: 1.2,
-                                      ),
-                                      CustomText(
-                                        text:
-                                            "จำนวน : ${controller.warrantyList[index].products![index2].amount}",
-                                        scale: 1.2,
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.all(defaultPadding / 2),
+                          child: Column(
+                            children: [
+                              ListView.builder(
+                                shrinkWrap: true,
+                                physics: const ClampingScrollPhysics(),
+                                itemCount: controller
+                                    .warrantyList[index].products!.length,
+                                itemBuilder: (context, index2) {
+                                  if (controller.warrantyList[index]
+                                          .products![index2].productType ==
+                                      'wheels') {
+                                    return productDetailWheel(
+                                      controller.warrantyList[index]
+                                          .products![index2],
+                                    );
+                                  } else {
+                                    return productDetailTire(
+                                      controller.warrantyList[index]
+                                          .products![index2],
+                                    );
+                                  }
+                                  // return Padding(
+                                  //   padding: const EdgeInsets.symmetric(
+                                  //     vertical: defaultPadding / 2,
+                                  //     horizontal: defaultPadding,
+                                  //   ),
+                                  //   child: Row(
+                                  //     mainAxisAlignment:
+                                  //         MainAxisAlignment.spaceBetween,
+                                  //     children: [
+                                  //       CustomText(
+                                  //         text:
+                                  //             "${index2 + 1}. ${controller.warrantyList[index].products![index2].productType} : ${controller.warrantyList[index].products![index2].productBrand} ",
+                                  //         scale: 1.2,
+                                  //       ),
+                                  //       CustomText(
+                                  //         text:
+                                  //             "จำนวน : ${controller.warrantyList[index].products![index2].productAmount}",
+                                  //         scale: 1.2,
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // );
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(height: defaultPadding),
                       ],
@@ -292,6 +379,270 @@ class WarrantyList extends StatelessWidget {
   }
 }
 
+Widget productDetailTire(
+  ProductList product,
+) {
+  return Padding(
+    padding:
+        const EdgeInsets.only(left: defaultPadding / 4, top: defaultPadding),
+    child: Column(
+      children: [
+        const Row(
+          children: [
+            CustomText(
+              text: 'ประกันสินค้า',
+            ),
+            SizedBox(width: defaultPadding),
+            CustomText(
+              text: 'ประเภท ยางรถยนต์',
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: CustomText(
+                text: 'แบรนด์ ${product.productBrand}',
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: CustomText(
+                text: 'จำนวน ${product.productAmount} เส้น',
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(right: defaultPadding / 4),
+              child: CustomText(
+                text: 'การรับประกันหมดอายุ',
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            const Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '- รับประกันคุณภาพตามกระบวนการผลิต',
+                maxLine: 2,
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '${product.warrantyTireYear} ปี',
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: defaultPadding / 4),
+                child: CustomText(
+                  text: '${product.productTireExpire}',
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            const Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '- รับประกันระยะ',
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '${product.warrantyTireMile} กม.',
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: defaultPadding / 4),
+                child: CustomText(
+                  text: '${product.productMileExpire} กม.',
+                ),
+              ),
+            ),
+          ],
+        ),
+        const CustomText(
+          text: '**การรับประกันจะหมด หากอย่างใดอย่างหนึ่งถึงก่อน**',
+          color: Colors.red,
+        ),
+        const SizedBox(height: defaultPadding),
+        product.productBrand != 'COSMIS'
+            ? const Padding(
+                padding: EdgeInsets.only(left: defaultPadding / 2),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: CustomText(
+                        text: 'แคมเปญ',
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: CustomText(
+                        text: 'ประเภท ยางรถยนต์',
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: defaultPadding / 4),
+                      child: CustomText(
+                        text: 'การรับประกันหมดอายุ',
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : Container(),
+        product.productBrand != 'COSMIS'
+            ? Padding(
+                padding: const EdgeInsets.only(left: defaultPadding / 2),
+                child: Row(
+                  children: [
+                    const Expanded(
+                      flex: 1,
+                      child: CustomText(
+                        text: '- รับประกัน บาด บวม แตก ตำ',
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: CustomText(
+                        text: '${product.promotionDay} วัน',
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        padding:
+                            const EdgeInsets.only(right: defaultPadding / 4),
+                        child: CustomText(
+                          text: '${product.productPromotionExpire}',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : Container(),
+      ],
+    ),
+  );
+}
+
+Widget productDetailWheel(
+  ProductList product,
+) {
+  return Padding(
+    padding: const EdgeInsets.only(
+      left: defaultPadding / 2,
+      top: defaultPadding,
+    ),
+    child: Column(
+      children: [
+        const Row(
+          children: [
+            CustomText(
+              text: 'ประกันสินค้า',
+            ),
+            SizedBox(width: defaultPadding),
+            CustomText(
+              text: 'ประเภท ล้อแม็ก',
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: CustomText(
+                text: 'แบรนด์ ${product.productBrand}',
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: CustomText(
+                text: 'จำนวน ${product.productAmount} วง',
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(right: defaultPadding / 4),
+              child: CustomText(
+                text: 'การรับประกันหมดอายุ',
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            const Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '- รับประกันโครงสร้าง',
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '${product.warrantyWheelYear} ปี',
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: defaultPadding / 4),
+                child: CustomText(
+                  text: '${product.productStructureExpire}',
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            const Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '- รับประกันสี',
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: CustomText(
+                text: '${product.warrantyWheelColor} เดือน',
+                scale: 1.2,
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: defaultPadding / 4),
+                child: CustomText(
+                  text: '${product.productColorExpire}',
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
 List<DataColumn> listColumn = [
   const DataColumn2(
     label: CustomText(text: "ลำดับ", scale: 0.9),
@@ -322,27 +673,14 @@ DataRow setDataRow(
 ) {
   return DataRow.byIndex(
     index: index + 1,
-    // color: MaterialStateProperty.resolveWith(
-    //   (states) {
-    //     if ((index) == controller.selectedIndexFromTable) {
-    //       return Colors.amber.shade200;
-    //     } else if (index % 2 == 0) {
-    //       return Colors.blue[50];
-    //     } else {
-    //       return Colors.white;
-    //     }
-    //   },
-    // ),
     onSelectChanged: (value) async {
-      // controller.selectDataFromTable(index);
-      // controller.selectDataFromTable(index, warrantyCustomerData.id!);
       Get.dialog(
         const Center(
           child: CircularProgressIndicator(),
         ),
         barrierDismissible: false,
       );
-      await controller.selectDataFromTable(index, warrantyCustomerData.id!);
+      await controller.selectDataFromTable(index, warrantyCustomerData);
       Get.back();
     },
     cells: [
@@ -381,110 +719,14 @@ DataRow setDataRow(
   );
 }
 
-Padding customerDetail() {
-  return Padding(
-    padding: const EdgeInsets.all(defaultPadding),
-    child: Wrap(
-      runSpacing: defaultPadding,
-      children: [
-        Row(
-          children: [
-            Container(
-              alignment: Alignment.centerRight,
-              // color: Colors.amber,
-              width: 150,
-              child: const Padding(
-                padding: EdgeInsets.only(right: defaultPadding),
-                child: CustomText(
-                  text: "ชื่อ-นามสกุล : ",
-                  scale: 1.5,
-                ),
-              ),
-            ),
-            const CustomText(
-              text: "วีไอพี พีพีซุปเปอร์วีล",
-              scale: 1.5,
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Container(
-              alignment: Alignment.centerRight,
-              // color: Colors.amber,
-              width: 150,
-              child: const Padding(
-                padding: EdgeInsets.only(right: defaultPadding),
-                child: CustomText(
-                  text: "ทะเบียนรถ : ",
-                  scale: 1.5,
-                ),
-              ),
-            ),
-            const CustomText(
-              text: "8ศฐ 168",
-              scale: 1.5,
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Container(
-              alignment: Alignment.centerRight,
-              // color: Colors.amber,
-              width: 150,
-              child: const Padding(
-                padding: EdgeInsets.only(right: defaultPadding),
-                child: CustomText(
-                  text: "โทรศัพท์ : ",
-                  scale: 1.5,
-                ),
-              ),
-            ),
-            const CustomText(
-              text: "09888888888",
-              scale: 1.5,
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Container(
-              alignment: Alignment.centerRight,
-              // color: Colors.amber,
-              width: 150,
-              child: const Padding(
-                padding: EdgeInsets.only(right: defaultPadding),
-                child: CustomText(
-                  text: "email : ",
-                  scale: 1.5,
-                ),
-              ),
-            ),
-            const CustomText(
-              text: "ppsw@ppsw.com",
-              scale: 1.5,
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
-
 class WarrantySearchWidget extends StatelessWidget {
-  WarrantySearchWidget({
+  const WarrantySearchWidget({
     super.key,
   });
 
-  final WarrantyController controller = Get.find<WarrantyController>();
-
-  final nameTextController = TextEditingController();
-  final licensePlate = TextEditingController();
-  final mobileNoTextController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
+    final WarrantyController controller = Get.put(WarrantyController());
     return Expanded(
       // flex: 2,
       child: Container(
@@ -500,7 +742,7 @@ class WarrantySearchWidget extends StatelessWidget {
             const SizedBox(width: defaultPadding / 2),
             Expanded(
               child: TextFormField(
-                controller: mobileNoTextController,
+                controller: controller.mobile,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   fillColor: Colors.white.withOpacity(.8),
@@ -529,14 +771,40 @@ class WarrantySearchWidget extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () async {
-                Get.dialog(
-                  const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  barrierDismissible: false,
-                );
-                await controller.searchData();
-                Get.back();
+                if (controller.email.text.isEmpty &&
+                    controller.licensePlate.text.isEmpty &&
+                    controller.mobile.text.isEmpty) {
+                  Get.dialog(
+                    AlertDialog(
+                      content: const CustomText(
+                        text: 'กรุณากรอกข้อมูลที่ต้องการค้นหา',
+                      ),
+                      actions: [
+                        TextButton(
+                          child: const CustomText(
+                            text: "ปิด",
+                            color: Colors.blue,
+                            weight: FontWeight.bold,
+                            scale: 1.2,
+                          ),
+                          onPressed: () {
+                            Get.back();
+                          },
+                        ),
+                      ],
+                    ),
+                    barrierDismissible: true,
+                  );
+                } else {
+                  Get.dialog(
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    barrierDismissible: false,
+                  );
+                  await controller.searchData();
+                  Get.back();
+                }
               },
             ),
             const SizedBox(width: defaultPadding / 2),
@@ -548,7 +816,7 @@ class WarrantySearchWidget extends StatelessWidget {
             const SizedBox(width: defaultPadding / 2),
             Expanded(
               child: TextFormField(
-                controller: licensePlate,
+                controller: controller.licensePlate,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   fillColor: Colors.white.withOpacity(.8),
@@ -577,14 +845,40 @@ class WarrantySearchWidget extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () async {
-                Get.dialog(
-                  const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  barrierDismissible: false,
-                );
-                await controller.searchData();
-                Get.back();
+                if (controller.email.text.isEmpty &&
+                    controller.licensePlate.text.isEmpty &&
+                    controller.mobile.text.isEmpty) {
+                  Get.dialog(
+                    AlertDialog(
+                      content: const CustomText(
+                        text: 'กรุณากรอกข้อมูลที่ต้องการค้นหา',
+                      ),
+                      actions: [
+                        TextButton(
+                          child: const CustomText(
+                            text: "ปิด",
+                            color: Colors.blue,
+                            weight: FontWeight.bold,
+                            scale: 1.2,
+                          ),
+                          onPressed: () {
+                            Get.back();
+                          },
+                        ),
+                      ],
+                    ),
+                    barrierDismissible: true,
+                  );
+                } else {
+                  Get.dialog(
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    barrierDismissible: false,
+                  );
+                  await controller.searchData();
+                  Get.back();
+                }
               },
             ),
             const SizedBox(width: defaultPadding / 2),
@@ -596,7 +890,7 @@ class WarrantySearchWidget extends StatelessWidget {
             const SizedBox(width: defaultPadding / 2),
             Expanded(
               child: TextFormField(
-                controller: nameTextController,
+                controller: controller.email,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   fillColor: Colors.white.withOpacity(.8),
@@ -625,14 +919,40 @@ class WarrantySearchWidget extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () async {
-                Get.dialog(
-                  const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  barrierDismissible: false,
-                );
-                await controller.searchData();
-                Get.back();
+                if (controller.email.text.isEmpty &&
+                    controller.licensePlate.text.isEmpty &&
+                    controller.mobile.text.isEmpty) {
+                  Get.dialog(
+                    AlertDialog(
+                      content: const CustomText(
+                        text: 'กรุณากรอกข้อมูลที่ต้องการค้นหา',
+                      ),
+                      actions: [
+                        TextButton(
+                          child: const CustomText(
+                            text: "ปิด",
+                            color: Colors.blue,
+                            weight: FontWeight.bold,
+                            scale: 1.2,
+                          ),
+                          onPressed: () {
+                            Get.back();
+                          },
+                        ),
+                      ],
+                    ),
+                    barrierDismissible: true,
+                  );
+                } else {
+                  Get.dialog(
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    barrierDismissible: false,
+                  );
+                  await controller.searchData();
+                  Get.back();
+                }
               },
             ),
             const SizedBox(width: defaultPadding / 2),

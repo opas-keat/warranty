@@ -187,10 +187,10 @@ Widget productDetailTire(
                 maxLine: 2,
               ),
             ),
-            const Expanded(
+            Expanded(
               flex: 1,
               child: CustomText(
-                text: '2 ปี',
+                text: '${product.warrantyTireYear} ปี',
                 scale: 1.0,
               ),
             ),
@@ -216,10 +216,10 @@ Widget productDetailTire(
                 scale: 1.0,
               ),
             ),
-            const Expanded(
+            Expanded(
               flex: 1,
               child: CustomText(
-                text: '50,000 กม.',
+                text: '${product.warrantyTireMile} กม.',
                 scale: 1.0,
               ),
             ),
@@ -285,10 +285,10 @@ Widget productDetailTire(
                         maxLine: 2,
                       ),
                     ),
-                    const Expanded(
+                    Expanded(
                       flex: 1,
                       child: CustomText(
-                        text: '60 วัน',
+                        text: '${product.promotionDay} วัน',
                         scale: 1.0,
                       ),
                     ),
@@ -462,10 +462,10 @@ Widget productDetailWheel(
                 scale: 1.0,
               ),
             ),
-            const Expanded(
+            Expanded(
               flex: 1,
               child: CustomText(
-                text: '6 ปี',
+                text: '${product.warrantyWheelYear} ปี',
                 scale: 1.0,
               ),
             ),
@@ -491,10 +491,10 @@ Widget productDetailWheel(
                 scale: 1.0,
               ),
             ),
-            const Expanded(
+            Expanded(
               flex: 1,
               child: CustomText(
-                text: '6 เดือน',
+                text: '${product.warrantyWheelColor} เดือน',
                 scale: 1.0,
               ),
             ),

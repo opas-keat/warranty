@@ -232,6 +232,7 @@ class DealerController extends GetxController {
                   width: 150,
                   height: 150,
                   barcode: pw.Barcode.qrCode(),
+                  
                 ),
               ),
               pw.SizedBox(height: defaultPadding),
@@ -274,6 +275,7 @@ class DealerController extends GetxController {
         data:
             '${Api.baseUrlSystemLink}${ApiEndPoints.systemLinkDealers}/${dealerData.id}',
         version: QrVersions.auto,
+
       ).toImage(300);
       final a = await image.toByteData(format: ImageByteFormat.png);
       var bytes = a!.buffer.asUint8List();

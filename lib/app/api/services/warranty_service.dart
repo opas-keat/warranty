@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import '../../data/request/warranty_service_request.dart';
+import '../../data/response/customer_service_response.dart';
+import '../../data/response/warranty_service_list_response.dart';
 import '../../data/response/warranty_service_response.dart';
 import '../../shared/utils.dart';
 import '../api.dart';
@@ -116,7 +118,7 @@ class WarrantyService {
     return null;
   }
 
-  Future<WarrantyServiceResponse?> list(
+  Future<WarrantyServiceListResponse?> list(
     Map<String, String> qParams,
   ) async {
     try {
@@ -130,10 +132,32 @@ class WarrantyService {
           headers: apiUtils.secureHeaders,
         ),
       );
-      WarrantyServiceResponse warrantyServiceResponse =
-          WarrantyServiceResponse.fromJson(jsonDecode(response.toString()));
+      WarrantyServiceListResponse warrantyServiceListResponse =
+          WarrantyServiceListResponse.fromJson(jsonDecode(response.toString()));
+      // talker.debug("warrantyServiceListResponse $warrantyServiceListResponse");
+      return warrantyServiceListResponse;
+    } catch (e) {
+      talker.error(e);
+    }
+    return null;
+  }
+
+  Future<CustomerServiceResponse?> listCustomer(
+    Map<String, String> qParams,
+  ) async {
+    try {
+      final response = await apiUtils.get(
+        url:
+            '${Api.baseUrl}${Api.apiContext}${Api.apiVersion}${ApiEndPoints.warranty}/customer',
+        queryParameters: qParams,
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      CustomerServiceResponse customerServiceResponse =
+          CustomerServiceResponse.fromJson(jsonDecode(response.toString()));
       // talker.debug("WarrantyServiceResponse $WarrantyServiceResponse");
-      return warrantyServiceResponse;
+      return customerServiceResponse;
     } catch (e) {
       talker.error(e);
     }

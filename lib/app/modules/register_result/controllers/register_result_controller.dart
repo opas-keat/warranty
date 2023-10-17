@@ -67,6 +67,15 @@ class RegisterResultController extends GetxController {
             productPromotionExpire: product.productPromotionExpire,
             productStructureExpire: product.productStructureExpire,
             productTireExpire: product.productTireExpire,
+            promotion: product.promotion,
+            promotionDay: product.promotionDay,
+            promotionMile: product.promotionMile,
+            warrantyTireMile: product.warrantyTireMile,
+            warrantyTireMileZestino: product.warrantyTireMileZestino,
+            warrantyTireYear: product.warrantyTireYear,
+            warrantyTireYearZestino: product.warrantyTireYearZestino,
+            warrantyWheelColor: product.warrantyWheelColor,
+            warrantyWheelYear: product.warrantyWheelYear,
           ),
         );
       }

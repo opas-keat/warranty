@@ -1,19 +1,24 @@
-class WarrantyServiceResponse {
+class WarrantyServiceListResponse {
   String? code;
   String? message;
-  WarrantyData? data;
+  List<WarrantyData>? data;
 
-  WarrantyServiceResponse({this.code, this.message, this.data});
+  WarrantyServiceListResponse({this.code, this.message, this.data});
 
-  WarrantyServiceResponse.withError({
+  WarrantyServiceListResponse.withError({
     code,
     String? msg,
   }) : message = msg;
 
-  WarrantyServiceResponse.fromJson(Map<String, dynamic> json) {
+  WarrantyServiceListResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];
-    data = json['data'] != null ? WarrantyData.fromJson(json['data']) : null;
+    if (json['data'] != null) {
+      data = <WarrantyData>[];
+      json['data'].forEach((v) {
+        data!.add(WarrantyData.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -21,7 +26,7 @@ class WarrantyServiceResponse {
     data['code'] = code;
     data['message'] = message;
     if (this.data != null) {
-      data['data'] = this.data!.toJson();
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -38,20 +43,25 @@ class WarrantyData {
   String? customerLicensePlate;
   String? customerEmail;
   String? customerMile;
-  List<Products>? products;
+  List<ProductList>? products;
+  String? urlCar;
+  String? urlReceive;
 
-  WarrantyData(
-      {this.id,
-      this.warrantyNo,
-      this.warrantyDate,
-      this.dealerCode,
-      this.dealerName,
-      this.customerName,
-      this.customerPhone,
-      this.customerLicensePlate,
-      this.customerEmail,
-      this.customerMile,
-      this.products});
+  WarrantyData({
+    this.id,
+    this.warrantyNo,
+    this.warrantyDate,
+    this.dealerCode,
+    this.dealerName,
+    this.customerName,
+    this.customerPhone,
+    this.customerLicensePlate,
+    this.customerEmail,
+    this.customerMile,
+    this.products,
+    this.urlCar,
+    this.urlReceive,
+  });
 
   WarrantyData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -65,11 +75,13 @@ class WarrantyData {
     customerEmail = json['customer_email'];
     customerMile = json['customer_mile'];
     if (json['products'] != null) {
-      products = <Products>[];
+      products = <ProductList>[];
       json['products'].forEach((v) {
-        products!.add(Products.fromJson(v));
+        products!.add(ProductList.fromJson(v));
       });
     }
+    urlCar = json['url_car'];
+    urlReceive = json['url_receive'];
   }
 
   Map<String, dynamic> toJson() {
@@ -87,11 +99,13 @@ class WarrantyData {
     if (products != null) {
       data['products'] = products!.map((v) => v.toJson()).toList();
     }
+    data['url_car'] = urlCar;
+    data['url_receive'] = urlReceive;
     return data;
   }
 }
 
-class Products {
+class ProductList {
   String? id;
   String? productType;
   String? productBrand;
@@ -112,7 +126,7 @@ class Products {
   int? warrantyTireYearZestino;
   int? warrantyTireMileZestino;
 
-  Products(
+  ProductList(
       {this.id,
       this.productType,
       this.productBrand,
@@ -133,7 +147,7 @@ class Products {
       this.warrantyTireYearZestino,
       this.warrantyTireMileZestino});
 
-  Products.fromJson(Map<String, dynamic> json) {
+  ProductList.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     productType = json['product_type'];
     productBrand = json['product_brand'];
@@ -156,26 +170,26 @@ class Products {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['product_type'] = this.productType;
-    data['product_brand'] = this.productBrand;
-    data['product_amount'] = this.productAmount;
-    data['product_structure_expire'] = this.productStructureExpire;
-    data['product_color_expire'] = this.productColorExpire;
-    data['product_tire_expire'] = this.productTireExpire;
-    data['product_mile_expire'] = this.productMileExpire;
-    data['product_promotion_expire'] = this.productPromotionExpire;
-    data['warranty_no'] = this.warrantyNo;
-    data[':promotion'] = this.promotion;
-    data[':promotion_day'] = this.promotionDay;
-    data[':promotion_mile'] = this.promotionMile;
-    data[':warranty_wheel_year'] = this.warrantyWheelYear;
-    data[':warranty_wheel_color'] = this.warrantyWheelColor;
-    data[':warranty_tire_year'] = this.warrantyTireYear;
-    data[':warranty_tire_mile'] = this.warrantyTireMile;
-    data[':warranty_tire_year_zestino'] = this.warrantyTireYearZestino;
-    data[':warranty_tire_mile_zestino'] = this.warrantyTireMileZestino;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['product_type'] = productType;
+    data['product_brand'] = productBrand;
+    data['product_amount'] = productAmount;
+    data['product_structure_expire'] = productStructureExpire;
+    data['product_color_expire'] = productColorExpire;
+    data['product_tire_expire'] = productTireExpire;
+    data['product_mile_expire'] = productMileExpire;
+    data['product_promotion_expire'] = productPromotionExpire;
+    data['warranty_no'] = warrantyNo;
+    data[':promotion'] = promotion;
+    data[':promotion_day'] = promotionDay;
+    data[':promotion_mile'] = promotionMile;
+    data[':warranty_wheel_year'] = warrantyWheelYear;
+    data[':warranty_wheel_color'] = warrantyWheelColor;
+    data[':warranty_tire_year'] = warrantyTireYear;
+    data[':warranty_tire_mile'] = warrantyTireMile;
+    data[':warranty_tire_year_zestino'] = warrantyTireYearZestino;
+    data[':warranty_tire_mile_zestino'] = warrantyTireMileZestino;
     return data;
   }
 }

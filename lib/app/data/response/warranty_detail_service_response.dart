@@ -28,25 +28,25 @@ class WarrantyDetailServiceResponse {
 }
 
 class WarrantyDetailData {
-  int? id;
-  String? receiveNo;
-  String? receiveDate;
+  String? id;
+  String? warrantyNo;
+  String? warrantyDate;
   String? dealerCode;
   String? dealerName;
   List<Products>? products;
 
   WarrantyDetailData(
       {this.id,
-      this.receiveNo,
-      this.receiveDate,
+      this.warrantyNo,
+      this.warrantyDate,
       this.dealerCode,
       this.dealerName,
       this.products});
 
   WarrantyDetailData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    receiveNo = json['receive_no'];
-    receiveDate = json['receive_date'];
+    warrantyNo = json['warranty_no'];
+    warrantyDate = json['warranty_date'];
     dealerCode = json['dealer_code'];
     dealerName = json['dealer_name'];
     if (json['products'] != null) {
@@ -60,8 +60,8 @@ class WarrantyDetailData {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['receive_no'] = receiveNo;
-    data['receive_date'] = receiveDate;
+    data['warranty_no'] = warrantyNo;
+    data['warranty_date'] = warrantyDate;
     data['dealer_code'] = dealerCode;
     data['dealer_name'] = dealerName;
     if (products != null) {

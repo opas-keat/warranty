@@ -193,7 +193,29 @@ class DealerAddWidget extends StatelessWidget {
                                     final result = await controller.addDealer(
                                         controller.dealerSystemLinkList.obs
                                             .value[index]);
-                                    if (!result) {
+                                    if (result) {
+                                      Get.dialog(
+                                        AlertDialog(
+                                          content: const CustomText(
+                                              text:
+                                                  'บันทึกร้านค้าเพิ่มไปยังระบบใหม่แล้ว'),
+                                          actions: [
+                                            TextButton(
+                                              child: const CustomText(
+                                                text: "ปิด",
+                                                color: Colors.blue,
+                                                weight: FontWeight.bold,
+                                                scale: 1.2,
+                                              ),
+                                              onPressed: () {
+                                                Get.back();
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                        barrierDismissible: false,
+                                      );
+                                    } else {
                                       Get.dialog(
                                         AlertDialog(
                                           content: const CustomText(
