@@ -16,4 +16,6 @@ class ApiEndPoints {
   static const warranty = "/warranty";
   // ---- product ----
   static const product = "/product";
+  // ---- config ----
+  static const config = "/config";
 }

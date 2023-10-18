@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../modules/customer/bindings/customer_binding.dart';
 import '../modules/customer/views/customer_view.dart';
 import '../modules/home/bindings/home_binding.dart';
+import '../modules/home/config/bindings/config_binding.dart';
+import '../modules/home/config/views/config_view.dart';
 import '../modules/home/dealer/bindings/dealer_binding.dart';
 import '../modules/home/dealer/views/dealer_view.dart';
 import '../modules/home/views/home_view.dart';
@@ -37,6 +39,11 @@ class AppPages {
           name: _Paths.WARRANTY,
           page: () => const WarrantyView(),
           binding: WarrantyBinding(),
+        ),
+        GetPage(
+          name: _Paths.CONFIG,
+          page: () => const ConfigView(),
+          binding: ConfigBinding(),
         ),
       ],
     ),

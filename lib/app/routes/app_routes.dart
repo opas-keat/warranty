@@ -10,6 +10,7 @@ abstract class Routes {
   static const CUSTOMER = _Paths.CUSTOMER;
   static const REGISTER = _Paths.REGISTER;
   static const REGISTER_RESULT = _Paths.REGISTER_RESULT;
+  static const CONFIG = _Paths.HOME + _Paths.CONFIG;
 }
 
 abstract class _Paths {
@@ -21,4 +22,5 @@ abstract class _Paths {
   static const CUSTOMER = '/customer';
   static const REGISTER = '/register';
   static const REGISTER_RESULT = '/register-result';
+  static const CONFIG = '/config';
 }

@@ -19,10 +19,10 @@ List<Module> listModule = [
   ),
   Module(
     id: 3,
-    nameTH: "ลงทะเบียน",
+    nameTH: "ตั้งค่า",
     nameEn: "warranty",
     icon: Icons.account_box_sharp,
-    url: Routes.REGISTER,
+    url: Routes.CONFIG,
   ),
 ];
 
