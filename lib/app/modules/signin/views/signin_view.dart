@@ -153,8 +153,38 @@ class SigninView extends StatelessWidget {
                                   elevation: 5,
                                   padding:
                                       const EdgeInsets.all(defaultPadding)),
+                              // onPressed: () async {
+                              //   Get.offAllNamed(Routes.WARRANTY);
+                              // },
                               onPressed: () async {
-                                Get.offAllNamed(Routes.WARRANTY);
+                                Get.dialog(
+                                  const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                  barrierDismissible: false,
+                                );
+                                final result = await controller.signIn(
+                                  userName: usernameController.text,
+                                  password: passwordController.text,
+                                );
+                                Get.back();
+                                result
+                                    ? Get.offAllNamed(Routes.WARRANTY)
+                                    : Get.snackbar(
+                                        'Error',
+                                        controller.authenError.value,
+                                        backgroundColor: accentColor,
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        colorText: Colors.white,
+                                        icon: const Icon(
+                                          Icons.lock_person_outlined,
+                                          color: Colors.white,
+                                        ),
+                                        isDismissible: true,
+                                        margin: const EdgeInsets.all(
+                                          defaultPadding,
+                                        ),
+                                      );
                               },
                             ),
                           ),

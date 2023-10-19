@@ -1,3 +1,5 @@
+import 'dart:html' as html;
+
 import 'package:flutter/material.dart';
 
 import '../../responsive.dart';
@@ -77,9 +79,12 @@ class ProfileCard extends StatelessWidget {
             height: 38,
           ),
           if (!Responsive.isSmallScreen(context))
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text("ผู้ดูแลระบบ"),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+              child: CustomText(
+                text: html.window.sessionStorage["profile"].toString(),
+              ),
             ),
           // Icon(Icons.keyboard_arrow_down),
         ],

@@ -18,4 +18,6 @@ class ApiEndPoints {
   static const product = "/product";
   // ---- config ----
   static const config = "/config";
+  // ---- config ----
+  static const auth = "/auth";
 }

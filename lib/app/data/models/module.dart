@@ -20,9 +20,16 @@ List<Module> listModule = [
   Module(
     id: 3,
     nameTH: "ตั้งค่า",
-    nameEn: "warranty",
+    nameEn: "config",
     icon: Icons.account_box_sharp,
     url: Routes.CONFIG,
+  ),
+  Module(
+    id: 11,
+    nameTH: "ออกจากระบบ",
+    nameEn: "logout",
+    icon: Icons.logout_sharp,
+    url: Routes.SIGNIN,
   ),
 ];
 
