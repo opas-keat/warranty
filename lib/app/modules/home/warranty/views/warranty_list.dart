@@ -148,13 +148,7 @@ class WarrantyList extends StatelessWidget {
                                               content: SizedBox(
                                                 width: 480,
                                                 child: Image.network(
-                                                  Api.baseUrl +
-                                                      Api.apiContext +
-                                                      Api.apiVersion +
-                                                      ApiEndPoints.warranty +
-                                                      controller
-                                                          .warrantyList[index]
-                                                          .urlCar!,
+                                                  '${Api.baseUrl}${Api.apiContext}${Api.apiVersion}${ApiEndPoints.warranty}/${controller.warrantyList[index].urlCar!}',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
@@ -192,13 +186,7 @@ class WarrantyList extends StatelessWidget {
                                               content: SizedBox(
                                                 width: 480,
                                                 child: Image.network(
-                                                  Api.baseUrl +
-                                                      Api.apiContext +
-                                                      Api.apiVersion +
-                                                      ApiEndPoints.warranty +
-                                                      controller
-                                                          .warrantyList[index]
-                                                          .urlReceive!,
+                                                  '${Api.baseUrl}${Api.apiContext}${Api.apiVersion}${ApiEndPoints.warranty}/${controller.warrantyList[index].urlReceive!}',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
