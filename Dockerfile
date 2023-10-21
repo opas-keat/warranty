@@ -1,7 +1,6 @@
 # Stage 1
 # FROM opas/flutter:3.7.6 AS build-env
 FROM ghcr.io/cirruslabs/flutter:3.13.7 AS build-env
-FROM ghcr.io/cirruslabs/flutter:3.13.7
 RUN mkdir /app/
 COPY . /app/
 WORKDIR /app/
