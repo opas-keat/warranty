@@ -138,8 +138,8 @@ class RegisterController extends GetxController {
       warranty.customerMile = customerMile.text;
       warranty.products = products;
 
-      if (fileUploadCar.value.name != '' &&
-          fileUploadReceive.value.name != '') {
+      if (fileUploadCar.value.path.isNotEmpty &&
+          fileUploadReceive.value.path.isNotEmpty) {
         final response = await WarrantyService().create(warranty);
         talker.debug('response message : ${response?.message}');
         talker.debug('response message : ${response!.data!.warrantyNo}');
