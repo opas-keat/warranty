@@ -20,4 +20,6 @@ class ApiEndPoints {
   static const config = "/config";
   // ---- config ----
   static const auth = "/auth";
+  // ---- notification ----
+  static const notification = "/notification";
 }

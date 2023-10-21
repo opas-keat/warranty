@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:warranty/app/api/services/notification_service.dart';
 
 import '../../../api/services/warranty_service.dart';
 import '../../../data/response/warranty_service_response.dart';
@@ -79,6 +80,7 @@ class RegisterResultController extends GetxController {
           ),
         );
       }
+      NotificationService().email(warrantyId);
     }
     warrantyData.refresh();
   }
