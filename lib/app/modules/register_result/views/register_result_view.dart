@@ -651,10 +651,10 @@ class RegisterDetail extends StatelessWidget {
                   weight: FontWeight.bold,
                 ),
                 const SizedBox(width: defaultPadding / 4),
-                const Expanded(
+                Expanded(
                   child: CustomText(
-                    // text: controller.warrantyData.value.warrantyNo,
-                    text: '2309000001',
+                    text: controller.warrantyData.value.warrantyNo,
+                    // text: '2309000001',
                     scale: 1.0,
                   ),
                 ),
