@@ -22,4 +22,6 @@ class ApiEndPoints {
   static const auth = "/auth";
   // ---- notification ----
   static const notification = "/notification";
+  // ---- promotion ----
+  static const promotion = "/promotion";
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,10 +22,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.noTransition,
       title: "ppsw-warranty",
-      // localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      // supportedLocales: const [
-      //   Locale('th', 'TH'),
-      // ],
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      supportedLocales: const [
+        Locale('th', 'TH'),
+      ],
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       unknownRoute: GetPage(

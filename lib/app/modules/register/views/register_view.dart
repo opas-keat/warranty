@@ -404,7 +404,7 @@ class CustomerDetail extends StatelessWidget {
                       );
                       if (pickedFile != null) {
                         controller.fileUploadCar.value = pickedFile;
-                        controller.fileUploadReceive.refresh();
+                        controller.update();
                       }
                     },
                     child: Obx(

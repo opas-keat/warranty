@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 
 import '../../../../api/api_params.dart';
 import '../../../../api/services/config_service.dart';
+import '../../../../api/services/promotion_service.dart';
 import '../../../../data/request/config_service_request.dart';
-import '../../../../data/response/config_service_response.dart';
+import '../../../../data/request/promotion_service_request.dart';
 import '../../../../shared/utils.dart';
 
 class ConfigController extends GetxController {
@@ -23,13 +24,18 @@ class ConfigController extends GetxController {
   final configWarrantyPromotionTire = TextEditingController();
   final configWarrantyTireMile = TextEditingController();
   final configWarrantyWheelYear = TextEditingController();
-  final configCampange = TextEditingController();
+
+  final promotionType = <String>["wheel", "tire"].obs;
+  final promotionStatus = <String>["active", "inactive"].obs;
+
+  final promotionList = <Promotions>[].obs;
 
   @override
   void onInit() {
     super.onInit();
     talker.info('$logTitle:onInit:');
     listConfig();
+    listPromotion();
     isLoading.value = false;
   }
 
@@ -77,9 +83,9 @@ class ConfigController extends GetxController {
         if (item.configCode == "WarrantyWheelYear") {
           configWarrantyWheelYear.text = item.configValue!;
         }
-        if (item.configCode == "Campange") {
-          configCampange.text = item.configValue!;
-        }
+        // if (item.configCode == "Campange") {
+        //   configCampange.text = item.configValue!;
+        // }
       }
       isLoading.value = false;
     } catch (e) {
@@ -125,10 +131,6 @@ class ConfigController extends GetxController {
         if (configCode == "WarrantyWheelYear") {
           configWarrantyWheelYear.text = configValue;
         }
-        if (configCode == "Campange") {
-          configCampange.text = configValue;
-        }
-        // }
       }
       isLoading.value = false;
       update();
@@ -138,5 +140,46 @@ class ConfigController extends GetxController {
       talker.error('$e');
       return false;
     }
+  }
+
+  listPromotion() async {
+    talker.info('$logTitle:listPromotion:');
+    isLoading.value = true;
+    Map<String, String> qParams = {
+      "offset": offset.value.toString(),
+      "limit": queryParamLimit,
+      "order": "promotion_status asc,promotion_type desc",
+    };
+    try {
+      final response = await PromotionService().list(qParams);
+      if (response?.code == "000") {
+        for (final item in response!.data!) {
+          talker.debug('promotionDetail : ${item.promotionDetail}');
+          promotionList.add(Promotions(
+            id: item.id,
+            promotionStatus: item.promotionStatus,
+            promotionType: item.promotionType,
+            promotionBrand: item.promotionBrand,
+            promotionDetail: item.promotionDetail,
+            promotionWarrantyDay: item.promotionWarrantyDay,
+            promotionFrom: item.promotionFrom,
+            promotionTo: item.promotionTo,
+          ));
+        }
+      }
+      isLoading.value = false;
+    } catch (e) {
+      talker.error('$e');
+    }
+  }
+
+  updatePromotion(Promotions promotion) {
+    talker.debug('updatePromotion : ${promotion.id}');
+    talker.debug('updatePromotion : ${promotion.promotionDetail}');
+  }
+
+  deletePromotion(Promotions promotion) {
+    talker.debug('deletePromotion : ${promotion.id}');
+    talker.debug('deletePromotion : ${promotion.promotionDetail}');
   }
 }
