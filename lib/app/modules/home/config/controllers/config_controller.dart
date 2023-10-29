@@ -29,6 +29,7 @@ class ConfigController extends GetxController {
   final promotionStatus = <String>["active", "inactive"].obs;
 
   final promotionList = <Promotions>[].obs;
+  final promotions = <Promotions>[].obs;
 
   @override
   void onInit() {
@@ -173,9 +174,83 @@ class ConfigController extends GetxController {
     }
   }
 
-  updatePromotion(Promotions promotion) {
+  createPromotion(
+    int index,
+    Promotions promotion,
+  ) async {
+    talker.debug('createPromotion : ${promotion.id}');
+    talker.debug('createPromotion : ${promotion.promotionDetail}');
+    isLoading.value = true;
+    try {
+      promotions.add(Promotions(
+        promotionBrand: promotionList[index].promotionBrand,
+        promotionDetail: promotionList[index].promotionDetail,
+        promotionFrom: promotionList[index].promotionFrom,
+        promotionStatus: promotionList[index].promotionStatus,
+        promotionTo: promotionList[index].promotionTo,
+        promotionType: promotionList[index].promotionType,
+        promotionWarrantyDay: promotionList[index].promotionWarrantyDay,
+      ));
+      talker.debug('updatePromotion : ${promotions.toJson()}');
+      final result = await PromotionService().create(promotions.obs.value);
+      if (result?.code == "000") {
+        for (var item in result!.data!) {
+          promotionList[index].id = item.id;
+          promotionList[index].promotionBrand = item.promotionBrand;
+          promotionList[index].promotionDetail = item.promotionDetail;
+          promotionList[index].promotionFrom = item.promotionFrom;
+          promotionList[index].promotionStatus = item.promotionStatus;
+          promotionList[index].promotionTo = item.promotionTo;
+          promotionList[index].promotionType = item.promotionType;
+          promotionList[index].promotionWarrantyDay = item.promotionWarrantyDay;
+        }
+      }
+      isLoading.value = false;
+      promotionList.refresh();
+      promotions.clear();
+    } catch (e) {
+      talker.error('$e');
+    }
+  }
+
+  updatePromotion(
+    int index,
+    Promotions promotion,
+  ) async {
     talker.debug('updatePromotion : ${promotion.id}');
     talker.debug('updatePromotion : ${promotion.promotionDetail}');
+    isLoading.value = true;
+    try {
+      promotions.add(Promotions(
+        id: promotionList[index].id,
+        promotionBrand: promotionList[index].promotionBrand,
+        promotionDetail: promotionList[index].promotionDetail,
+        promotionFrom: promotionList[index].promotionFrom,
+        promotionStatus: promotionList[index].promotionStatus,
+        promotionTo: promotionList[index].promotionTo,
+        promotionType: promotionList[index].promotionType,
+        promotionWarrantyDay: promotionList[index].promotionWarrantyDay,
+      ));
+      talker.debug('updatePromotion : ${promotions.toJson()}');
+      final result = await PromotionService().update(promotions.obs.value);
+      if (result?.code == "000") {
+        for (var item in result!.data!) {
+          promotionList[index].id = item.id;
+          promotionList[index].promotionBrand = item.promotionBrand;
+          promotionList[index].promotionDetail = item.promotionDetail;
+          promotionList[index].promotionFrom = item.promotionFrom;
+          promotionList[index].promotionStatus = item.promotionStatus;
+          promotionList[index].promotionTo = item.promotionTo;
+          promotionList[index].promotionType = item.promotionType;
+          promotionList[index].promotionWarrantyDay = item.promotionWarrantyDay;
+        }
+      }
+      isLoading.value = false;
+      promotionList.refresh();
+      promotions.clear();
+    } catch (e) {
+      talker.error('$e');
+    }
   }
 
   deletePromotion(Promotions promotion) {

@@ -13,7 +13,6 @@ class ConfigList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ConfigController controller = Get.put(ConfigController());
     return Column(
       children: [
         Container(
@@ -149,6 +148,7 @@ class PromotionList extends StatelessWidget {
       text:
           "${controller.promotionList[index].promotionFrom} - ${controller.promotionList[index].promotionTo}",
     );
+    // print(controller.promotionList[index].promotionFrom!.isEmpty);
     return Padding(
       padding: const EdgeInsets.only(bottom: defaultPadding),
       child: Row(
@@ -165,13 +165,10 @@ class PromotionList extends StatelessWidget {
                   text: "สถานะ",
                   color: Colors.black87.withOpacity(.9),
                 ),
-                // contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
               ),
               value: controller.promotionList[index].promotionStatus,
               onChanged: (value) {
-                // controller.promotionList[index].type = value!;
-                // controller.promotionList[index].brand = "COSMIS";
-                // controller.promotionList.refresh();
+                controller.promotionList[index].promotionStatus = value!;
               },
               items: controller.promotionStatus.obs.value.map((item) {
                 return DropdownMenuItem<String>(
@@ -198,13 +195,10 @@ class PromotionList extends StatelessWidget {
                   text: "ประเภท",
                   color: Colors.black87.withOpacity(.9),
                 ),
-                // contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
               ),
               value: controller.promotionList[index].promotionType,
               onChanged: (value) {
-                // controller.promotionList[index].type = value!;
-                // controller.promotionList[index].brand = "COSMIS";
-                // controller.promotionList.refresh();
+                controller.promotionList[index].promotionType = value!;
               },
               items: controller.promotionType.obs.value.map((item) {
                 return DropdownMenuItem<String>(
@@ -288,9 +282,19 @@ class PromotionList extends StatelessWidget {
                   firstDate: DateTime.now(),
                   lastDate: DateTime(DateTime.now().year + 2),
                   initialDateRange: DateTimeRange(
-                    end: DateTime(DateTime.now().year, DateTime.now().month,
-                        DateTime.now().day + 30),
-                    start: DateTime.now(),
+                    // end: DateTime(DateTime.now().year, DateTime.now().month,
+                    //     DateTime.now().day + 30),
+                    // start: DateTime.now(),
+                    start:
+                        controller.promotionList[index].promotionFrom!.isEmpty
+                            ? DateTime.now()
+                            : DateFormat('dd/MM/yyyy').parse(
+                                controller.promotionList[index].promotionFrom!),
+                    end: controller.promotionList[index].promotionTo!.isEmpty
+                        ? DateTime(DateTime.now().year, DateTime.now().month,
+                            DateTime.now().day + 30)
+                        : DateFormat('dd/MM/yyyy').parse(
+                            controller.promotionList[index].promotionTo!),
                   ),
                   initialEntryMode: DatePickerEntryMode.calendarOnly,
                   builder: (BuildContext context, Widget? child) {
@@ -333,6 +337,28 @@ class PromotionList extends StatelessWidget {
             ),
           ),
           const SizedBox(width: defaultPadding / 2),
+          controller.promotionList[index].id!.isEmpty
+              ? ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: defaultPadding,
+                        horizontal: defaultPadding / 2),
+                  ),
+                  icon: const Icon(
+                    Icons.save_sharp,
+                  ),
+                  label: const CustomText(
+                    text: "บันทึก",
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    controller.createPromotion(
+                      index,
+                      controller.promotionList[index],
+                    );
+                  },
+                )
+              : Container(),
           controller.promotionList[index].id!.isNotEmpty
               ? ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
@@ -348,31 +374,34 @@ class PromotionList extends StatelessWidget {
                     color: Colors.white,
                   ),
                   onPressed: () {
-                    controller.updatePromotion(controller.promotionList[index]);
+                    controller.updatePromotion(
+                      index,
+                      controller.promotionList[index],
+                    );
                   },
                 )
               : Container(),
-          const SizedBox(width: defaultPadding / 2),
-          controller.promotionList[index].id!.isNotEmpty
-              ? ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: defaultPadding,
-                        horizontal: defaultPadding / 2),
-                  ),
-                  icon: const Icon(
-                    Icons.delete_sharp,
-                  ),
-                  label: const CustomText(
-                    text: "ลบ",
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    controller.deletePromotion(controller.promotionList[index]);
-                  },
-                )
-              : Container(),
+          // const SizedBox(width: defaultPadding / 2),
+          // controller.promotionList[index].id!.isNotEmpty
+          //     ? ElevatedButton.icon(
+          //         style: ElevatedButton.styleFrom(
+          //           backgroundColor: Colors.red,
+          //           padding: const EdgeInsets.symmetric(
+          //               vertical: defaultPadding,
+          //               horizontal: defaultPadding / 2),
+          //         ),
+          //         icon: const Icon(
+          //           Icons.delete_sharp,
+          //         ),
+          //         label: const CustomText(
+          //           text: "ลบ",
+          //           color: Colors.white,
+          //         ),
+          //         onPressed: () {
+          //           controller.deletePromotion(controller.promotionList[index]);
+          //         },
+          //       )
+          //     : Container(),
         ],
       ),
     );
