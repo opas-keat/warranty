@@ -92,7 +92,7 @@ class ConfigCampaign extends StatelessWidget {
                 controller.promotionList.add(
                   Promotions(
                     id: "",
-                    promotionBrand: "",
+                    promotionBrand: "COSMIS",
                     promotionDetail: "",
                     promotionFrom: "",
                     promotionStatus: "active",
@@ -199,6 +199,8 @@ class PromotionList extends StatelessWidget {
               value: controller.promotionList[index].promotionType,
               onChanged: (value) {
                 controller.promotionList[index].promotionType = value!;
+                controller.promotionList[index].promotionBrand = "COSMIS";
+                controller.promotionList.refresh();
               },
               items: controller.promotionType.obs.value.map((item) {
                 return DropdownMenuItem<String>(
@@ -210,6 +212,65 @@ class PromotionList extends StatelessWidget {
                   ),
                 );
               }).toList(),
+            ),
+          ),
+          const SizedBox(width: defaultPadding / 2),
+          SizedBox(
+            width: 150,
+            child: Obx(
+              () => controller.promotionList[index].promotionType == 'wheel'
+                  ? DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        fillColor: Colors.white.withOpacity(.8),
+                        filled: true,
+                        isCollapsed: false,
+                        isDense: true,
+                        label: CustomText(
+                          text: "ประเภท",
+                          color: Colors.black87.withOpacity(.9),
+                        ),
+                      ),
+                      value: controller.promotionList[index].promotionBrand,
+                      onChanged: (value) {
+                        controller.promotionList[index].promotionBrand = value!;
+                      },
+                      items: controller.wheelBrand.obs.value.map((item) {
+                        return DropdownMenuItem<String>(
+                          value: item,
+                          child: CustomText(
+                            scale: 1.0,
+                            text: item,
+                            color: Colors.black87.withOpacity(.9),
+                          ),
+                        );
+                      }).toList(),
+                    )
+                  : DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        fillColor: Colors.white.withOpacity(.8),
+                        filled: true,
+                        isCollapsed: false,
+                        isDense: true,
+                        label: CustomText(
+                          text: "ประเภท",
+                          color: Colors.black87.withOpacity(.9),
+                        ),
+                      ),
+                      value: controller.promotionList[index].promotionBrand,
+                      onChanged: (value) {
+                        controller.promotionList[index].promotionBrand = value!;
+                      },
+                      items: controller.tireBrand.obs.value.map((item) {
+                        return DropdownMenuItem<String>(
+                          value: item,
+                          child: CustomText(
+                            scale: 1.0,
+                            text: item,
+                            color: Colors.black87.withOpacity(.9),
+                          ),
+                        );
+                      }).toList(),
+                    ),
             ),
           ),
           const SizedBox(width: defaultPadding / 2),
@@ -381,27 +442,29 @@ class PromotionList extends StatelessWidget {
                   },
                 )
               : Container(),
-          // const SizedBox(width: defaultPadding / 2),
-          // controller.promotionList[index].id!.isNotEmpty
-          //     ? ElevatedButton.icon(
-          //         style: ElevatedButton.styleFrom(
-          //           backgroundColor: Colors.red,
-          //           padding: const EdgeInsets.symmetric(
-          //               vertical: defaultPadding,
-          //               horizontal: defaultPadding / 2),
-          //         ),
-          //         icon: const Icon(
-          //           Icons.delete_sharp,
-          //         ),
-          //         label: const CustomText(
-          //           text: "ลบ",
-          //           color: Colors.white,
-          //         ),
-          //         onPressed: () {
-          //           controller.deletePromotion(controller.promotionList[index]);
-          //         },
-          //       )
-          //     : Container(),
+          const SizedBox(width: defaultPadding / 2),
+          controller.promotionList[index].id!.isNotEmpty
+              ? ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: defaultPadding,
+                        horizontal: defaultPadding / 2),
+                  ),
+                  icon: const Icon(
+                    Icons.delete_sharp,
+                  ),
+                  label: const CustomText(
+                    text: "ลบ",
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    controller.deletePromotion(
+                      controller.promotionList[index],
+                    );
+                  },
+                )
+              : Container(),
         ],
       ),
     );

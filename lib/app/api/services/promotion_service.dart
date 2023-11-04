@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import '../../data/request/promotion_service_request.dart';
+import '../../data/response/delete_service_response.dart';
 import '../../data/response/promotion_service_response.dart';
 import '../../shared/utils.dart';
 import '../api.dart';
@@ -93,6 +94,26 @@ class PromotionService {
       PromotionServiceResponse promotionServiceResponse =
           PromotionServiceResponse.fromJson(jsonDecode(response.toString()));
       return promotionServiceResponse;
+    } catch (e) {
+      talker.error(e);
+    }
+    return null;
+  }
+
+  Future<DeleteServiceResponse?> delete(
+    String id,
+  ) async {
+    try {
+      final response = await apiUtils.delete(
+        url:
+            "${Api.baseUrl}${Api.apiContext}${Api.apiVersion}${ApiEndPoints.promotion}/$id",
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      DeleteServiceResponse deleteServiceResponse =
+          DeleteServiceResponse.fromJson(jsonDecode(response.toString()));
+      return deleteServiceResponse;
     } catch (e) {
       talker.error(e);
     }

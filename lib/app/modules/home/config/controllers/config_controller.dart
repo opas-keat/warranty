@@ -26,6 +26,20 @@ class ConfigController extends GetxController {
   final configWarrantyWheelYear = TextEditingController();
 
   final promotionType = <String>["wheel", "tire"].obs;
+  Rx<String> productTypeSelected = "wheel".obs;
+  final tireBrand = <String>[
+    "COSMIS",
+    "ZESTINO",
+  ].obs;
+  final wheelBrand = <String>[
+    "COSMIS",
+    "COSMIS2",
+    "FATTAH",
+    "FORCE",
+    "NAYA",
+    "UNIVERSE",
+    "VALENZA",
+  ].obs;
   final promotionStatus = <String>["active", "inactive"].obs;
 
   final promotionList = <Promotions>[].obs;
@@ -253,8 +267,13 @@ class ConfigController extends GetxController {
     }
   }
 
-  deletePromotion(Promotions promotion) {
+  deletePromotion(Promotions promotion) async {
     talker.debug('deletePromotion : ${promotion.id}');
     talker.debug('deletePromotion : ${promotion.promotionDetail}');
+    final result = await PromotionService().delete(promotion.id!);
+    if (result?.code == "000") {
+      promotionList.removeWhere((item) => item.id == promotion.id);
+      promotionList.refresh();
+    }
   }
 }
