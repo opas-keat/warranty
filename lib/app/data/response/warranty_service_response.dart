@@ -145,37 +145,37 @@ class Products {
     productPromotionExpire = json['product_promotion_expire'];
     warrantyNo = json['warranty_no'];
     promotion = json[':promotion'];
-    promotionDay = json[':promotion_day'];
-    promotionMile = json[':promotion_mile'];
-    warrantyWheelYear = json[':warranty_wheel_year'];
-    warrantyWheelColor = json[':warranty_wheel_color'];
-    warrantyTireYear = json[':warranty_tire_year'];
-    warrantyTireMile = json[':warranty_tire_mile'];
-    warrantyTireYearZestino = json[':warranty_tire_year_zestino'];
-    warrantyTireMileZestino = json[':warranty_tire_mile_zestino'];
+    promotionDay = json['promotion_day'];
+    promotionMile = json['promotion_mile'];
+    warrantyWheelYear = json['warranty_wheel_year'];
+    warrantyWheelColor = json['warranty_wheel_color'];
+    warrantyTireYear = json['warranty_tire_year'];
+    warrantyTireMile = json['warranty_tire_mile'];
+    warrantyTireYearZestino = json['warranty_tire_year_zestino'];
+    warrantyTireMileZestino = json['warranty_tire_mile_zestino'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['product_type'] = this.productType;
-    data['product_brand'] = this.productBrand;
-    data['product_amount'] = this.productAmount;
-    data['product_structure_expire'] = this.productStructureExpire;
-    data['product_color_expire'] = this.productColorExpire;
-    data['product_tire_expire'] = this.productTireExpire;
-    data['product_mile_expire'] = this.productMileExpire;
-    data['product_promotion_expire'] = this.productPromotionExpire;
-    data['warranty_no'] = this.warrantyNo;
-    data[':promotion'] = this.promotion;
-    data[':promotion_day'] = this.promotionDay;
-    data[':promotion_mile'] = this.promotionMile;
-    data[':warranty_wheel_year'] = this.warrantyWheelYear;
-    data[':warranty_wheel_color'] = this.warrantyWheelColor;
-    data[':warranty_tire_year'] = this.warrantyTireYear;
-    data[':warranty_tire_mile'] = this.warrantyTireMile;
-    data[':warranty_tire_year_zestino'] = this.warrantyTireYearZestino;
-    data[':warranty_tire_mile_zestino'] = this.warrantyTireMileZestino;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['product_type'] = productType;
+    data['product_brand'] = productBrand;
+    data['product_amount'] = productAmount;
+    data['product_structure_expire'] = productStructureExpire;
+    data['product_color_expire'] = productColorExpire;
+    data['product_tire_expire'] = productTireExpire;
+    data['product_mile_expire'] = productMileExpire;
+    data['product_promotion_expire'] = productPromotionExpire;
+    data['warranty_no'] = warrantyNo;
+    data['promotion'] = promotion;
+    data['promotion_day'] = promotionDay;
+    data['promotion_mile'] = promotionMile;
+    data['warranty_wheel_year'] = warrantyWheelYear;
+    data['warranty_wheel_color'] = warrantyWheelColor;
+    data['warranty_tire_year'] = warrantyTireYear;
+    data['warranty_tire_mile'] = warrantyTireMile;
+    data['warranty_tire_year_zestino'] = warrantyTireYearZestino;
+    data['warranty_tire_mile_zestino'] = warrantyTireMileZestino;
     return data;
   }
 }
